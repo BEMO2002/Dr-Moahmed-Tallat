@@ -317,24 +317,7 @@ const Navbar = () => {
                   : "-translate-y-4 opacity-0"
               }`}
               style={{ transitionDelay: isMenuOpen ? "175ms" : "0ms" }}
-            >
-              <button
-                type="button"
-                onClick={() => setIsMegaMobileOpen((v) => !v)}
-                className="flex items-center justify-between w-full bg-white/10 hover:bg-white/20 rounded-lg px-4 py-3 transition-all duration-300 "
-                aria-expanded={isMegaMobileOpen}
-              >
-                <span className="text-baseTwo font-medium">
-                  {t("megaMenu.trigger")}
-                </span>
-                <MdOutlineKeyboardArrowDown
-                  size={22}
-                  className={`transition-transform duration-200 ${
-                    isMegaMobileOpen ? "rotate-180" : "rotate-0"
-                  }`}
-                />
-              </button>
-            </div>
+            ></div>
             {/* Mobile Language Toggle */}
             <div
               className={`pt-4 border-t border-gray-400 transform transition-all duration-500 ease-out ${
