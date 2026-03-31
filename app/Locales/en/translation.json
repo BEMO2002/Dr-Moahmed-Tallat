@@ -1,0 +1,361 @@
+{
+  "navbar": {
+    "home": "Home",
+    "blogs": "Blogs",
+    "about": "About Us",
+    "services": "Services",
+    "contact": "Contact",
+    "executiveRequest": "Executive Request",
+    "links": "LinkTree",
+    "seo_description": "Dr. Mohamed Talaat - Media Veteran, Journalist, and Political & Psychological Analyst. Founder of East News Agency. Specialist in policy analysis and international relations.",
+    "seo_keywords": "Mohamed Talaat, Political Analyst, Psychological Analyst, Media Veteran, East News Agency, Journalism, Media, Political Analysis"
+  },
+  "megaMenu": {
+    "trigger": "Full Menu",
+    "viewSitemap": "VIEW SITEMAP",
+    "sections": {
+      "marketing": "Marketing",
+      "pms": "PMS",
+      "iotBusiness": "IOT & Business",
+      "courses": "IT Solutions"
+    },
+    "items": {
+      "home": "Home",
+      "services": "Services",
+      "blogs": "Blogs",
+      "about": "About",
+      "contact": "Contact us",
+      "solutions": "Solutions",
+      "courses": "Services",
+      "pricing": "Pricing",
+      "blog": "Blog",
+      "clientsPartners": "Clients and partners",
+      "course": "Service"
+    }
+  },
+  "slider": {
+    "error": "Error loading slider",
+    "noSliders": "No sliders available",
+    "watchVideo": "Watch Video",
+    "download": "Download File",
+    "learnMore": "Learn More",
+    "getStarted": "Get Started",
+    "explore": "Explore",
+    "discover": "Discover"
+  },
+  "about": {
+    "tag": "PROFILE",
+    "title1": "Dr. Mohamed",
+    "titleHighlight": "Talaat",
+    "title2": "Media Veteran & Political Analyst",
+    "tabs": {
+      "about": "About the Doctor",
+      "mission": "Political Vision",
+      "vision": "Psychological Analysis"
+    },
+    "title": "Who is Dr. Mohamed Talaat?",
+    "keywords": "Mohamed Talaat, Media, Journalism, Political Analysis",
+    "author": "Dr. Mohamed Talaat",
+    "description": "A seasoned media veteran and journalist, founder of East News Agency, and a political and psychological analyst with deep insights into decoding geopolitical events and the occupation of consciousness.",
+    "ogTitle": "Dr. Mohamed Talaat | Media Veteran & Political Analyst",
+    "ogDescription": "Dr. Mohamed Talaat's platform for political and psychological analysis, founder of East News Agency.",
+    "ogType": "website",
+    "ogUrl": "https://mohamedtalaat.com",
+    "ogImage": "https://mohamedtalaat.com/images/og-image.jpg",
+    "twitterCard": "summary_large_image",
+    "twitterTitle": "Dr. Mohamed Talaat | Media Veteran & Political Analyst",
+    "twitterDescription": "Dr. Mohamed Talaat's platform for political and psychological analysis, founder of East News Agency.",
+    "twitterImage": "https://mohamedtalaat.com/images/og-image.jpg",
+    "tabContent": {
+      "about": {
+        "text": "Dr. Mohamed Talaat is a seasoned media veteran and political analyst, dedicated to dismantling crises and enlightening the Arab consciousness.",
+        "points": [
+          "Strategic Growth Planning",
+          "Premium Brand Identity",
+          "Full-Service Digital Solutions"
+        ]
+      },
+      "mission": {
+        "text": "Our strategy is built on data and creativity. We transform insights into impactful campaigns that resonate with your audience and drive measurable growth.",
+        "points": [
+          "Data-Driven Insights",
+          "Creative Campaign Strategy",
+          "Targeted Audience Engagement"
+        ]
+      },
+      "vision": {
+        "text": "We aim to be the global catalyst for brand transformation, setting new standards in digital marketing excellence and innovative storytelling.",
+        "points": [
+          "Global Brand Reach",
+          "Innovative Marketing Standards",
+          "Market Leadership"
+        ]
+      }
+    },
+    "learnMore": "Learn More",
+    "imageAlt": "About Dr. Mohamed Talaat",
+    "yearsExp": "Years Exp."
+  },
+  "features": {
+    "tag": "FEATURES",
+    "title": "Emerging Technologies and Trends in Digital Marketing",
+    "imageAlt": "Feature",
+    "items": [
+      {
+        "title": "Brand Strategy",
+        "description": "Develop a unique brand voice and visual identity that stands out in the marketplace."
+      },
+      {
+        "title": "Top Marketing Experts",
+        "description": "Work with experienced strategists who focus on real results and creative excellence."
+      },
+      {
+        "title": "Proven Success",
+        "description": "Receive comprehensive strategies and reports to showcase your growth and progress."
+      }
+    ]
+  },
+  "services": {
+    "title": "Our Services",
+    "readMore": "Read More",
+    "readLess": "Read Less",
+    "events": {
+      "title": "Events Management",
+      "body": "Including: In-person & Virtual events such as standalone webinars, webinar series, symposiums,",
+      "more": "conferences, Ad-boards and medical writing services. CPD certification for events and team building activities."
+    },
+    "clinical": {
+      "title": "Clinical Services Facilitation & Educational Tools",
+      "body": "We have a number of educational tools tailored to provide access to up-to-date clinical information, whether clinical studies or medical conferences",
+      "more": "Additionally we cater for different forms of clinical services to facilitate its execution for the medical or pharmaceutical industry."
+    },
+    "marketing": {
+      "title": "Medical Marketing",
+      "body": "We can conduct marketing campaigns and social medical campaigns for the medical community, examples include: disease awareness campaigns and social media account boosting.",
+      "more": "In addition to these services we can facilitate regular media access through our network and connections to Journalists."
+    }
+  },
+  "loading": "Loading...",
+  "contactForm": {
+    "tag": "Get In Touch",
+    "title": " Contact Us",
+    "labelName": "Full Name",
+    "labelPhone": "Phone Number",
+    "labelEmail": "Email Address",
+    "labelMessage": "Message",
+    "placeholderName": "Enter your full name",
+    "placeholderPhone": "Enter your phone number",
+    "placeholderEmail": "Enter your email address",
+    "placeholderMessage": "Tell us about your project or inquiry...",
+    "buttonSend": "Send Message",
+    "buttonSending": "Sending...",
+    "successMessage": "Thank you! Your message has been sent successfully. We'll get back to you soon.",
+    "errorValidation": "Please fill in all required fields correctly.",
+    "errorGeneral": "Something went wrong. Please try again later.",
+    "errorNameRequired": "Name is required",
+    "errorNameTooShort": "Name must be at least 2 characters",
+    "errorPhoneRequired": "Phone number is required",
+    "errorPhoneInvalid": "Please enter a valid phone number",
+    "errorEmailRequired": "Email address is required",
+    "errorEmailInvalid": "Please enter a valid email address",
+    "errorMessageRequired": "Message is required",
+    "errorMessageTooShort": "Message must be at least 10 characters",
+    "labelMath": "Math Question",
+    "placeholderMath": "Enter the answer to the math question",
+    "errorMathRequired": "Math question is required",
+    "errorMathIncorrect": "Math question is incorrect",
+    "description": "Contact us for any questions or inquiries",
+    "honeypotLabel": "Leave this field empty"
+  },
+  "footer": {
+    "companyName": "Dr. Mohamed Talaat",
+    "legalText": "All Rights Reserved © 2026 Dr. Mohamed Talaat",
+    "about": "About the Doctor",
+    "aboutDescription": "Media veteran and journalist, founder of East News Agency, and a political and psychological analyst.",
+    "mission": "Our mission is to enlighten the Arab consciousness and dismantle geopolitical crises.",
+    "quickLinks": "Quick Links",
+    "contactInfo": "Contact Information",
+    "address": "123 Business Street, City Center, Country",
+    "email": "info@company.com",
+    "phone": "+1 (555) 123-4567",
+    "followUs": "Follow Us",
+    "stayConnected": "Stay connected with us for the latest updates and news.",
+    "newsletterTitle": "Newsletter",
+    "newsletterDescription": "Subscribe to our newsletter to receive the latest updates and exclusive offers.",
+    "newsletterPlaceholder": "Enter your email address",
+    "newsletterSubscribe": "Subscribe",
+    "newsletterSending": "Sending...",
+    "newsletterSuccess": "Successfully subscribed to newsletter!",
+    "newsletterError": "Failed to subscribe. Please try again.",
+    "newsletterErrorRequired": "Email address is required",
+    "newsletterErrorInvalid": "Please enter a valid email address",
+    "newsletterErrorConflict": "This email is already subscribed",
+    "newsletterErrorAuth": "Authentication error. Please try again.",
+    "newsletterErrorServer": "Server error. Please try again later.",
+    "newsletterErrorTimeout": "Request timeout. Please check your connection.",
+    "newsletterErrorNetwork": "Network error. Please check your connection.",
+    "copyright": "© 2025 Prime Creative. All rights reserved.",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "sitemap": "Sitemap",
+    "mathCaptchaLabel": "Verify you're human",
+    "mathPlaceholder": "Enter answer",
+    "accreditations": "Accreditations and Certifications"
+  },
+  "headHome": {
+    "title": "Dr. Mohamed Talaat | Political & Psychological Analyst",
+    "description": "Dr. Mohamed Talaat's platform for political and psychological analysis, founder of East News Agency. Specialist in geopolitical events and consciousness.",
+    "keywords": "Mohamed Talaat, Political Analyst, Psychological Analyst, Media, Journalism"
+  },
+  "headServices": {
+    "title2": "Services",
+    "title": "Services",
+    "description": "Explore our comprehensive range of marketing and business solutions designed to scale your brand. From strategy to execution, our expert-led services cover everything you need to grow.",
+    "keywords": "Marketing Services, Brand Strategy, Digital Growth, Content Creation, SEO, Social Media, Business Consulting",
+    "all": "All"
+  },
+  "courses": {
+    "loadError": "Failed to load services",
+    "detailsLoadError": "Failed to load service details",
+    "notFound": "Service not found",
+    "noCourses": "No services found",
+    "showing": "Showing",
+    "of": "Of",
+    "results": "Results",
+    "searchPlaceholder": "Search Services...",
+    "viewDetails": "View Details",
+    "prev": "Previous",
+    "next": "Next",
+    "back": "Back",
+    "backToCourses": "Back to Services",
+    "overview": "Service Overview",
+    "details": "Service Details",
+    "category": "Category",
+    "price": "Price",
+    "currency": "EGP",
+    "free": "Not specified",
+    "enrollNow": "Get Started",
+    "timeline": "Timeline",
+    "timelineValue": "Ongoing",
+    "availability": "Availability",
+    "availabilityValue": "Available Now",
+    "guarantee": "Results",
+    "guaranteeValue": "Verified Growth"
+  },
+  "headContact": {
+    "title": "Contact Dr. Mohamed Talaat",
+    "description": "Have questions? Contact Dr. Mohamed Talaat today. We're here to help you understand the political landscape.",
+    "keywords": "Contact Mohamed Talaat, Political Support, Business Inquiry, East News Agency"
+  },
+  "partners": {
+    "title": "Partners"
+  },
+  "headBlogs": {
+    "title": "Blogs",
+    "comingSoon": "Coming Soon"
+  },
+  "blogs": {
+    "title2": "Our Blogs",
+    "title": " Dr. Mohamed Talaat - Blogs",
+    "description": "Stay updated with the latest insights in politics, psychology, and media. Read articles from Dr. Mohamed Talaat.",
+    "loadError": "Failed to load blogs",
+    "readMore": "Read More",
+    "minRead": "min read",
+    "comingSoonTitle": "Exciting Blogs Coming Soon!",
+    "comingSoonMessage": "We're working on creating amazing blog posts. Stay tuned!",
+    "all": "All",
+    "noBlogs": "No posts found",
+    "showing": "Showing",
+    "of": "Of",
+    "results": "Results",
+    "searchPlaceholder": "Search Blogs...",
+    "viewDetails": "View Details",
+    "prev": "Previous",
+    "next": "Next",
+    "notFound": "Post not found",
+    "detailsLoadError": "Failed to load post details",
+    "back": "Back",
+    "backToBlogs": "Back to Blogs",
+    "overview": "Blogs Overview",
+    "details": "Blogs Details",
+    "category": "Category"
+  },
+  "leadMagnet": {
+    "labelEmail": "Email Address",
+    "placeholderEmail": "Enter your email address",
+    "buttonSubmit": "Submit",
+    "buttonSending": "Sending...",
+    "successMessage": "Thank you! Your email has been submitted successfully.",
+    "errorValidation": "Please fill in all required fields correctly.",
+    "errorGeneral": "Something went wrong. Please try again later.",
+    "errorEmailRequired": "Email address is required",
+    "errorEmailInvalid": "Please enter a valid email address"
+  },
+  "linkTree": {
+    "title": "Connect With Us",
+    "connectText": "Connect with us on your favorite platform",
+    "noLinks": "No social media links available",
+    "facebook": "Facebook",
+    "instagram": "Instagram",
+    "twitter": "Twitter",
+    "whatsapp": "WhatsApp"
+  },
+  "languageSection": {
+    "title": "Our Services",
+    "subtitle": "Explore our expert solutions and scale your business "
+  },
+  "infinitySlider": {
+    "items": {
+      "webDev": "Brand Strategy",
+      "uiUx": "Creative Design",
+      "digitalMarketing": "Digital Marketing",
+      "softwareEng": "Growth Hacking",
+      "dataScience": "Data Analytics",
+      "mobileApps": "Campaign Management"
+    }
+  },
+  "common": {
+    "close": "Close"
+  },
+  "accreditations": {
+    "title": "Accreditations & Partnerships",
+    "description": "Browse all our latest marketing case studies and updates",
+    "keywords": "marketing, agency, success stories, articles",
+    "all": "All"
+  },
+  "sitemap": {
+    "description": "Browse our complete agency structure and find what you're looking for",
+    "mainPages": "Main Pages",
+    "xmlSitemaps": "XML Sitemaps",
+    "error": "Failed to load sitemap"
+  },
+  "specialServices": {
+    "subtitle": "Our Expertise",
+    "title1": "What We",
+    "titleHighlight": "Provide",
+    "brandStrategy": {
+      "title": "Brand Strategy",
+      "description": "We build strong identities that leave a lasting impression and create a real connection with your target audience."
+    },
+    "socialMedia": {
+      "title": "Social Media Management",
+      "description": "We enhance your digital presence through interactive content and growth strategies targeted at various platforms."
+    },
+    "seo": {
+      "title": "SEO Optimization",
+      "description": "We boost your website's ranking in search results to increase organic traffic and improve your digital visibility."
+    },
+    "contentCreation": {
+      "title": "Creative Content Creation",
+      "description": "We design and write visual and written content that captures eyes and skillfully tells your brand story."
+    },
+    "digitalAds": {
+      "title": "Performance Advertising (Ads)",
+      "description": "Smart ad campaigns targeting the right audience to ensure the best Return on Investment (ROI)."
+    },
+    "analytics": {
+      "title": "Data Analytics & Reporting",
+      "description": "We turn numbers into strategic insights that help you make growth decisions based on accurate data."
+    }
+  }
+}
