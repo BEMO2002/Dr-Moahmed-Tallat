@@ -1,152 +1,77 @@
 "use client";
-import { useState, useEffect, useId } from "react";
+import React, { useState, useEffect, useId } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
-import React from "react";
 import { Link, usePathname, useRouter } from "../../i18n/routing";
 import { useTranslations, useLocale } from "next-intl";
 import { useSettings } from "../Context/SettingContext";
-
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
-import { FaPaperPlane } from "react-icons/fa";
+import { FaPaperPlane, FaChevronDown } from "react-icons/fa";
+import { fetchContactTypes } from "../lib/server-api";
 
 // US Flag Component
-const USFlag = ({ className = "w-6 h-4" }) => {
-  const id = useId();
-  const uniqueId = id.replace(/:/g, ""); // Remove colons for SVG compatibility
-  return (
-    <div
-      className={`${className} relative rounded-sm shadow-sm border border-gray-200 overflow-hidden`}
-    >
-      <svg
-        className="w-full h-full"
-        viewBox="0 0 60 40"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <defs>
-          <linearGradient
-            id={`usRed-${uniqueId}`}
-            x1="0%"
-            y1="0%"
-            x2="100%"
-            y2="100%"
-          >
-            <stop offset="0%" stopColor="#B22234" />
-            <stop offset="100%" stopColor="#A01E2A" />
-          </linearGradient>
-          <linearGradient
-            id={`usBlue-${uniqueId}`}
-            x1="0%"
-            y1="0%"
-            x2="100%"
-            y2="100%"
-          >
-            <stop offset="0%" stopColor="#3C3B6E" />
-            <stop offset="100%" stopColor="#2A2A5A" />
-          </linearGradient>
-        </defs>
-        <rect width="60" height="40" fill={`url(#usRed-${uniqueId})`} />
-        <rect width="60" height="3.08" y="3.08" fill="white" />
-        <rect width="60" height="3.08" y="9.23" fill="white" />
-        <rect width="60" height="3.08" y="15.38" fill="white" />
-        <rect width="60" height="3.08" y="21.54" fill="white" />
-        <rect width="60" height="3.08" y="27.69" fill="white" />
-        <rect width="60" height="3.08" y="33.85" fill="white" />
-        <rect width="24" height="21.54" fill={`url(#usBlue-${uniqueId})`} />
-        <g fill="white">
-          <circle cx="3" cy="2.5" r="0.8" />
-          <circle cx="9" cy="2.5" r="0.8" />
-          <circle cx="15" cy="2.5" r="0.8" />
-          <circle cx="21" cy="2.5" r="0.8" />
-          <circle cx="6" cy="5.5" r="0.8" />
-          <circle cx="12" cy="5.5" r="0.8" />
-          <circle cx="18" cy="5.5" r="0.8" />
-          <circle cx="3" cy="8.5" r="0.8" />
-          <circle cx="9" cy="8.5" r="0.8" />
-          <circle cx="15" cy="8.5" r="0.8" />
-          <circle cx="21" cy="8.5" r="0.8" />
-          <circle cx="6" cy="11.5" r="0.8" />
-          <circle cx="12" cy="11.5" r="0.8" />
-          <circle cx="18" cy="11.5" r="0.8" />
-          <circle cx="3" cy="14.5" r="0.8" />
-          <circle cx="9" cy="14.5" r="0.8" />
-          <circle cx="15" cy="14.5" r="0.8" />
-          <circle cx="21" cy="14.5" r="0.8" />
-          <circle cx="6" cy="17.5" r="0.8" />
-          <circle cx="12" cy="17.5" r="0.8" />
-          <circle cx="18" cy="17.5" r="0.8" />
-        </g>
-      </svg>
-    </div>
-  );
-};
-
-// Egypt Flag Component
-const EgyptFlag = ({ className = "w-6 h-4" }) => (
+const USFlag = ({ className = "w-6 h-4" }) => (
   <div
     className={`${className} relative rounded-sm shadow-sm border border-gray-200 overflow-hidden`}
   >
-    <svg
-      className="w-full h-full"
-      viewBox="0 0 60 40"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <rect width="60" height="13.33" fill="#CE1126" />
-      <rect width="60" height="13.33" y="13.33" fill="white" />
-      <rect width="60" height="13.33" y="26.67" fill="#000000" />
-      <g transform="translate(30, 20)">
-        <circle cx="0" cy="0" r="1.5" fill="#D4AF37" />
-        <path
-          d="M-1,-0.8 L1,0.8 M1,-0.8 L-1,0.8"
-          stroke="#D4AF37"
-          strokeWidth="0.3"
-        />
-      </g>
-    </svg>
+    <img
+      src="https://flagcdn.com/w40/us.png"
+      alt="English"
+      className="w-full h-full object-cover"
+    />
+  </div>
+);
+
+// Egypt Flag Component
+const EgyptFlag = ({ className = "w-10 h-6" }) => (
+  <div
+    className={`${className} relative rounded-sm shadow-sm border border-gray-200 overflow-hidden`}
+  >
+    <img
+      src="https://flagcdn.com/w40/eg.png"
+      alt="Arabic"
+      className="w-full h-full object-cover"
+    />
   </div>
 );
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isMegaOpen, setIsMegaOpen] = useState(false);
-  const [isMegaMobileOpen, setIsMegaMobileOpen] = useState(false);
-
   const pathname = usePathname();
   const router = useRouter();
   const t = useTranslations();
   const locale = useLocale();
+  const isRTL = locale === "ar";
   const { settings } = useSettings();
-  console.log("Navbar settings:", settings);
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-    if (isMenuOpen) {
-      setIsMegaMobileOpen(false);
-    }
-  };
+  const [contactTypes, setContactTypes] = useState([]);
+  const [isExecutiveDropdownOpen, setIsExecutiveDropdownOpen] = useState(false);
+  const [isMobileExecutiveDropdownOpen, setIsMobileExecutiveDropdownOpen] =
+    useState(false);
 
-  const closeMenu = () => {
-    setIsMenuOpen(false);
-    setIsMegaMobileOpen(false);
-  };
+  useEffect(() => {
+    fetchContactTypes().then(setContactTypes).catch(console.error);
+  }, []);
 
-  const closeMega = () => {
-    setIsMegaOpen(false);
-  };
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const closeMenu = () => setIsMenuOpen(false);
+  const isActive = (path) => pathname === path;
 
-  const closeMegaMobile = () => {
-    setIsMegaMobileOpen(false);
-  };
-
-  const isActive = (path) => {
-    return pathname === path;
-  };
-  // stop scroll when change language (important)
   const toggleLanguage = () => {
-    const newLang = locale === "en" ? "ar" : "en";
-    router.replace(pathname, { locale: newLang, scroll: false });
+    router.replace(pathname, {
+      locale: locale === "en" ? "ar" : "en",
+      scroll: false,
+    });
   };
 
-  const NavLink = ({ to, children }) => (
+  const navLinks = [
+    { to: "/", label: t("navbar.home") },
+    { to: "/courses", label: t("navbar.services") },
+    { to: "/blogs", label: t("navbar.blogs") },
+    { to: "/about", label: t("navbar.about") },
+    { to: "/contact", label: t("navbar.contact") },
+  ];
+
+  const DesktopNavLink = ({ to, children }) => (
     <Link
       href={to}
       onClick={closeMenu}
@@ -156,198 +81,229 @@ const Navbar = () => {
     >
       {children}
       <span
-        className={`absolute bottom-0 left-0 h-0.5 bg-primary transition-all duration-300 ${
-          isActive(to) ? "w-full" : "w-0 group-hover:w-full"
-        }`}
+        className={`absolute bottom-0 left-0 h-0.5 bg-primary transition-all duration-300 ${isActive(to) ? "w-full" : "w-0 group-hover:w-full"}`}
       ></span>
     </Link>
   );
 
+  const LanguageBtn = ({ className }) => (
+    <button
+      onClick={toggleLanguage}
+      className={className}
+      title={locale === "en" ? "Switch to Arabic" : "Switch to English"}
+    >
+      {locale === "en" ? (
+        <USFlag className="w-7 h-4" />
+      ) : (
+        <EgyptFlag className="w-7 h-4" />
+      )}
+      <span className="text-baseTwo font-bold uppercase">
+        {locale === "en" ? "AR" : "EN"}
+      </span>
+    </button>
+  );
+
   return (
-    <nav className="bg-white shadow-sm backdrop-blur-sm fixed top-0 left-0 right-0 z-50 py-4 md:px-6 px-2">
-      <div className="max-w-7xl mx-auto md:px-4 px-2 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-18">
-          {/* Logo Section */}
-          <div className="flex-shrink-0">
-            <Link href="/" onClick={closeMenu} className="flex items-center">
-              {settings?.logo && (
-                <img
-                  src={settings.logo}
-                  alt="Logo"
-                  className="md:w-30 w-28 object-contain p-1"
-                />
-              )}
-              {/* <img src={logo} alt="Logo" className="w-40 object-cover" /> */}
-            </Link>
-          </div>
-
-          {/* Desktop Navigation */}
-          <div className="hidden  whitespace-nowrap lg:flex items-center space-x-8">
-            <NavLink to="/">{t("navbar.home")}</NavLink>
-            <NavLink to="/courses">{t("navbar.services")}</NavLink>
-            <NavLink to="/blogs">{t("navbar.blogs")}</NavLink>
-            <NavLink to="/about">{t("navbar.about")}</NavLink>
-            <NavLink to="/contact">{t("navbar.contact")}</NavLink>
-          </div>
-
-          {/* Language Toggle & Mobile Menu Button */}
-          <div className="flex items-center md:space-x-6 space-x-3">
-            {/* Language Toggle */}
-            <button
-              onClick={toggleLanguage}
-              className="flex items-center space-x-2 bg-gray-100 shadow-lg rounded-full px-3 py-2 transition-all duration-300 backdrop-blur-sm border border-gray-300"
-              title={locale === "en" ? "Switch to Arabic" : "Switch to English"}
-            >
-              {locale === "en" ? (
-                <USFlag className="w-6 h-4" />
-              ) : (
-                <EgyptFlag className="w-6 h-4" />
-              )}
-              <span className="text-baseTwo text-sm font-medium">
-                {locale === "en" ? "AR" : "EN"}
-              </span>
-            </button>
-
-            {/* Executive Request Button - Desktop Only (Hidden on Mobile) */}
-            <Link
-              href="/contact"
-              className="hidden lg:flex items-center justify-center gap-2 px-6 py-4 bg-primary text-white font-bold rounded-full shadow-lg hover:shadow-primary/30 hover:-translate-y-0.5 transition-all duration-300 whitespace-nowrap leading-none"
-            >
-              <span>{t("navbar.executiveRequest")}</span>
-              <FaPaperPlane size={14} className="opacity-90" />
-            </Link>
-
-            {/* Mobile menu button */}
-            <button
-              onClick={toggleMenu}
-              className="lg:hidden text-primary p-2 rounded-lg hover:bg-white/10 transition-all duration-300 transform hover:scale-105"
-            >
-              <div className="relative w-8 h-8">
-                <FiMenu
-                  size={30}
-                  className={`absolute inset-0 transition-all duration-300 ${
-                    isMenuOpen ? `rotate-180 opacity-0` : "rotate-0 opacity-100"
-                  }`}
-                />
-                <FiX
-                  size={30}
-                  className={`absolute inset-0 transition-all duration-300 ${
-                    isMenuOpen
-                      ? "rotate-0 opacity-100"
-                      : "-rotate-180 opacity-0"
-                  }`}
-                />
-              </div>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Mobile Navigation */}
-      <div
-        className={`lg:hidden transition-all duration-300 ease-in-out overflow-hidden ${
-          isMenuOpen ? "max-h-[660px] opacity-100" : "max-h-0 opacity-0"
-        }`}
-      >
-        <div className="bg-third border-t border-white/10 backdrop-blur-sm">
-          <div className="px-6 py-8 space-y-10 max-h-[calc(100vh-250px)] overflow-y-auto overscroll-contain">
-            <div
-              className={`transform transition-all duration-500 ease-out ${
-                isMenuOpen
-                  ? "translate-y-0 opacity-100"
-                  : "-translate-y-4 opacity-0"
-              }`}
-              style={{ transitionDelay: isMenuOpen ? "100ms" : "0ms" }}
-            >
-              <NavLink to="/">{t("navbar.home")}</NavLink>
-            </div>
-            <div
-              className={`transform transition-all duration-500 ease-out ${
-                isMenuOpen
-                  ? "translate-y-0 opacity-100"
-                  : "-translate-y-4 opacity-0"
-              }`}
-              style={{ transitionDelay: isMenuOpen ? "150ms" : "0ms" }}
-            >
-              <NavLink to="/courses">{t("navbar.services")}</NavLink>
-            </div>
-
-            <div
-              className={`transform transition-all duration-500 ease-out ${
-                isMenuOpen
-                  ? "translate-y-0 opacity-100"
-                  : "-translate-y-4 opacity-0"
-              }`}
-              style={{ transitionDelay: isMenuOpen ? "150ms" : "0ms" }}
-            >
-              <NavLink to="/blogs">{t("navbar.blogs")}</NavLink>
-            </div>
-            <div
-              className={`transform transition-all duration-500 ease-out ${
-                isMenuOpen
-                  ? "translate-y-0 opacity-100"
-                  : "-translate-y-4 opacity-0"
-              }`}
-              style={{ transitionDelay: isMenuOpen ? "150ms" : "0ms" }}
-            ></div>
-            <div
-              className={`transform transition-all duration-500 ease-out ${
-                isMenuOpen
-                  ? "translate-y-0 opacity-100"
-                  : "-translate-y-4 opacity-0"
-              }`}
-              style={{ transitionDelay: isMenuOpen ? "200ms" : "0ms" }}
-            >
-              <NavLink to="/about">{t("navbar.about")}</NavLink>
-            </div>
-            <div
-              className={`transform transition-all duration-500 ease-out ${
-                isMenuOpen
-                  ? "translate-y-0 opacity-100"
-                  : "-translate-y-4 opacity-0"
-              }`}
-              style={{ transitionDelay: isMenuOpen ? "300ms" : "0ms" }}
-            >
-              <NavLink to="/contact">{t("navbar.contact")}</NavLink>
-            </div>
-            <div
-              className={`transform transition-all duration-500 ease-out ${
-                isMenuOpen
-                  ? "translate-y-0 opacity-100"
-                  : "-translate-y-4 opacity-0"
-              }`}
-              style={{ transitionDelay: isMenuOpen ? "175ms" : "0ms" }}
-            ></div>
-            {/* Mobile Language Toggle */}
-            <div
-              className={`pt-4 border-t border-gray-400 transform transition-all duration-500 ease-out ${
-                isMenuOpen
-                  ? "translate-y-0 opacity-100"
-                  : "-translate-y-4 opacity-0"
-              }`}
-              style={{ transitionDelay: isMenuOpen ? "350ms" : "0ms" }}
-            >
-              <button
-                onClick={toggleLanguage}
-                className="flex items-center justify-center space-x-3 w-full bg-white/10 hover:bg-white/20 rounded-lg px-4 py-3 transition-all duration-300 backdrop-blur-sm border border-gray-400"
-                title={
-                  locale === "en" ? "Switch to Arabic" : "Switch to English"
-                }
-              >
-                {locale === "en" ? (
-                  <USFlag className="w-6 h-4" />
-                ) : (
-                  <EgyptFlag className="w-6 h-4" />
+    <>
+      <nav className="bg-white shadow-sm backdrop-blur-sm fixed top-0 left-0 right-0 z-[999] py-4 md:px-6 px-2">
+        <div className="max-w-7xl mx-auto md:px-4 px-2 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-18">
+            {/* Logo Section */}
+            <div className="flex-shrink-0">
+              <Link href="/" onClick={closeMenu} className="flex items-center">
+                {settings?.logo && (
+                  <img
+                    src={settings.logo}
+                    alt="Logo"
+                    className="md:w-30 w-28 lg:h-30 lg:w-auto  object-contain p-1"
+                  />
                 )}
-                <span className="text-baseTwo  font-medium">
-                  {locale === "en" ? "Switch to Arabic" : "التبديل للإنجليزية"}
-                </span>
+              </Link>
+            </div>
+
+            {/* Desktop Navigation */}
+            <div className="hidden whitespace-nowrap lg:flex items-center space-x-8">
+              {navLinks.map((link) => (
+                <DesktopNavLink key={link.to} to={link.to}>
+                  {link.label}
+                </DesktopNavLink>
+              ))}
+            </div>
+
+            {/* Utility Space*/}
+            <div className="flex items-center md:space-x-4 space-x-2">
+              <LanguageBtn className="flex items-center space-x-1 bg-gray-50 shadow-sm rounded-full px-2.5 py-2 transition-all duration-300 border border-gray-200 text-xs" />
+
+              {/* Desktop Executive Request CTA */}
+              <div
+                className="relative group lg:block hidden"
+                onMouseEnter={() => setIsExecutiveDropdownOpen(true)}
+                onMouseLeave={() => setIsExecutiveDropdownOpen(false)}
+              >
+                <button className="flex items-center justify-center gap-2 px-5 py-3 bg-primary text-white font-bold rounded-full shadow-lg hover:shadow-primary/30 transition-all text-sm">
+                  <span>{t("navbar.executiveRequest")}</span>
+                  <FaChevronDown
+                    size={12}
+                    className={`transition-transform duration-300 ${isExecutiveDropdownOpen ? "rotate-180" : ""}`}
+                  />
+                </button>
+                {isExecutiveDropdownOpen && (
+                  <div
+                    className={`absolute top-full ${isRTL ? "-left-4" : "-right-4"} pt-2 z-[60] min-w-[240px] animate-in fade-in slide-in-from-top-2 duration-200`}
+                  >
+                    <div className="bg-white border border-gray-100 shadow-2xl rounded-2xl flex flex-col py-1 overflow-hidden">
+                      {contactTypes.map((type) => (
+                        <Link
+                          key={type.id}
+                          href={`/contact?type=${type.id}`}
+                          onClick={() => setIsExecutiveDropdownOpen(false)}
+                          className={`px-6 py-4 text-baseTwo hover:bg-gray-50 hover:text-primary transition-colors border-b border-gray-50 flex items-center gap-4 group ${isRTL ? "flex-row-reverse text-right" : "flex-row text-left"}`}
+                        >
+                          <span className="font-semibold whitespace-nowrap text-md flex-1">
+                            {type.name?.[locale] || ""}
+                          </span>
+                          <FaPaperPlane
+                            size={12}
+                            className={`opacity-0 group-hover:opacity-100 transition-all shrink-0 ${isRTL ? "-translate-x-2 group-hover:translate-x-0" : "translate-x-2 group-hover:translate-x-0"}`}
+                          />
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Mobile menu button toggle */}
+              <button
+                onClick={toggleMenu}
+                className="lg:hidden text-primary p-2 transition-all duration-300"
+              >
+                <div className="relative w-7 h-7">
+                  <FiMenu
+                    size={28}
+                    className={`absolute inset-0 transition-all duration-300 ${isMenuOpen ? "opacity-0 rotate-180" : "opacity-100 rotate-0"}`}
+                  />
+                  <FiX
+                    size={28}
+                    className={`absolute inset-0 transition-all duration-300 ${isMenuOpen ? "opacity-100 rotate-0" : "opacity-0 -rotate-180"}`}
+                  />
+                </div>
               </button>
             </div>
           </div>
         </div>
+      </nav>
+
+      {/* Mobile Navigation Sidebar */}
+      <div
+        className={`lg:hidden fixed inset-0 z-[1000] transition-all duration-500 ${isMenuOpen ? "visible" : "invisible"}`}
+      >
+        <div
+          className={`absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-500 ${isMenuOpen ? "opacity-100" : "opacity-0"}`}
+          onClick={closeMenu}
+        />
+
+        <div
+          className={`absolute top-0 ${isRTL ? "right-0 translate-x-full" : "left-0 -translate-x-full"} w-72 h-full bg-white shadow-2xl transition-transform duration-500 transform ${isMenuOpen && "!translate-x-0"}`}
+        >
+          <div className="flex flex-col h-full bg-third/5">
+            {/* Header */}
+            <div className="p-6 flex items-center justify-between border-b border-gray-100 shadow-sm bg-white">
+              <Link href="/" onClick={closeMenu} className="block">
+                {settings?.logo ? (
+                  <img
+                    src={settings.logo}
+                    alt="Logo"
+                    className="h-20 w-auto object-contain"
+                  />
+                ) : (
+                  <span className="text-xl font-bold text-primary">
+                    {settings?.site_name?.[locale] || "Logo"}
+                  </span>
+                )}
+              </Link>
+              <button
+                onClick={closeMenu}
+                className="p-2 text-primary hover:bg-primary/5 rounded-full bg-gray-50"
+              >
+                <FiX size={24} />
+              </button>
+            </div>
+
+            {/* Links */}
+            <div className="flex-1 overflow-y-auto px-6 py-8 flex flex-col gap-1 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.to}
+                  href={link.to}
+                  onClick={closeMenu}
+                  className={`text-lg font-bold py-3 transition-colors flex items-center justify-between ${isActive(link.to) ? "text-primary" : "text-baseTwo hover:text-primary"}`}
+                >
+                  <span className="text-start">{link.label}</span>
+                  <MdOutlineKeyboardArrowDown
+                    className={`opacity-30 ${isRTL ? "rotate-90" : "-rotate-90"}`}
+                  />
+                </Link>
+              ))}
+
+              {/* Mobile Executive Request Collapsible */}
+              {contactTypes.length > 0 && (
+                <div className="w-full mt-6">
+                  <button
+                    onClick={() =>
+                      setIsMobileExecutiveDropdownOpen(
+                        !isMobileExecutiveDropdownOpen,
+                      )
+                    }
+                    className="w-full flex items-center justify-between text-baseTwo hover:text-primary py-3"
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-primary/40 block"></span>
+                      <span className="text-gray-500 text-xs font-black uppercase tracking-widest text-start">
+                        {t("navbar.executiveRequest")}
+                      </span>
+                    </div>
+                    <FaChevronDown
+                      size={14}
+                      className={`transition-transform duration-300 opacity-60 ${isMobileExecutiveDropdownOpen ? "rotate-180" : "rotate-0"}`}
+                    />
+                  </button>
+                  <div
+                    className={`overflow-hidden transition-all duration-300 ease-in-out ${isMobileExecutiveDropdownOpen ? "max-h-[500px] opacity-100 mt-2" : "max-h-0 opacity-0"}`}
+                  >
+                    <div className="flex flex-col gap-2 border-s-2 border-gray-100 rtl:border-r-2 rtl:border-l-0 pl-4 rtl:pr-4 mx-2">
+                      {contactTypes.map((type) => (
+                        <Link
+                          key={type.id}
+                          href={`/contact?type=${type.id}`}
+                          onClick={closeMenu}
+                          className="p-3 bg-white border border-gray-50 rounded-xl text-baseTwo hover:text-primary transition-all flex items-center gap-3 group shadow-sm hover:bg-primary/5 hover:border-primary"
+                        >
+                          <div className="w-7 h-7 shrink-0 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors">
+                            <FaPaperPlane
+                              size={10}
+                              className="opacity-80 rtl:rotate-180"
+                            />
+                          </div>
+                          <span className="text-sm font-bold flex-1 text-start">
+                            {type.name?.[locale] || ""}
+                          </span>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Footer */}
+            <div className="p-6 border-t border-gray-100 bg-gray-50">
+              <LanguageBtn className="flex items-center justify-center space-x-3 w-full bg-white border border-gray-200 rounded-xl px-4 py-3 shadow-sm hover:border-primary transition-all text-sm" />
+            </div>
+          </div>
+        </div>
       </div>
-    </nav>
+    </>
   );
 };
 

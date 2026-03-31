@@ -247,6 +247,28 @@ export async function fetchBlogCategories() {
 }
 
 /**
+ * Fetch contact types for the contact form
+ */
+export async function fetchContactTypes() {
+  try {
+    const res = await fetch(`${baseUrl}/contact-types`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Api-Key": "P4OIp8prRKBeO0kogfGViTNzmAT8UnzL",
+      },
+      next: { revalidate: 0 },
+    });
+
+    if (!res.ok) return [];
+    const json = await res.json();
+    return json?.data || [];
+  } catch (err) {
+    console.error("fetchContactTypes Error:", err);
+    return [];
+  }
+}
+/**
  * Fetch blogs belonging to a specific category
  */
 export async function fetchCategoryBlogs(categoryId, params = {}) {
@@ -275,17 +297,16 @@ export async function fetchCategoryBlogs(categoryId, params = {}) {
 }
 
 /**
- * Submit contact form data
+ * Submit contact form data (Supports FormData for attachments)
  */
 export async function submitContactForm(formData) {
   try {
     const res = await fetch(`${baseUrl}/contact-us`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
         "X-Api-Key": "P4OIp8prRKBeO0kogfGViTNzmAT8UnzL",
       },
-      body: JSON.stringify({ ...formData, extra_key: null }),
+      body: formData, // Passing FormData directly
     });
 
     return res;
@@ -300,7 +321,7 @@ export async function submitContactForm(formData) {
  */
 export async function subscribeNewsletter(email) {
   try {
-    const res = await fetch(`${baseUrl}/subscribes`, {
+    const res = await fetch(`${baseUrl}/subscribe`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

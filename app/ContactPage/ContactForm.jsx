@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, Suspense } from "react";
 import { useTranslations, useLocale } from "next-intl";
+import { useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
-import { submitContactForm } from "../lib/server-api";
+import { submitContactForm, fetchContactTypes } from "../lib/server-api";
 import {
   FaUser,
   FaPhone,
@@ -11,13 +12,19 @@ import {
   FaCommentDots,
   FaPaperPlane,
   FaSpinner,
+  FaListUl,
+  FaPaperclip,
+  FaChevronDown,
 } from "react-icons/fa";
 import contactImage from "../../public/Home/contatc.png";
 
-const ContactForm = () => {
+const ContactFormContent = () => {
   const t = useTranslations();
   const locale = useLocale();
+  const searchParams = useSearchParams();
   const isRTL = locale === "ar";
+
+  const initialTypeId = searchParams.get("type") || "";
 
   // Form state
   const [formData, setFormData] = useState({
@@ -26,13 +33,39 @@ const ContactForm = () => {
     email: "",
     message: "",
     extra_key: "",
+    contact_type_id: initialTypeId,
+    attachment: null,
   });
 
+  const [contactTypes, setContactTypes] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState({});
   const [mathQuestion, setMathQuestion] = useState("");
   const [mathAnswer, setMathAnswer] = useState("");
   const [correctAnswer, setCorrectAnswer] = useState(null);
+
+  // Fetch Contact Types
+  useEffect(() => {
+    const getContactTypes = async () => {
+      try {
+        const data = await fetchContactTypes();
+        setContactTypes(data);
+      } catch (err) {
+        console.error("Failed to fetch contact types:", err);
+      }
+    };
+    getContactTypes();
+  }, []);
+
+  // Update selection if URL param changes
+  useEffect(() => {
+    if (initialTypeId) {
+      setFormData((prev) => ({
+        ...prev,
+        contact_type_id: initialTypeId,
+      }));
+    }
+  }, [initialTypeId]);
 
   // Generate random math question
   useEffect(() => {
@@ -71,13 +104,21 @@ const ContactForm = () => {
 
   // Handle input changes
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    const { name, value, files } = e.target;
 
-    // Clear error when user starts typing
+    if (name === "attachment") {
+      setFormData((prev) => ({
+        ...prev,
+        attachment: files[0],
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
+
+    // Clear error when user starts typing/changing
     if (errors[name]) {
       setErrors((prev) => ({
         ...prev,
@@ -114,6 +155,11 @@ const ContactForm = () => {
       newErrors.email = t("contactForm.errorEmailRequired");
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = t("contactForm.errorEmailInvalid");
+    }
+
+    // Contact Type validation
+    if (!formData.contact_type_id) {
+      newErrors.contact_type_id = t("contactForm.errorContactTypeRequired");
     }
 
     // Message validation
@@ -158,9 +204,22 @@ const ContactForm = () => {
     setIsLoading(true);
 
     try {
-      console.log("Submitting form data:", { ...formData, extra_key: null });
+      // Construct FormData
+      const data = new FormData();
+      data.append("name", formData.name);
+      data.append("email", formData.email);
+      data.append("phone", formData.phone);
+      data.append("message", formData.message);
+      data.append("contact_type_id", formData.contact_type_id);
+      data.append("extra_key", ""); // Always empty on success submission
 
-      const response = await submitContactForm(formData);
+      if (formData.attachment) {
+        data.append("attachment", formData.attachment);
+      }
+
+      console.log("Submitting FormData...");
+
+      const response = await submitContactForm(data);
 
       console.log("API Response:", response);
 
@@ -182,6 +241,8 @@ const ContactForm = () => {
           email: "",
           message: "",
           extra_key: "",
+          contact_type_id: "",
+          attachment: null,
         });
         setMathAnswer("");
         setErrors({});
@@ -335,44 +396,105 @@ const ContactForm = () => {
                   </div>
                 </div>
 
-                {/* Email Field */}
-                <div className="space-y-2">
-                  <label
-                    htmlFor="email"
-                    className={`flex items-center gap-3 text-lg font-semibold text-baseTwo ${
-                      isRTL ? "flex-row-reverse justify-end" : "justify-start"
-                    }`}
-                    style={{ direction: isRTL ? "rtl" : "ltr" }}
-                  >
-                    <FaEnvelope className="text-primary" />
-                    <span className={isRTL ? "text-right" : "text-left"}>
-                      {t("contactForm.labelEmail")}
-                    </span>
-                    <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className={`w-full px-4 py-4 border-2 rounded-xl text-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-baseTwo/20 focus:border-baseTwo ${
-                      errors.email
-                        ? "border-red-500 bg-red-50"
-                        : "border-gray-300 hover:border-gray-400"
-                    } ${isRTL ? "text-right" : "text-left"}`}
-                    placeholder={t("contactForm.placeholderEmail")}
-                    disabled={isLoading}
-                  />
-                  {errors.email && (
-                    <p
-                      className={`text-red-500 text-sm mt-1 ${
-                        isRTL ? "text-right" : "text-left"
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  {/* Email Field */}
+                  <div className="space-y-2">
+                    <label
+                      htmlFor="email"
+                      className={`flex items-center gap-3 text-lg font-semibold text-baseTwo ${
+                        isRTL ? "flex-row-reverse justify-end" : "justify-start"
                       }`}
+                      style={{ direction: isRTL ? "rtl" : "ltr" }}
                     >
-                      {errors.email}
-                    </p>
-                  )}
+                      <FaEnvelope className="text-primary" />
+                      <span className={isRTL ? "text-right" : "text-left"}>
+                        {t("contactForm.labelEmail")}
+                      </span>
+                      <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      className={`w-full px-4 py-4 border-2 rounded-xl text-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-baseTwo/20 focus:border-baseTwo ${
+                        errors.email
+                          ? "border-red-500 bg-red-50"
+                          : "border-gray-300 hover:border-gray-400"
+                      } ${isRTL ? "text-right" : "text-left"}`}
+                      placeholder={t("contactForm.placeholderEmail")}
+                      disabled={isLoading}
+                    />
+                    {errors.email && (
+                      <p
+                        className={`text-red-500 text-sm mt-1 ${
+                          isRTL ? "text-right" : "text-left"
+                        }`}
+                      >
+                        {errors.email}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Contact Type Dropdown */}
+                  <div className="space-y-2">
+                    <label
+                      htmlFor="contact_type_id"
+                      className={`flex items-center gap-3 text-lg font-semibold text-baseTwo ${
+                        isRTL ? "flex-row-reverse justify-end" : "justify-start"
+                      }`}
+                      style={{ direction: isRTL ? "rtl" : "ltr" }}
+                    >
+                      <FaListUl className="text-primary" />
+                      <span className={isRTL ? "text-right" : "text-left"}>
+                        {t("contactForm.labelContactType")}
+                      </span>
+                      <span className="text-red-500">*</span>
+                    </label>
+                    <div className="relative group/select">
+                      <select
+                        id="contact_type_id"
+                        name="contact_type_id"
+                        value={formData.contact_type_id}
+                        onChange={handleChange}
+                        className={`w-full px-4 py-4 border-2 rounded-xl text-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary bg-white appearance-none cursor-pointer pr-10 pl-4 ${
+                          errors.contact_type_id
+                            ? "border-red-500 bg-red-50"
+                            : "border-gray-300 hover:border-primary/50"
+                        } ${isRTL ? "text-right pr-4 pl-10" : "text-left pr-10 pl-4"}`}
+                        disabled={isLoading}
+                      >
+                        <option value="">
+                          {t("contactForm.placeholderContactType")}
+                        </option>
+                        {contactTypes.map((type) => (
+                          <option key={type.id} value={type.id}>
+                            {type.name[locale]}
+                          </option>
+                        ))}
+                      </select>
+                      <div
+                        className={`absolute top-1/2 -translate-y-1/2 pointer-events-none transition-transform duration-300 group-hover/select:text-primary ${
+                          isRTL ? "left-4" : "right-4"
+                        }`}
+                      >
+                        <FaChevronDown
+                          size={14}
+                          className="text-gray-400 group-focus-within/select:rotate-180 transition-transform"
+                        />
+                      </div>
+                    </div>
+                    {errors.contact_type_id && (
+                      <p
+                        className={`text-red-500 text-sm mt-1 ${
+                          isRTL ? "text-right" : "text-left"
+                        }`}
+                      >
+                        {errors.contact_type_id}
+                      </p>
+                    )}
+                  </div>
                 </div>
 
                 {/* Message Field */}
@@ -413,6 +535,51 @@ const ContactForm = () => {
                       {errors.message}
                     </p>
                   )}
+                </div>
+
+                {/* Attachment Field */}
+                <div className="space-y-2">
+                  <label
+                    htmlFor="attachment"
+                    className={`flex items-center gap-3 text-lg font-semibold text-baseTwo ${
+                      isRTL ? "flex-row-reverse justify-end" : "justify-start"
+                    }`}
+                    style={{ direction: isRTL ? "rtl" : "ltr" }}
+                  >
+                    <FaPaperclip className="text-primary" />
+                    <span className={isRTL ? "text-right" : "text-left"}>
+                      {t("contactForm.labelAttachment")}
+                    </span>
+                  </label>
+                  <div className="relative group">
+                    <input
+                      type="file"
+                      id="attachment"
+                      name="attachment"
+                      onChange={handleChange}
+                      className="hidden"
+                      disabled={isLoading}
+                    />
+                    <label
+                      htmlFor="attachment"
+                      className={`flex items-center justify-between w-full px-4 py-4 border-2 rounded-xl text-lg transition-all duration-300 cursor-pointer bg-white group-hover:border-gray-400 ${
+                        isRTL ? "flex-row-reverse" : ""
+                      } border-gray-300`}
+                    >
+                      <span
+                        className={`text-gray-500 truncate ${
+                          isRTL ? "text-right mr-2" : "text-left ml-2"
+                        }`}
+                      >
+                        {formData.attachment
+                          ? formData.attachment.name
+                          : t("contactForm.placeholderAttachment")}
+                      </span>
+                      <div className="px-4 py-1.5 bg-gray-100 text-baseTwo rounded-lg text-sm font-bold group-hover:bg-primary group-hover:text-white transition-colors">
+                        {isRTL ? "اختر ملفاً" : "Browse"}
+                      </div>
+                    </label>
+                  </div>
                 </div>
 
                 {/* Extra Key (Honeypot) */}
@@ -507,6 +674,20 @@ const ContactForm = () => {
         </div>
       </section>
     </>
+  );
+};
+
+const ContactForm = () => {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex justify-center items-center py-20">
+          <FaSpinner className="animate-spin text-primary text-4xl" />
+        </div>
+      }
+    >
+      <ContactFormContent />
+    </Suspense>
   );
 };
 

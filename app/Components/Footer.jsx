@@ -32,12 +32,11 @@ const Footer = () => {
 
   const isRTL = locale === "ar";
 
-  const currentAddress = settings?.address?.[locale] || t("footer.companyAddress");
-
+  const currentAddress = settings?.address?.[locale] || t("footer.address");
   const currentFooterText =
     settings?.footer_text?.[locale] || t("footer.legalText");
 
-  const currentEmail = settings?.email || t("footer.email");
+  const emailList = settings?.emails || [settings?.email || t("footer.email")];
   const currentPhone = settings?.phone || t("footer.phone");
 
   const facebookUrl = settings?.social_links?.facebook || null;
@@ -360,8 +359,8 @@ const Footer = () => {
                   }`}
                 >
                   <span className="text-md flex items-center gap-1 text-black leading-relaxed max-w-xs">
-                    <FaMapMarkerAlt className="mt-1 text-secondary flex-shrink-0 w-4 h-4" />
-                    {currentAddress || t("footer.companyAddress")}
+                    <FaMapMarkerAlt className="mt-1 text-primary flex-shrink-0 w-4 h-4" />
+                    {currentAddress}
                   </span>
                 </li>
                 <li
@@ -371,13 +370,18 @@ const Footer = () => {
                       : "lg:justify-start "
                   }`}
                 >
-                  <a
-                    href={`mailto:${currentEmail}`}
-                    className="text-md flex items-center gap-1 text-black hover:text-secondary transition-colors duration-200"
-                  >
-                    <FaEnvelope className="text-secondary flex-shrink-0 w-4 h-4" />
-                    {currentEmail}
-                  </a>
+                  <div className="flex flex-col gap-2">
+                    {emailList.map((email, idx) => (
+                      <a
+                        key={idx}
+                        href={`mailto:${email}`}
+                        className="text-md flex items-center gap-1 text-black hover:text-primary transition-colors duration-200"
+                      >
+                        <FaEnvelope className="text-primary flex-shrink-0 w-4 h-4" />
+                        {email}
+                      </a>
+                    ))}
+                  </div>
                 </li>
                 <li
                   className={`flex items-center gap-3 justify-center ${
@@ -388,9 +392,9 @@ const Footer = () => {
                 >
                   <a
                     href={`tel:${currentPhone}`}
-                    className="text-md flex items-center gap-1 text-black hover:text-secondary transition-colors duration-200"
+                    className="text-md flex items-center gap-1 text-black hover:text-primary transition-colors duration-200"
                   >
-                    <FaPhoneAlt className="text-secondary flex-shrink-0 w-4 h-4" />
+                    <FaPhoneAlt className="text-primary flex-shrink-0 w-4 h-4" />
                     {currentPhone}
                   </a>
                 </li>
@@ -557,7 +561,7 @@ const Footer = () => {
                     className="text-black/80 hover:text-secondary transition-colors duration-200"
                     aria-label="Facebook"
                   >
-                    <FaFacebookF className="w-5 h-5" />
+                    <FaFacebookF className="w-5 h-5 text-primary" />
                   </a>
                 )}
                 {instagramUrl && (
@@ -568,7 +572,7 @@ const Footer = () => {
                     className="text-black/80 hover:text-secondary transition-colors duration-200"
                     aria-label="Instagram"
                   >
-                    <FaInstagram className="w-5 h-5" />
+                    <FaInstagram className="w-5 h-5 text-primary" />
                   </a>
                 )}
                 {twitterUrl && (
@@ -579,7 +583,7 @@ const Footer = () => {
                     className="text-black/80 hover:text-secondary transition-colors duration-200"
                     aria-label="Twitter"
                   >
-                    <FaTwitter className="w-5 h-5" />
+                    <FaTwitter className="w-5 h-5 text-primary" />
                   </a>
                 )}
                 {whatsappUrl && (
@@ -590,7 +594,7 @@ const Footer = () => {
                     className="text-black hover:text-secondary transition-colors duration-200"
                     aria-label="WhatsApp"
                   >
-                    <FaWhatsapp className="w-5 h-5" />
+                    <FaWhatsapp className="w-5 h-5 text-primary" />
                   </a>
                 )}
               </div>

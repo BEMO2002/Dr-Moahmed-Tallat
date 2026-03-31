@@ -19,9 +19,6 @@ import {
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/effect-fade";
-
-import wave from "../../public/Home/wave-banner.svg";
-
 const SliderHome = ({ initialSliders = [] }) => {
   const t = useTranslations();
   const locale = useLocale();
@@ -81,13 +78,6 @@ const SliderHome = ({ initialSliders = [] }) => {
         <div className="bg-circle-pulse-delayed absolute bottom-0 right-0 w-[600px] h-[600px] bg-baseTwo rounded-full blur-[100px] opacity-[0.03]" />
       </div>
 
-      {/* Preserve Wave */}
-      <img
-        src={wave.src}
-        alt=""
-        className="absolute bottom-0 w-full object-cover z-10 pointer-events-none opacity-[0.12] transition-opacity duration-1000"
-      />
-
       <Swiper
         key="main-slider"
         modules={[Pagination, Autoplay, EffectFade]}
@@ -123,15 +113,17 @@ const SliderHome = ({ initialSliders = [] }) => {
                       : "The Analyst Who Reads Behind The Event"}
                   </div>
 
-                  <h1 className="text-3xl sm:text-4xl lg:text-[72px] font-black text-baseTwo mb-6 md:mb-8 leading-[1.2] lg:leading-[1.1] tracking-tight">
+                  <h1 className="text-3xl sm:text-4xl lg:text-[60px] font-black text-baseTwo mb-6 md:mb-8 leading-[1.2] lg:leading-[1.1] tracking-tight">
                     {slider.title?.[locale]}
                   </h1>
 
-                  <p className="text-base sm:text-lg md:text-2xl mb-8 md:mb-12 max-w-xl leading-relaxed text-slate-700">
+                  <p className="text-base sm:text-lg md:text-xl mb-8 md:mb-12  leading-relaxed text-slate-700">
                     {slider.desc?.[locale]}
                   </p>
 
-                  <div className={`flex flex-wrap items-center gap-4 md:gap-6 mt-10 ${isRTL ? "justify-end" : "justify-start"}`}>
+                  <div
+                    className={`flex flex-wrap items-center gap-4 md:gap-6 mt-10 ${isRTL ? "justify-end" : "justify-start"}`}
+                  >
                     <Link
                       href="/blogs"
                       className="group flex items-center justify-center gap-3 px-8 md:px-10 py-3.5 md:py-4 bg-primary text-white font-bold text-sm md:text-lg rounded-full shadow-[0_10px_25px_-5px_rgb(197,160,89,0.4)] hover:shadow-[0_15px_30px_-5px_rgb(197,160,89,0.6)] hover:-translate-y-1 hover:brightness-110 transition-all duration-400"
@@ -227,14 +219,14 @@ const SliderHome = ({ initialSliders = [] }) => {
       <motion.div
         animate={{ y: [0, -40, 0], rotate: 360 }}
         transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-        className="absolute top-[10%] left-[5%] md:left-[10%] opacity-10 pointer-events-none select-none z-10 text-primary"
+        className="absolute top-[20%] left-[5%] md:left-[5%] opacity-10 pointer-events-none select-none z-10 text-primary"
       >
         <FaPenNib size={80} className="md:w-32 md:h-32" />
       </motion.div>
       <motion.div
         animate={{ y: [0, 40, 0], scale: [1, 1.1, 1] }}
         transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-[40%] right-[2%] md:right-[5%] opacity-[0.05] pointer-events-none select-none z-10 text-baseTwo"
+        className="absolute top-[40%] right-[2%] md:right-[5%] opacity-20 pointer-events-none select-none z-10 text-primary"
       >
         <FaGlobe size={120} className="md:w-48 md:h-48" />
       </motion.div>

@@ -31,7 +31,7 @@ const HeadContact = () => {
         {/* Content */}
         <div className="flex items-center justify-center flex-col gap-6 relative z-10">
           <h1
-            className={`text-5xl md:text-6xl text-primary font-bold ${
+            className={`text-5xl whitespace-nowrap md:text-6xl text-primary font-bold ${
               isRTL ? "text-right" : "text-left"
             }`}
           >
@@ -46,7 +46,7 @@ const HeadContact = () => {
           >
             <Link
               href="/"
-              className="text-black  transition-colors duration-300 font-medium"
+              className="text-black whitespace-nowrap  transition-colors duration-300 font-medium"
             >
               {t("navbar.home")}
             </Link>
@@ -57,7 +57,7 @@ const HeadContact = () => {
               <MdOutlineKeyboardDoubleArrowRight className="text-primary" />
             )}
 
-            <span className="text-black font-medium">
+            <span className="text-black whitespace-nowrap font-medium">
               {t("headContact.title")}
             </span>
           </div>
