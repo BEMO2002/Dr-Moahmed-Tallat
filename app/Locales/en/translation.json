@@ -311,12 +311,19 @@
   },
   "infinitySlider": {
     "items": {
-      "webDev": "Brand Strategy",
-      "uiUx": "Creative Design",
-      "digitalMarketing": "Digital Marketing",
-      "softwareEng": "Growth Hacking",
-      "dataScience": "Data Analytics",
-      "mobileApps": "Campaign Management"
+      "narcissisticEgo": "Geopolitics of the Narcissistic Ego in International Politics",
+      "consciousnessNationalization": "Nationalizing Consciousness — The War on the Arab Mind",
+      "politicalEmotions": "The Economy of Political Emotions and Decision Making",
+      "intellectualImmunity": "Intellectual Immunity in the Age of Hybrid Warfares",
+      "intellectualOil": "Intellectual Oil — The Wealth of Nations in the 21st Century"
+    }
+  },
+  "infinitySliderTwo": {
+    "items": {
+      "power": "Power is not in possessing information, but in the ability to initiate and impose will",
+      "consciousness": "He who does not own his consciousness does not own his future — the occupation of consciousness is the most dangerous form of colonialism",
+      "ambiguity": "Punitive ambiguity is not weakness, but rather the highest degree of strategic deterrence",
+      "identity": "The nation that identifies with its executioner loses its existential compass before it loses its land"
     }
   },
   "common": {
@@ -335,32 +342,33 @@
     "error": "Failed to load sitemap"
   },
   "specialServices": {
-    "subtitle": "Our Expertise",
-    "title1": "What We",
-    "titleHighlight": "Provide",
-    "brandStrategy": {
-      "title": "Brand Strategy",
-      "description": "We build strong identities that leave a lasting impression and create a real connection with your target audience."
+    "subtitle": "Research Axes",
+    "title1": "Strategic",
+    "titleHighlight": "Domains",
+    "strategicDomains": "Strategic Domains",
+    "geopolitics": {
+      "title": "Geopolitics",
+      "description": "Reading the map where interests and ideology intersect — including the geopolitics of femininity."
     },
-    "socialMedia": {
-      "title": "Social Media Management",
-      "description": "We enhance your digital presence through interactive content and growth strategies targeted at various platforms."
+    "hybridWarfare": {
+      "title": "Hybrid Warfare",
+      "description": "War as more than bullets — information is a weapon, and awareness is the first and last battlefield."
     },
-    "seo": {
-      "title": "SEO Optimization",
-      "description": "We boost your website's ranking in search results to increase organic traffic and improve your digital visibility."
+    "politicalPsychology": {
+      "title": "Political Psychology",
+      "description": "Dissecting the mechanisms of influence and compliance and engineering collective consciousness — identification, alienation, emotional alienation."
     },
-    "contentCreation": {
-      "title": "Creative Content Creation",
-      "description": "We design and write visual and written content that captures eyes and skillfully tells your brand story."
+    "techAI": {
+      "title": "Technology and Artificial Intelligence",
+      "description": "Artificial intelligence as a field of control and liberation — and the future of sovereign decision-making in a digital world."
     },
-    "digitalAds": {
-      "title": "Performance Advertising (Ads)",
-      "description": "Smart ad campaigns targeting the right audience to ensure the best Return on Investment (ROI)."
+    "strategicMedia": {
+      "title": "Strategic Media",
+      "description": "How narratives are made and how they are broken — managing discourse in the age of information chaos."
     },
-    "analytics": {
-      "title": "Data Analytics & Reporting",
-      "description": "We turn numbers into strategic insights that help you make growth decisions based on accurate data."
+    "strategicGovernance": {
+      "title": "Strategic Governance",
+      "description": "Building systems and decision structures in complex environments — sovereign mobilization and imposing will."
     }
   }
 }

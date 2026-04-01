@@ -1,13 +1,14 @@
 import React from "react";
 import { useTranslations, useLocale } from "next-intl";
-import { PiSparkleFill } from "react-icons/pi";
-const StarIcon = () => <PiSparkleFill className="text-primary" size={30} />;
+import { FaQuoteLeft } from "react-icons/fa";
 
-const InfinitySlider = () => {
+const QuoteIcon = () => <FaQuoteLeft className="text-secondary" size={20} />;
+
+const InfinitySliderTwo = () => {
   const t = useTranslations();
   const locale = useLocale();
 
-  const items = t.raw("infinitySlider.items", { returnObjects: true });
+  const items = t.raw("infinitySliderTwo.items", { returnObjects: true });
   const words = typeof items === "object" ? Object.values(items) : [];
 
   const loopWords = [...words, ...words, ...words, ...words];
@@ -15,7 +16,7 @@ const InfinitySlider = () => {
   const isRTL = locale === "ar";
 
   return (
-    <div className="relative w-full overflow-hidden py-20 bg-white" dir="ltr">
+    <div className="relative w-full overflow-hidden py-10 bg-white" dir="ltr">
       <style>
         {`
           @keyframes marquee {
@@ -35,18 +36,18 @@ const InfinitySlider = () => {
       </style>
 
       <div className="relative flex flex-col items-center justify-center">
-        {/* Background Layer (Orange) */}
-        <div className="absolute w-full h-16 md:h-20 bg-primary -rotate-1 transform origin-center shadow-lg" />
+        {/* Background Layer (Golden/Primary) */}
+        <div className="absolute w-full h-12 md:h-16 bg-primary rotate-1 transform origin-center shadow-md" />
 
         {/* Foreground Layer (White) */}
-        <div className="relative w-full bg-white py-4 md:py-6 -rotate-5 flex items-center shadow-lg transform origin-center border-y border-black/10">
+        <div className="relative w-full bg-white py-3 md:py-4 -rotate-2 flex items-center shadow-lg transform origin-center border-y border-black/5">
           <div className="animate-infinite-scroll flex items-center">
             {loopWords.map((word, index) => (
               <div key={index} className="flex items-center">
-                <span className="text-black text-xl md:text-xl font-bold uppercase whitespace-nowrap tracking-tight px-4">
-                  {word}
+                <span className="text-slate-800 text-lg md:text-xl font-bold whitespace-nowrap tracking-tight px-8 italic">
+                  "{word}"
                 </span>
-                <StarIcon />
+                <QuoteIcon />
               </div>
             ))}
           </div>
@@ -56,4 +57,4 @@ const InfinitySlider = () => {
   );
 };
 
-export default InfinitySlider;
+export default InfinitySliderTwo;
