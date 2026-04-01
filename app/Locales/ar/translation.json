@@ -353,6 +353,14 @@
   "common": {
     "close": "إغلاق"
   },
+  "counter": {
+    "experience": "15+",
+    "experienceLabel": "سنة خبرة",
+    "articles": "150+",
+    "articlesLabel": "مقال تحليلي",
+    "research": "5+",
+    "researchLabel": "محاور بحثية"
+  },
   "accreditations": {
     "title": "الاعتمادات والشراكات",
     "description": "تصفح أحدث دراسات الحالة التسويقية والتحديثات",

@@ -6,6 +6,7 @@ import InfinitySlider from "../HomePage/InfinitySlider";
 // import Services from "../CoursesPage/Services";
 import SpecialServices from "../HomePage/SpecialServices";
 import InfinitySliderTwo from "../HomePage/InfintySliderTwo";
+import Counter from "../HomePage/Counter";
 
 export async function generateMetadata({ params }) {
   const resolvedParams = await params;
@@ -58,6 +59,7 @@ export default function MainHome() {
   return (
     <>
       <SliderServer />
+      <Counter />
       <AboutTwo />
       <InfinitySliderTwo />
       <SpecialServices />

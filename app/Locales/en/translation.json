@@ -329,6 +329,14 @@
   "common": {
     "close": "Close"
   },
+  "counter": {
+    "experience": "15+",
+    "experienceLabel": "Years of Experience",
+    "articles": "150+",
+    "articlesLabel": "Analytical Articles",
+    "research": "5+",
+    "researchLabel": "Research Axes"
+  },
   "accreditations": {
     "title": "Accreditations & Partnerships",
     "description": "Browse all our latest marketing case studies and updates",
