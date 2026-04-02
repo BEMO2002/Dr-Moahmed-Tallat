@@ -1,19 +1,49 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState, useMemo } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { FaQuoteLeft } from "react-icons/fa";
+import { fetchTestimonials } from "../lib/server-api";
 
 const QuoteIcon = () => <FaQuoteLeft className="text-secondary" size={20} />;
 
 const InfinitySliderTwo = () => {
   const t = useTranslations();
   const locale = useLocale();
+  const [quotes, setQuotes] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const items = t.raw("infinitySliderTwo.items", { returnObjects: true });
-  const words = typeof items === "object" ? Object.values(items) : [];
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const res = await fetchTestimonials({ per_page: 20 });
+        if (res && Array.isArray(res.data)) {
+          setQuotes(res.data);
+        }
+      } catch (err) {
+        console.error("Error fetching testimonials for slider:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadData();
+  }, []);
 
-  const loopWords = [...words, ...words, ...words, ...words];
+  const items = useMemo(() => {
+    if (loading || quotes.length === 0) return [];
 
-  const isRTL = locale === "ar";
+    // Extract localized text
+    const list = quotes.map((q) => q.text?.[locale] || "").filter(Boolean);
+
+    // Create multiple copies for infinite scroll effect
+    if (list.length === 0) return [];
+    if (list.length < 8) {
+      return [...list, ...list, ...list, ...list, ...list, ...list];
+    }
+    return [...list, ...list, ...list];
+  }, [quotes, locale, loading]);
+
+  if (loading || items.length === 0) return null;
 
   return (
     <div className="relative w-full overflow-hidden py-10 bg-white" dir="ltr">
@@ -42,10 +72,10 @@ const InfinitySliderTwo = () => {
         {/* Foreground Layer (White) */}
         <div className="relative w-full bg-white py-3 md:py-4 -rotate-2 flex items-center shadow-lg transform origin-center border-y border-black/5">
           <div className="animate-infinite-scroll flex items-center">
-            {loopWords.map((word, index) => (
+            {items.map((word, index) => (
               <div key={index} className="flex items-center">
                 <span className="text-slate-800 text-lg md:text-xl font-bold whitespace-nowrap tracking-tight px-8 italic">
-                  "{word}"
+                  {word}
                 </span>
                 <QuoteIcon />
               </div>

@@ -7,6 +7,13 @@
     "contact": "Contact",
     "executiveRequest": "Executive Request",
     "links": "LinkTree",
+    "media": {
+      "title": "Media",
+      "interviews": "Interviews",
+      "articles": "Articles and Columns",
+      "conferences": "Conferences",
+      "citations": "Media Citations"
+    },
     "seo_description": "Dr. Mohamed Talaat - Media Veteran, Journalist, and Political & Psychological Analyst. Founder of East News Agency. Specialist in policy analysis and international relations.",
     "seo_keywords": "Mohamed Talaat, Political Analyst, Psychological Analyst, Media Veteran, East News Agency, Journalism, Media, Political Analysis"
   },
@@ -378,5 +385,24 @@
       "title": "Strategic Governance",
       "description": "Building systems and decision structures in complex environments — sovereign mobilization and imposing will."
     }
+  },
+  "quotations": {
+    "title": "Media Citations",
+    "breadcrumb": "Citations",
+    "copySuccess": "Quotation copied successfully",
+    "shareSuccess": "Thank you for sharing",
+    "shareTitle": "Share Quotation",
+    "loadError": "An error occurred while loading citations",
+    "noQuotes": "No citations available at the moment",
+    "copy": "Copy Text",
+    "share": "Share",
+    "seo_description": "Browse the most prominent media citations and aphorisms by Dr. Mohamed Talaat in the fields of geopolitics and international politics."
+  },
+  "meetings": {
+    "title": "Meetings and Conferences",
+    "breadcrumb": "Conferences",
+    "loadError": "An error occurred while loading data",
+    "noItems": "No meetings or conferences available at the moment",
+    "watchVideo": "View Meeting"
   }
 }

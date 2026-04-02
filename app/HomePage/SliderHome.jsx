@@ -117,7 +117,7 @@ const SliderHome = ({ initialSliders = [] }) => {
                     {slider.title?.[locale]}
                   </h1>
 
-                  <p className="text-base sm:text-lg md:text-xl mb-8 md:mb-12  leading-relaxed text-slate-700">
+                  <p className="text-base sm:text-lg md:text-xl mb-8 md:mb-12  leading-relaxed ">
                     {slider.desc?.[locale]}
                   </p>
 
@@ -154,7 +154,7 @@ const SliderHome = ({ initialSliders = [] }) => {
                 >
                   <div className="relative w-full flex justify-center">
                     {/* Background Frame */}
-                    <div className="absolute -inset-6 bg-gradient-to-tr from-primary/20 to-baseTwo/20 rounded-[40px] opacity-10 blur-3xl pointer-events-none" />
+                    <div className="absolute -inset-6 bg-linear-to-tr from-primary/20 to-baseTwo/20 rounded-[40px] opacity-10 blur-3xl pointer-events-none" />
                     <div className="absolute top-8 -left-8 w-full h-full border-[3px] border-primary/10 rounded-3xl -z-10 pointer-events-none" />
 
                     {/* Social Icons with CSS-based floating anims */}
@@ -162,7 +162,7 @@ const SliderHome = ({ initialSliders = [] }) => {
                       <FaInstagram size={20} className="md:size-6" />
                     </div>
 
-                    <div className="float-anim-reverse absolute bottom-12 -right-8 md:bottom-16 md:-right-10 w-10 h-10 md:w-12 md:h-12 bg-white shadow-xl rounded-xl md:rounded-2xl flex items-center justify-center text-blue-900 text-xl z-40 border border-gray-50 select-none">
+                    <div className="float-anim-reverse absolute bottom-12 -right-5 md:bottom-16 md:-right-10 w-10 h-10 md:w-12 md:h-12 bg-white shadow-xl rounded-xl md:rounded-2xl flex items-center justify-center text-blue-900 text-xl z-40 border border-gray-50 select-none">
                       <FaFacebookF size={20} className="md:size-6" />
                     </div>
 
@@ -198,7 +198,7 @@ const SliderHome = ({ initialSliders = [] }) => {
                             <img
                               src={bannerUrl}
                               alt=""
-                              className="w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] rounded-2xl object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.12)]"
+                              className="w-full h-[350px] sm:h-[400px] md:h-[500px] lg:h-[600px] rounded-2xl object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.12)]"
                             />
                           );
                         }

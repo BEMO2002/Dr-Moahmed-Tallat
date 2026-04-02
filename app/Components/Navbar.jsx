@@ -43,6 +43,10 @@ const Navbar = () => {
   const isRTL = locale === "ar";
   const { settings } = useSettings();
 
+  const [isMediaDropdownOpen, setIsMediaDropdownOpen] = useState(false);
+  const [isMobileMediaDropdownOpen, setIsMobileMediaDropdownOpen] =
+    useState(false);
+
   const [contactTypes, setContactTypes] = useState([]);
   const [isExecutiveDropdownOpen, setIsExecutiveDropdownOpen] = useState(false);
   const [isMobileExecutiveDropdownOpen, setIsMobileExecutiveDropdownOpen] =
@@ -53,7 +57,13 @@ const Navbar = () => {
   }, []);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-  const closeMenu = () => setIsMenuOpen(false);
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+    setIsMediaDropdownOpen(false);
+    setIsMobileMediaDropdownOpen(false);
+    setIsExecutiveDropdownOpen(false);
+    setIsMobileExecutiveDropdownOpen(false);
+  };
   const isActive = (path) => pathname === path;
 
   const toggleLanguage = () => {
@@ -66,7 +76,16 @@ const Navbar = () => {
   const navLinks = [
     { to: "/", label: t("navbar.home") },
     { to: "/courses", label: t("navbar.services") },
-    { to: "/blogs", label: t("navbar.blogs") },
+    {
+      label: t("navbar.media.title"),
+      isDropdown: true,
+      items: [
+        { to: "/meetings-conferences", label: t("navbar.media.interviews") },
+        { to: "/blogs?type=articles", label: t("navbar.media.articles") },
+        { to: "/meetings-conferences", label: t("navbar.media.conferences") },
+        { to: "/quotations", label: t("navbar.media.citations") },
+      ],
+    },
     { to: "/about", label: t("navbar.about") },
     { to: "/contact", label: t("navbar.contact") },
   ];
@@ -109,25 +128,71 @@ const Navbar = () => {
         <div className="max-w-7xl mx-auto md:px-4 px-2 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-18">
             {/* Logo Section */}
-            <div className="flex-shrink-0">
-              <Link href="/" onClick={closeMenu} className="flex items-center">
+            <div className="">
+              <Link href="/" onClick={closeMenu} className="block group">
                 {settings?.logo && (
                   <img
                     src={settings.logo}
                     alt="Logo"
-                    className="md:w-30 w-28 lg:h-30 lg:w-auto  object-contain p-1"
+                    className="md:w-30 w-28 lg:h-30 lg:w-auto object-contain p-1.5"
                   />
                 )}
               </Link>
             </div>
 
             {/* Desktop Navigation */}
-            <div className="hidden whitespace-nowrap lg:flex items-center space-x-8">
-              {navLinks.map((link) => (
-                <DesktopNavLink key={link.to} to={link.to}>
-                  {link.label}
-                </DesktopNavLink>
-              ))}
+            <div className="hidden whitespace-nowrap lg:flex items-center space-x-2">
+              {navLinks.map((link, idx) => {
+                if (link.isDropdown) {
+                  return (
+                    <div
+                      key={idx}
+                      className="relative group"
+                      onMouseEnter={() => setIsMediaDropdownOpen(true)}
+                      onMouseLeave={() => setIsMediaDropdownOpen(false)}
+                    >
+                      <button
+                        className={`flex items-center gap-1 px-4 py-3 text-lg font-medium transition-all duration-300 rounded-lg hover:bg-black/5 text-baseTwo group-hover:text-primary`}
+                      >
+                        <span>{link.label}</span>
+                        <FaChevronDown
+                          size={12}
+                          className={`opacity-50 transition-transform duration-300 ${isMediaDropdownOpen ? "rotate-180" : ""}`}
+                        />
+                      </button>
+                      {isMediaDropdownOpen && (
+                        <div
+                          className={`absolute top-full ${isRTL ? "right-0" : "left-0"} pt-1  min-w-[220px] animate-in fade-in slide-in-from-top-2 duration-200`}
+                        >
+                          <div className="bg-white border border-gray-100 shadow-xl rounded-2xl flex flex-col py-1 overflow-hidden">
+                            {link.items.map((item, i) => (
+                              <Link
+                                key={i}
+                                href={item.to}
+                                onClick={() => setIsMediaDropdownOpen(false)}
+                                className={`px-5 py-3.5 text-baseTwo hover:bg-gray-50 hover:text-primary transition-all border-b last:border-0 border-gray-50 flex items-center justify-between group ${isRTL ? "text-right" : "text-left"}`}
+                              >
+                                <span className="font-semibold text-sm">
+                                  {item.label}
+                                </span>
+                                <MdOutlineKeyboardArrowDown
+                                  size={16}
+                                  className={`opacity-0 group-hover:opacity-30 transition-all ${isRTL ? "rotate-90" : "-rotate-90"}`}
+                                />
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  );
+                }
+                return (
+                  <DesktopNavLink key={link.to} to={link.to}>
+                    {link.label}
+                  </DesktopNavLink>
+                );
+              })}
             </div>
 
             {/* Utility Space*/}
@@ -149,7 +214,7 @@ const Navbar = () => {
                 </button>
                 {isExecutiveDropdownOpen && (
                   <div
-                    className={`absolute top-full ${isRTL ? "-left-4" : "-right-4"} pt-2 z-[60] min-w-[240px] animate-in fade-in slide-in-from-top-2 duration-200`}
+                    className={`absolute top-full ${isRTL ? "-left-4" : "-right-4"} pt-2  min-w-[240px] animate-in fade-in slide-in-from-top-2 duration-200`}
                   >
                     <div className="bg-white border border-gray-100 shadow-2xl rounded-2xl flex flex-col py-1 overflow-hidden">
                       {contactTypes.map((type) => (
@@ -232,19 +297,57 @@ const Navbar = () => {
 
             {/* Links */}
             <div className="flex-1 overflow-y-auto px-6 py-8 flex flex-col gap-1 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.to}
-                  href={link.to}
-                  onClick={closeMenu}
-                  className={`text-lg font-bold py-3 transition-colors flex items-center justify-between ${isActive(link.to) ? "text-primary" : "text-baseTwo hover:text-primary"}`}
-                >
-                  <span className="text-start">{link.label}</span>
-                  <MdOutlineKeyboardArrowDown
-                    className={`opacity-30 ${isRTL ? "rotate-90" : "-rotate-90"}`}
-                  />
-                </Link>
-              ))}
+              {navLinks.map((link, idx) => {
+                if (link.isDropdown) {
+                  return (
+                    <div key={idx} className="w-full">
+                      <button
+                        onClick={() =>
+                          setIsMobileMediaDropdownOpen(
+                            !isMobileMediaDropdownOpen,
+                          )
+                        }
+                        className={`w-full text-lg font-bold py-3 transition-colors flex items-center justify-between ${isMobileMediaDropdownOpen ? "text-primary" : "text-baseTwo"}`}
+                      >
+                        <span className="text-start">{link.label}</span>
+                        <FaChevronDown
+                          size={14}
+                          className={`transition-transform duration-300 ${isMobileMediaDropdownOpen ? "rotate-180" : "rotate-0"}`}
+                        />
+                      </button>
+                      <div
+                        className={`overflow-hidden transition-all duration-300 ease-in-out ${isMobileMediaDropdownOpen ? "max-h-[400px] opacity-100" : "max-h-0 opacity-0"}`}
+                      >
+                        <div className="flex flex-col gap-1 border-s-2 border-primary/10 ml-2 rtl:ml-0 rtl:mr-2 pl-4 rtl:pl-0 rtl:pr-4 py-2">
+                          {link.items.map((item, i) => (
+                            <Link
+                              key={i}
+                              href={item.to}
+                              onClick={closeMenu}
+                              className="py-2.5 text-md font-medium text-slate-600 hover:text-primary transition-colors text-start block"
+                            >
+                              {item.label}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                }
+                return (
+                  <Link
+                    key={link.to}
+                    href={link.to}
+                    onClick={closeMenu}
+                    className={`text-lg font-bold py-3 transition-colors flex items-center justify-between ${isActive(link.to) ? "text-primary" : "text-baseTwo hover:text-primary"}`}
+                  >
+                    <span className="text-start">{link.label}</span>
+                    <MdOutlineKeyboardArrowDown
+                      className={`opacity-30 ${isRTL ? "rotate-90" : "-rotate-90"}`}
+                    />
+                  </Link>
+                );
+              })}
 
               {/* Mobile Executive Request Collapsible */}
               {contactTypes.length > 0 && (
@@ -255,11 +358,11 @@ const Navbar = () => {
                         !isMobileExecutiveDropdownOpen,
                       )
                     }
-                    className="w-full flex items-center justify-between text-baseTwo hover:text-primary py-3"
+                    className="w-full bg-gray-100 rounded-xl px-2 flex items-center justify-between text-baseTwo hover:text-primary py-3"
                   >
                     <div className="flex items-center gap-2">
                       <span className="w-1.5 h-1.5 rounded-full bg-primary/40 block"></span>
-                      <span className="text-gray-500 text-xs font-black uppercase tracking-widest text-start">
+                      <span className="text-baseTwo text-md font-black uppercase tracking-widest text-start">
                         {t("navbar.executiveRequest")}
                       </span>
                     </div>

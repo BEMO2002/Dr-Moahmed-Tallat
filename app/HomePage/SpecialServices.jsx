@@ -25,7 +25,7 @@ const SpecialServices = () => {
       title: t("geopolitics.title"),
       description: t("geopolitics.description"),
       color: "from-blue-500/20 to-cyan-500/20",
-      iconColor: "text-blue-600",
+      iconColor: "text-primary",
     },
     {
       id: 2,
@@ -34,7 +34,7 @@ const SpecialServices = () => {
       title: t("hybridWarfare.title"),
       description: t("hybridWarfare.description"),
       color: "from-red-500/20 to-orange-500/20",
-      iconColor: "text-red-600",
+      iconColor: "text-primary",
     },
     {
       id: 3,
@@ -43,7 +43,7 @@ const SpecialServices = () => {
       title: t("politicalPsychology.title"),
       description: t("politicalPsychology.description"),
       color: "from-purple-500/20 to-pink-500/20",
-      iconColor: "text-purple-600",
+      iconColor: "text-primary",
     },
     {
       id: 4,
@@ -52,7 +52,7 @@ const SpecialServices = () => {
       title: t("techAI.title"),
       description: t("techAI.description"),
       color: "from-indigo-500/20 to-blue-500/20",
-      iconColor: "text-indigo-600",
+      iconColor: "text-primary",
     },
     {
       id: 5,
@@ -61,7 +61,7 @@ const SpecialServices = () => {
       title: t("strategicMedia.title"),
       description: t("strategicMedia.description"),
       color: "from-yellow-500/20 to-amber-500/20",
-      iconColor: "text-amber-600",
+      iconColor: "text-primary",
     },
     {
       id: 6,
@@ -70,7 +70,7 @@ const SpecialServices = () => {
       title: t("strategicGovernance.title"),
       description: t("strategicGovernance.description"),
       color: "from-slate-500/20 to-gray-500/20",
-      iconColor: "text-slate-600",
+      iconColor: "text-primary",
     },
   ];
 

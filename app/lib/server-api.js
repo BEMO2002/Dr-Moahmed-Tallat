@@ -490,3 +490,61 @@ export async function fetchSitemapRaw() {
     return null;
   }
 }
+
+/**
+ * Fetch testimonials with pagination support
+ */
+export async function fetchTestimonials(params = {}) {
+  try {
+    const url = new URL(`${baseUrl}/testimonials`);
+    Object.keys(params).forEach((key) => {
+      if (params[key] !== undefined) url.searchParams.append(key, params[key]);
+    });
+
+    const res = await fetch(url.toString(), {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Api-Key": "P4OIp8prRKBeO0kogfGViTNzmAT8UnzL",
+      },
+      next: { revalidate: 0 },
+    });
+
+    if (!res.ok) return null;
+    const json = await res.json();
+    return json?.data || null;
+  } catch (err) {
+    console.error("fetchTestimonials Error:", err);
+    return null;
+  }
+}
+
+/**
+ * Fetch conferences with pagination support
+ */
+export async function fetchConferences(params = {}) {
+  try {
+    const url = new URL(`${baseUrl}/conferences`);
+    Object.keys(params).forEach((key) => {
+      if (params[key] !== undefined) url.searchParams.append(key, params[key]);
+    });
+
+    const res = await fetch(url.toString(), {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Api-Key": "P4OIp8prRKBeO0kogfGViTNzmAT8UnzL",
+      },
+      next: { revalidate: 0 },
+    });
+
+    if (!res.ok) return null;
+    const json = await res.json();
+    return json?.data || null;
+  } catch (err) {
+    console.error("fetchConferences Error:", err);
+    return null;
+  }
+}
+
+

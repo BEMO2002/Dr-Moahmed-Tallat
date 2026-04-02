@@ -83,7 +83,7 @@ const AboutTwo = () => {
             {/* Spinner Decoration */}
             <motion.div
               transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              className="absolute -top-10 -right-10 w-32 h-32 opacity-30 select-none z-0"
+              className="absolute md:-top-10 md:-right-10 -top-4 -right-4 w-24 h-24 md:w-32 md:h-32 opacity-30 select-none z-0"
             >
               <FaGlobe className="w-full h-full text-primary" />
             </motion.div>
