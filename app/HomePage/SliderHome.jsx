@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay, EffectFade } from "swiper/modules";
 import { useTranslations, useLocale } from "next-intl";
@@ -24,9 +25,6 @@ const SliderHome = ({ initialSliders = [] }) => {
   const locale = useLocale();
   const isRTL = locale === "ar";
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
-
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
 
   const handleSlideClick = (link) => {
     if (link) {
@@ -195,9 +193,12 @@ const SliderHome = ({ initialSliders = [] }) => {
                           );
                         } else {
                           return (
-                            <img
+                            <Image
                               src={bannerUrl}
                               alt=""
+                              width={800}
+                              height={600}
+                              priority={index === 0}
                               className="w-full h-[350px] sm:h-[400px] md:h-[500px] lg:h-[600px] rounded-2xl object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.12)]"
                             />
                           );

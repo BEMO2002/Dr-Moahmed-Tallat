@@ -7,32 +7,99 @@ import { useSettings } from "../Context/SettingContext";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { FaPaperPlane, FaChevronDown } from "react-icons/fa";
 import { fetchContactTypes } from "../lib/server-api";
+import Image from "next/image";
 
-// US Flag Component
+// US Flag Component (Using UK flag as per user change)
 const USFlag = ({ className = "w-6 h-4" }) => (
   <div
     className={`${className} relative rounded-sm shadow-sm border border-gray-200 overflow-hidden`}
   >
-    <img
-      src="https://flagcdn.com/w40/us.png"
+    <Image
+      src="https://flagcdn.com/w40/gb.png"
       alt="English"
-      className="w-full h-full object-cover"
+      fill
+      className="object-cover"
     />
   </div>
 );
 
-// Egypt Flag Component
-const EgyptFlag = ({ className = "w-10 h-6" }) => (
+// Egypt Flag Component (Using Saudi flag as per user change)
+const EgyptFlag = ({ className = "" }) => (
   <div
     className={`${className} relative rounded-sm shadow-sm border border-gray-200 overflow-hidden`}
   >
-    <img
-      src="https://flagcdn.com/w40/eg.png"
+    <Image
+      src="https://flagcdn.com/w40/sa.png"
       alt="Arabic"
-      className="w-full h-full object-cover"
+      fill
+      className="object-cover"
     />
   </div>
 );
+
+const LanguageDropdown = ({
+  className,
+  locale,
+  isRTL,
+  isLangDropdownOpen,
+  setIsLangDropdownOpen,
+  switchLanguage,
+}) => {
+  const t = useTranslations("navbar");
+  return (
+    <div
+      className="relative group"
+      onMouseEnter={() => setIsLangDropdownOpen(true)}
+      onMouseLeave={() => setIsLangDropdownOpen(false)}
+    >
+      <button
+        className={`${className} flex items-center gap-2 bg-gray-50 hover:bg-white hover:shadow-md transition-all duration-300 border border-gray-200 rounded-full px-3 py-2 w-full `}
+      >
+        <div className="flex items-center gap-2">
+          {locale === "en" ? (
+            <USFlag className="w-6 h-4 scale-125" />
+          ) : (
+            <EgyptFlag className="w-6 h-4 scale-125" />
+          )}
+          <span className="text-baseTwo font-bold uppercase text-xs">
+            {locale === "en" ? "EN" : "AR"}
+          </span>
+        </div>
+        <FaChevronDown
+          size={10}
+          className={`opacity-50 transition-transform duration-300 ${isLangDropdownOpen ? "rotate-180" : ""}`}
+        />
+      </button>
+
+      {isLangDropdownOpen && (
+        <div
+          className={`absolute top-full ${isRTL ? "left-0" : "right-0"} pt-2 z-60 min-w-[140px] animate-in fade-in slide-in-from-top-2 duration-200`}
+        >
+          <div className="bg-white border border-gray-100 shadow-2xl rounded-2xl flex flex-col py-1 overflow-hidden">
+            <button
+              onClick={() => switchLanguage("en")}
+              className={`px-4 py-3 hover:bg-gray-50 flex items-center gap-3 transition-colors ${locale === "en" ? "bg-primary/5 text-primary" : "text-baseTwo"}`}
+            >
+              <USFlag className="w-5 h-3.5" />
+              <span className="font-bold text-xs uppercase text-start">
+                {t("english")}
+              </span>
+            </button>
+            <button
+              onClick={() => switchLanguage("ar")}
+              className={`px-4 py-3 hover:bg-gray-50 flex items-center gap-3 transition-colors ${locale === "ar" ? "bg-primary/5 text-primary" : "text-baseTwo"}`}
+            >
+              <EgyptFlag className="w-6 h-4" />
+              <span className="font-bold text-xs uppercase text-start">
+                {t("arabic")}
+              </span>
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -51,6 +118,7 @@ const Navbar = () => {
   const [isExecutiveDropdownOpen, setIsExecutiveDropdownOpen] = useState(false);
   const [isMobileExecutiveDropdownOpen, setIsMobileExecutiveDropdownOpen] =
     useState(false);
+  const [isLangDropdownOpen, setIsLangDropdownOpen] = useState(false);
 
   useEffect(() => {
     fetchContactTypes().then(setContactTypes).catch(console.error);
@@ -63,14 +131,16 @@ const Navbar = () => {
     setIsMobileMediaDropdownOpen(false);
     setIsExecutiveDropdownOpen(false);
     setIsMobileExecutiveDropdownOpen(false);
+    setIsLangDropdownOpen(false);
   };
   const isActive = (path) => pathname === path;
 
-  const toggleLanguage = () => {
+  const switchLanguage = (newLocale) => {
     router.replace(pathname, {
-      locale: locale === "en" ? "ar" : "en",
+      locale: newLocale,
       scroll: false,
     });
+    setIsLangDropdownOpen(false);
   };
 
   const navLinks = [
@@ -105,23 +175,6 @@ const Navbar = () => {
     </Link>
   );
 
-  const LanguageBtn = ({ className }) => (
-    <button
-      onClick={toggleLanguage}
-      className={className}
-      title={locale === "en" ? "Switch to Arabic" : "Switch to English"}
-    >
-      {locale === "en" ? (
-        <USFlag className="w-7 h-4" />
-      ) : (
-        <EgyptFlag className="w-7 h-4" />
-      )}
-      <span className="text-baseTwo font-bold uppercase">
-        {locale === "en" ? "AR" : "EN"}
-      </span>
-    </button>
-  );
-
   return (
     <>
       <nav className="bg-white shadow-sm backdrop-blur-sm fixed top-0 left-0 right-0 z-[999] py-4 md:px-6 px-2">
@@ -129,12 +182,19 @@ const Navbar = () => {
           <div className="flex justify-between items-center h-18">
             {/* Logo Section */}
             <div className="">
-              <Link href="/" onClick={closeMenu} className="block group">
+              <Link
+                href="/"
+                onClick={closeMenu}
+                className="block group relative w-30 h-30 md:w-30 lg:w-30 lg:h-30"
+              >
                 {settings?.logo && (
-                  <img
+                  <Image
                     src={settings.logo}
                     alt="Logo"
-                    className="md:w-30 w-28 lg:h-30 lg:w-auto object-contain p-1.5"
+                    fill
+                    priority
+                    sizes="(max-width: 768px) 112px, 160px"
+                    className="object-contain p-1.5"
                   />
                 )}
               </Link>
@@ -197,7 +257,14 @@ const Navbar = () => {
 
             {/* Utility Space*/}
             <div className="flex items-center md:space-x-4 space-x-2">
-              <LanguageBtn className="flex items-center space-x-1 bg-gray-50 shadow-sm rounded-full px-2.5 py-2 transition-all duration-300 border border-gray-200 text-xs" />
+              <LanguageDropdown
+                className=""
+                locale={locale}
+                isRTL={isRTL}
+                isLangDropdownOpen={isLangDropdownOpen}
+                setIsLangDropdownOpen={setIsLangDropdownOpen}
+                switchLanguage={switchLanguage}
+              />
 
               {/* Desktop Executive Request CTA */}
               <div
@@ -273,13 +340,18 @@ const Navbar = () => {
         >
           <div className="flex flex-col h-full bg-third/5">
             {/* Header */}
-            <div className="p-6 flex items-center justify-between border-b border-gray-100 shadow-sm bg-white">
-              <Link href="/" onClick={closeMenu} className="block">
+            <div className="p-2 flex items-center justify-between border-b border-gray-100 shadow-sm bg-white">
+              <Link
+                href="/"
+                onClick={closeMenu}
+                className="block relative h-20 w-32"
+              >
                 {settings?.logo ? (
-                  <img
+                  <Image
                     src={settings.logo}
                     alt="Logo"
-                    className="h-20 w-auto object-contain"
+                    fill
+                    className="object-contain"
                   />
                 ) : (
                   <span className="text-xl font-bold text-primary">
@@ -400,8 +472,32 @@ const Navbar = () => {
             </div>
 
             {/* Footer */}
-            <div className="p-6 border-t border-gray-100 bg-gray-50">
-              <LanguageBtn className="flex items-center justify-center space-x-3 w-full bg-white border border-gray-200 rounded-xl px-4 py-3 shadow-sm hover:border-primary transition-all text-sm" />
+            <div className="p-6 border-t border-gray-100 bg-gray-50 flex flex-col gap-4">
+              <div className="flex items-center justify-between px-2">
+                <span className="text-sm font-bold text-baseTwo uppercase">
+                  {t("navbar.language", "Language")}
+                </span>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <button
+                  onClick={() => switchLanguage("en")}
+                  className={`flex items-center justify-center gap-2 px-4 py-3 rounded-xl border transition-all ${locale === "en" ? "bg-primary text-white border-primary shadow-lg shadow-primary/20" : "bg-white border-gray-200 text-baseTwo hover:border-primary"}`}
+                >
+                  <USFlag className="w-5 h-3.5" />
+                  <span className="font-bold text-sm uppercase">
+                    {t("navbar.english")}
+                  </span>
+                </button>
+                <button
+                  onClick={() => switchLanguage("ar")}
+                  className={`flex items-center justify-center gap-2 px-4 py-3 rounded-xl border transition-all ${locale === "ar" ? "bg-primary text-white border-primary shadow-lg shadow-primary/20" : "bg-white border-gray-200 text-baseTwo hover:border-primary"}`}
+                >
+                  <EgyptFlag className="w-5 h-3.5" />
+                  <span className="font-bold text-sm uppercase">
+                    {t("navbar.arabic")}
+                  </span>
+                </button>
+              </div>
             </div>
           </div>
         </div>

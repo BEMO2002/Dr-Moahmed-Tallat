@@ -4,7 +4,18 @@ const withNextIntl = createNextIntlPlugin();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  /* config options here */
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "phplaravel-1599200-6319906.cloudwaysapps.com",
+      },
+      {
+        protocol: "https",
+        hostname: "flagcdn.com",
+      },
+    ],
+  },
 };
 
 export default withNextIntl(nextConfig);

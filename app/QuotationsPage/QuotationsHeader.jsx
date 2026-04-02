@@ -7,6 +7,7 @@ import {
 } from "react-icons/md";
 import { useTranslations, useLocale } from "next-intl";
 import { Link } from "../../i18n/routing";
+import Image from "next/image";
 import spinnerImage from "../../public/Home/shape-31.png";
 import spinnerImageTwo from "../../public/Home/shape-32.png";
 
@@ -18,13 +19,13 @@ const QuotationsHeader = () => {
   return (
     <div className="relative">
       <div className="bg-third p-20 text-white relative overflow-hidden">
-        <img
-          src={spinnerImage.src || spinnerImage}
+        <Image
+          src={spinnerImage}
           alt="decoration"
           className="absolute bottom-5 left-5 w-40 h-40 object-contain hidden md:block"
         />
-        <img
-          src={spinnerImageTwo.src || spinnerImageTwo}
+        <Image
+          src={spinnerImageTwo}
           alt="decoration"
           className="absolute top-7 right-5 w-50 h-50 object-contain hidden md:block"
         />
