@@ -44,7 +44,7 @@ const Analyses = ({ articles, translations, locale, isRTL }) => {
 
                   {/* Category Badge */}
                   <div className="absolute top-4 right-4 rtl:left-4 rtl:right-auto bg-white/90 backdrop-blur-sm px-4 py-1.5 rounded-full z-10 shadow-lg">
-                    <span className="text-xs font-black text-primary uppercase tracking-widest">
+                    <span className="text-xs whitespace-nowrap font-black text-primary uppercase tracking-widest">
                       {article.type?.name?.[locale] ||
                         article.type?.name?.["en"]}
                     </span>

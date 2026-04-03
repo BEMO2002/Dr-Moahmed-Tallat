@@ -48,9 +48,9 @@ const AnalysesDetails = ({ article, translations, locale, isRTL }) => {
 
             <div className="flex items-center gap-2 text-slate-400 text-sm font-bold uppercase tracking-widest mb-6">
               <FaRegCalendarAlt className="text-secondary" />
-              <span>{article.created_at}</span>
+              <span className="whitespace-nowrap ">{article.created_at}</span>
               <span className="mx-2">•</span>
-              <span className="text-primary">
+              <span className="text-primary whitespace-nowrap">
                 {article.type?.name?.[locale] || article.type?.name?.["en"]}
               </span>
             </div>
