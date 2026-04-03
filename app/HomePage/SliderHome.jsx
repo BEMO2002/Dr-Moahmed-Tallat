@@ -11,20 +11,34 @@ import {
   FaFacebookF,
   FaTwitter,
   FaLinkedin,
+  FaWhatsapp,
+  FaYoutube,
   FaPenNib,
   FaGlobe,
   FaMicrophoneAlt,
   FaArrowLeft,
   FaArrowRight,
 } from "react-icons/fa";
+import { useSettings } from "../Context/SettingContext";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/effect-fade";
 const SliderHome = ({ initialSliders = [] }) => {
   const t = useTranslations();
   const locale = useLocale();
+  const { settings } = useSettings();
   const isRTL = locale === "ar";
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+
+  // Social Links mapping from settings - carefully matching the provided structure
+  const socialLinks = {
+    facebook: settings?.social_links?.facebook || null,
+    instagram: settings?.social_links?.instagram || null,
+    twitter: settings?.social_links?.twitter || null,
+    linkedin: settings?.social_links?.linkedin || null,
+    youtube: settings?.social_links?.youtube || null,
+    whatsapp: settings?.whatsapp || settings?.social_links?.whatsapp || null,
+  };
 
   const handleSlideClick = (link) => {
     if (link) {
@@ -155,22 +169,78 @@ const SliderHome = ({ initialSliders = [] }) => {
                     <div className="absolute -inset-6 bg-linear-to-tr from-primary/20 to-baseTwo/20 rounded-[40px] opacity-10 blur-3xl pointer-events-none" />
                     <div className="absolute top-8 -left-8 w-full h-full border-[3px] border-primary/10 rounded-3xl -z-10 pointer-events-none" />
 
-                    {/* Social Icons with CSS-based floating anims */}
-                    <div className="float-anim absolute -top-4 -left-4 md:-top-8 md:-left-8 w-10 h-10 md:w-12 md:h-12 bg-white shadow-xl rounded-xl md:rounded-2xl flex items-center justify-center text-[#E4405F] text-xl z-40 border border-gray-50 select-none">
-                      <FaInstagram size={20} className="md:size-6" />
-                    </div>
+                    {/* Social Icons with CSS-based floating anims - Individually positioned */}
+                    {socialLinks.instagram && (
+                      <a
+                        href={socialLinks.instagram}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="float-anim absolute -top-4 -left-4 md:-top-8 md:-left-8 w-10 h-10 md:w-12 md:h-12 bg-white shadow-xl rounded-xl md:rounded-2xl flex items-center justify-center text-[#E4405F] text-xl z-40 border border-gray-50 select-none hover:scale-110 transition-transform duration-300"
+                        title="Instagram"
+                      >
+                        <FaInstagram size={20} className="md:size-6" />
+                      </a>
+                    )}
 
-                    <div className="float-anim-reverse absolute bottom-12 -right-5 md:bottom-16 md:-right-10 w-10 h-10 md:w-12 md:h-12 bg-white shadow-xl rounded-xl md:rounded-2xl flex items-center justify-center text-blue-900 text-xl z-40 border border-gray-50 select-none">
-                      <FaFacebookF size={20} className="md:size-6" />
-                    </div>
+                    {socialLinks.facebook && (
+                      <a
+                        href={socialLinks.facebook}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="float-anim-reverse absolute bottom-12 -right-5 md:bottom-16 md:-right-10 w-10 h-10 md:w-12 md:h-12 bg-white shadow-xl rounded-xl md:rounded-2xl flex items-center justify-center text-[#1877F2] text-xl z-40 border border-gray-50 select-none hover:scale-110 transition-transform duration-300"
+                        title="Facebook"
+                      >
+                        <FaFacebookF size={20} className="md:size-6" />
+                      </a>
+                    )}
 
-                    <div className="float-anim-delayed absolute -bottom-4 left-1/4 w-10 h-10 md:w-12 md:h-12 bg-white shadow-xl rounded-xl md:rounded-2xl flex items-center justify-center text-[#1DA1F2] text-lg z-40 border border-gray-50 select-none">
-                      <FaTwitter size={20} className="md:size-6" />
-                    </div>
+                    {socialLinks.twitter && (
+                      <a
+                        href={socialLinks.twitter}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="float-anim-delayed absolute -bottom-4 left-1/4 w-10 h-10 md:w-12 md:h-12 bg-white shadow-xl rounded-xl md:rounded-2xl flex items-center justify-center text-[#1DA1F2] text-lg z-40 border border-gray-50 select-none hover:scale-110 transition-transform duration-300"
+                        title="Twitter"
+                      >
+                        <FaTwitter size={20} className="md:size-6" />
+                      </a>
+                    )}
 
-                    <div className="float-anim-delayed absolute top-0 -right-4 md:-right-5 w-10 h-10 md:w-12 md:h-12 bg-white shadow-xl rounded-xl md:rounded-2xl flex items-center justify-center text-[#1DA1F2] text-lg z-40 border border-gray-50 select-none">
-                      <FaLinkedin size={20} className="md:size-6" />
-                    </div>
+                    {socialLinks.linkedin && (
+                      <a
+                        href={socialLinks.linkedin}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="float-anim-delayed absolute top-0 -right-4 md:-right-5 w-10 h-10 md:w-12 md:h-12 bg-white shadow-xl rounded-xl md:rounded-2xl flex items-center justify-center text-[#0077B5] text-xl z-40 border border-gray-50 select-none hover:scale-110 transition-transform duration-300"
+                        title="LinkedIn"
+                      >
+                        <FaLinkedin size={20} className="md:size-6" />
+                      </a>
+                    )}
+
+                    {socialLinks.whatsapp && (
+                      <a
+                        href={socialLinks.whatsapp}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="float-anim absolute -bottom-4 -left-4 md:-bottom-10 md:-left-8 w-10 h-10 md:w-14 md:h-14 bg-white shadow-xl rounded-xl md:rounded-2xl flex items-center justify-center text-[#25D366] text-xl z-40 border border-gray-50 select-none hover:scale-110 transition-transform duration-300"
+                        title="WhatsApp"
+                      >
+                        <FaWhatsapp size={24} className="md:size-8" />
+                      </a>
+                    )}
+
+                    {socialLinks.youtube && (
+                      <a
+                        href={socialLinks.youtube}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="float-anim-reverse absolute top-1/2 -right-6 md:-right-10 w-10 h-10 md:w-12 md:h-12 bg-white shadow-xl rounded-xl md:rounded-2xl flex items-center justify-center text-[#FF0000] text-xl z-40 border border-gray-50 select-none hover:scale-110 transition-transform duration-300"
+                        title="YouTube"
+                      >
+                        <FaYoutube size={20} className="md:size-6" />
+                      </a>
+                    )}
 
                     {/* Hero Image/Video */}
                     <div className="relative z-30 transition-transform duration-700 hover:scale-[1.01]">

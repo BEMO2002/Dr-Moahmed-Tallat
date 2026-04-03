@@ -3,10 +3,10 @@ import SliderServer from "../HomePage/SliderServer";
 import { fetchSettings } from "../lib/server-api";
 import AboutTwo from "../HomePage/AboutTwo";
 import InfinitySlider from "../HomePage/InfinitySlider";
-// import Services from "../CoursesPage/Services";
 import SpecialServices from "../HomePage/SpecialServices";
 import InfinitySliderTwo from "../HomePage/InfintySliderTwo";
 import Counter from "../HomePage/Counter";
+import TallatCvServer from "../HomePage/TallatCvServer";
 
 export async function generateMetadata({ params }) {
   const resolvedParams = await params;
@@ -64,7 +64,7 @@ export default function MainHome() {
       <InfinitySliderTwo />
       <SpecialServices />
       <InfinitySlider />
-      {/* <Services /> */}
+      <TallatCvServer />
     </>
   );
 }

@@ -4,10 +4,12 @@ import { FiMenu, FiX } from "react-icons/fi";
 import { Link, usePathname, useRouter } from "../../i18n/routing";
 import { useTranslations, useLocale } from "next-intl";
 import { useSettings } from "../Context/SettingContext";
+import { useVault } from "../Context/VaultContext";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { FaPaperPlane, FaChevronDown } from "react-icons/fa";
-import { fetchContactTypes } from "../lib/server-api";
+import { fetchContactTypes, fetchArticleTypes } from "../lib/server-api";
 import Image from "next/image";
+import VaultModal from "./VaultModal";
 
 // US Flag Component (Using UK flag as per user change)
 const USFlag = ({ className = "w-6 h-4" }) => (
@@ -109,12 +111,15 @@ const Navbar = () => {
   const locale = useLocale();
   const isRTL = locale === "ar";
   const { settings } = useSettings();
+  const { isUnlocked } = useVault();
 
-  const [isMediaDropdownOpen, setIsMediaDropdownOpen] = useState(false);
-  const [isMobileMediaDropdownOpen, setIsMobileMediaDropdownOpen] =
-    useState(false);
+  const [isVaultModalOpen, setIsVaultModalOpen] = useState(false);
+
+  const [openDropdown, setOpenDropdown] = useState(null);
+  const [openMobileDropdown, setOpenMobileDropdown] = useState(null);
 
   const [contactTypes, setContactTypes] = useState([]);
+  const [articleTypes, setArticleTypes] = useState([]);
   const [isExecutiveDropdownOpen, setIsExecutiveDropdownOpen] = useState(false);
   const [isMobileExecutiveDropdownOpen, setIsMobileExecutiveDropdownOpen] =
     useState(false);
@@ -122,13 +127,14 @@ const Navbar = () => {
 
   useEffect(() => {
     fetchContactTypes().then(setContactTypes).catch(console.error);
+    fetchArticleTypes().then(setArticleTypes).catch(console.error);
   }, []);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => {
     setIsMenuOpen(false);
-    setIsMediaDropdownOpen(false);
-    setIsMobileMediaDropdownOpen(false);
+    setOpenDropdown(null);
+    setOpenMobileDropdown(null);
     setIsExecutiveDropdownOpen(false);
     setIsMobileExecutiveDropdownOpen(false);
     setIsLangDropdownOpen(false);
@@ -145,10 +151,10 @@ const Navbar = () => {
 
   const navLinks = [
     { to: "/", label: t("navbar.home") },
-    { to: "/courses", label: t("navbar.services") },
     {
       label: t("navbar.media.title"),
       isDropdown: true,
+      dropdownId: "media",
       items: [
         { to: "/meetings-conferences", label: t("navbar.media.interviews") },
         { to: "/blogs?type=articles", label: t("navbar.media.articles") },
@@ -156,24 +162,52 @@ const Navbar = () => {
         { to: "/quotations", label: t("navbar.media.citations") },
       ],
     },
+    {
+      label: t("navbar.analyses", "Analyses"),
+      isDropdown: true,
+      dropdownId: "analyses",
+      items: [
+        { to: "/analyses", label: t("navbar.allAnalyses", "All Analyses") },
+        ...articleTypes.map((type) => ({
+          to: `/analyses/${type.slug[locale] || type.slug["en"]}`,
+          label: type.name[locale] || type.name["en"],
+        })),
+      ],
+    },
     { to: "/about", label: t("navbar.about") },
     { to: "/contact", label: t("navbar.contact") },
+    {
+      to: "/research-archive",
+      label: t("navbar.researchArchive"),
+      isVault: true,
+    },
   ];
 
-  const DesktopNavLink = ({ to, children }) => (
-    <Link
-      href={to}
-      onClick={closeMenu}
-      className={`relative group px-4 py-3 text-lg font-medium transition-all duration-300 rounded-lg hover:bg-black/5 ${
-        isActive(to) ? "text-baseTwo" : "text-baseTwo hover:text-primary"
-      }`}
-    >
-      {children}
-      <span
-        className={`absolute bottom-0 left-0 h-0.5 bg-primary transition-all duration-300 ${isActive(to) ? "w-full" : "w-0 group-hover:w-full"}`}
-      ></span>
-    </Link>
-  );
+  const DesktopNavLink = ({ to, children, isVault }) => {
+    const handleClick = (e) => {
+      if (isVault && !isUnlocked) {
+        e.preventDefault();
+        setIsVaultModalOpen(true);
+      } else {
+        closeMenu();
+      }
+    };
+
+    return (
+      <Link
+        href={to}
+        onClick={handleClick}
+        className={`relative group px-4 py-3 text-lg font-medium transition-all duration-300 rounded-lg hover:bg-black/5 ${
+          isActive(to) ? "text-baseTwo" : "text-baseTwo hover:text-primary"
+        }`}
+      >
+        {children}
+        <span
+          className={`absolute bottom-0 left-0 h-0.5 bg-primary transition-all duration-300 ${isActive(to) ? "w-full" : "w-0 group-hover:w-full"}`}
+        ></span>
+      </Link>
+    );
+  };
 
   return (
     <>
@@ -208,8 +242,8 @@ const Navbar = () => {
                     <div
                       key={idx}
                       className="relative group"
-                      onMouseEnter={() => setIsMediaDropdownOpen(true)}
-                      onMouseLeave={() => setIsMediaDropdownOpen(false)}
+                      onMouseEnter={() => setOpenDropdown(link.dropdownId)}
+                      onMouseLeave={() => setOpenDropdown(null)}
                     >
                       <button
                         className={`flex items-center gap-1 px-4 py-3 text-lg font-medium transition-all duration-300 rounded-lg hover:bg-black/5 text-baseTwo group-hover:text-primary`}
@@ -217,30 +251,36 @@ const Navbar = () => {
                         <span>{link.label}</span>
                         <FaChevronDown
                           size={12}
-                          className={`opacity-50 transition-transform duration-300 ${isMediaDropdownOpen ? "rotate-180" : ""}`}
+                          className={`opacity-50 transition-transform duration-300 ${openDropdown === link.dropdownId ? "rotate-180" : ""}`}
                         />
                       </button>
-                      {isMediaDropdownOpen && (
+                      {openDropdown === link.dropdownId && (
                         <div
-                          className={`absolute top-full ${isRTL ? "right-0" : "left-0"} pt-1  min-w-[220px] animate-in fade-in slide-in-from-top-2 duration-200`}
+                          className={`absolute top-full ${isRTL ? "right-0" : "left-0"} pt-1 min-w-[220px] animate-in fade-in slide-in-from-top-2 duration-200 z-[9000]`}
                         >
                           <div className="bg-white border border-gray-100 shadow-xl rounded-2xl flex flex-col py-1 overflow-hidden">
-                            {link.items.map((item, i) => (
-                              <Link
-                                key={i}
-                                href={item.to}
-                                onClick={() => setIsMediaDropdownOpen(false)}
-                                className={`px-5 py-3.5 text-baseTwo hover:bg-gray-50 hover:text-primary transition-all border-b last:border-0 border-gray-50 flex items-center justify-between group ${isRTL ? "text-right" : "text-left"}`}
-                              >
-                                <span className="font-semibold text-sm">
-                                  {item.label}
-                                </span>
-                                <MdOutlineKeyboardArrowDown
-                                  size={16}
-                                  className={`opacity-0 group-hover:opacity-30 transition-all ${isRTL ? "rotate-90" : "-rotate-90"}`}
-                                />
-                              </Link>
-                            ))}
+                            {link.items.length > 0 ? (
+                              link.items.map((item, i) => (
+                                <Link
+                                  key={i}
+                                  href={item.to}
+                                  onClick={() => setOpenDropdown(null)}
+                                  className={`px-5 py-3.5 text-baseTwo hover:bg-gray-50 hover:text-primary transition-all border-b last:border-0 border-gray-50 flex items-center justify-between group ${isRTL ? "text-right" : "text-left"}`}
+                                >
+                                  <span className="font-semibold text-sm">
+                                    {item.label}
+                                  </span>
+                                  <MdOutlineKeyboardArrowDown
+                                    size={16}
+                                    className={`opacity-0 group-hover:opacity-30 transition-all ${isRTL ? "rotate-90" : "-rotate-90"}`}
+                                  />
+                                </Link>
+                              ))
+                            ) : (
+                              <div className="px-5 py-3.5 text-slate-400 text-sm font-semibold">
+                                {t("navbar.loading", "Loading...")}
+                              </div>
+                            )}
                           </div>
                         </div>
                       )}
@@ -248,7 +288,11 @@ const Navbar = () => {
                   );
                 }
                 return (
-                  <DesktopNavLink key={link.to} to={link.to}>
+                  <DesktopNavLink
+                    key={link.to}
+                    to={link.to}
+                    isVault={link.isVault}
+                  >
                     {link.label}
                   </DesktopNavLink>
                 );
@@ -372,35 +416,52 @@ const Navbar = () => {
               {navLinks.map((link, idx) => {
                 if (link.isDropdown) {
                   return (
-                    <div key={idx} className="w-full">
+                    <div key={idx} className="flex flex-col">
                       <button
                         onClick={() =>
-                          setIsMobileMediaDropdownOpen(
-                            !isMobileMediaDropdownOpen,
+                          setOpenMobileDropdown(
+                            openMobileDropdown === link.dropdownId
+                              ? null
+                              : link.dropdownId,
                           )
                         }
-                        className={`w-full text-lg font-bold py-3 transition-colors flex items-center justify-between ${isMobileMediaDropdownOpen ? "text-primary" : "text-baseTwo"}`}
+                        className={`text-lg font-bold py-3 text-left transition-colors flex items-center justify-between ${openMobileDropdown === link.dropdownId ? "text-primary" : "text-baseTwo hover:text-primary"}`}
                       >
                         <span className="text-start">{link.label}</span>
                         <FaChevronDown
                           size={14}
-                          className={`transition-transform duration-300 ${isMobileMediaDropdownOpen ? "rotate-180" : "rotate-0"}`}
+                          className={`opacity-50 transition-transform duration-300 ${openMobileDropdown === link.dropdownId ? "rotate-180" : ""}`}
                         />
                       </button>
+                      {/* Mobile Dropdown Menu Items */}
                       <div
-                        className={`overflow-hidden transition-all duration-300 ease-in-out ${isMobileMediaDropdownOpen ? "max-h-[400px] opacity-100" : "max-h-0 opacity-0"}`}
+                        className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                          openMobileDropdown === link.dropdownId
+                            ? "max-h-[800px] opacity-100 mb-2"
+                            : "max-h-0 opacity-0"
+                        }`}
                       >
-                        <div className="flex flex-col gap-1 border-s-2 border-primary/10 ml-2 rtl:ml-0 rtl:mr-2 pl-4 rtl:pl-0 rtl:pr-4 py-2">
-                          {link.items.map((item, i) => (
-                            <Link
-                              key={i}
-                              href={item.to}
-                              onClick={closeMenu}
-                              className="py-2.5 text-md font-medium text-slate-600 hover:text-primary transition-colors text-start block"
-                            >
-                              {item.label}
-                            </Link>
-                          ))}
+                        <div className="flex flex-col border-l-2 border-gray-100 ml-2 pl-4 space-y-1">
+                          {link.items.length > 0 ? (
+                            link.items.map((item, i) => (
+                              <Link
+                                key={i}
+                                href={item.to}
+                                onClick={closeMenu}
+                                className="py-2.5 text-base font-medium text-slate-500 hover:text-primary transition-colors flex items-center group"
+                              >
+                                <span>{item.label}</span>
+                                <MdOutlineKeyboardArrowDown
+                                  size={16}
+                                  className={`opacity-0 group-hover:opacity-100 transition-all mx-2 ${isRTL ? "rotate-90" : "-rotate-90"}`}
+                                />
+                              </Link>
+                            ))
+                          ) : (
+                            <div className="py-2.5 text-base font-medium text-slate-400">
+                              {t("navbar.loading", "Loading...")}
+                            </div>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -410,7 +471,14 @@ const Navbar = () => {
                   <Link
                     key={link.to}
                     href={link.to}
-                    onClick={closeMenu}
+                    onClick={(e) => {
+                      if (link.isVault && !isUnlocked) {
+                        e.preventDefault();
+                        setIsVaultModalOpen(true);
+                      } else {
+                        closeMenu();
+                      }
+                    }}
                     className={`text-lg font-bold py-3 transition-colors flex items-center justify-between ${isActive(link.to) ? "text-primary" : "text-baseTwo hover:text-primary"}`}
                   >
                     <span className="text-start">{link.label}</span>
@@ -502,6 +570,12 @@ const Navbar = () => {
           </div>
         </div>
       </div>
+      {/* Vault Password Modal */}
+      <VaultModal
+        isOpen={isVaultModalOpen}
+        onClose={() => setIsVaultModalOpen(false)}
+        isRTL={isRTL}
+      />
     </>
   );
 };

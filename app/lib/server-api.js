@@ -547,4 +547,123 @@ export async function fetchConferences(params = {}) {
   }
 }
 
+/**
+ * Access research vault/archive with password
+ * @param {string} password 
+ */
+export async function accessVault(password) {
+  try {
+    const res = await fetch(`${baseUrl}/vault/access`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Api-Key": "P4OIp8prRKBeO0kogfGViTNzmAT8UnzL",
+      },
+      body: JSON.stringify({ password }),
+      next: { revalidate: 0 },
+    });
 
+    if (!res.ok) {
+      const errorData = await res.json();
+      return { success: false, message: errorData?.message || "Access denied" };
+    }
+
+    const json = await res.json();
+    return { success: true, data: json?.data || null, message: json?.message || "Success" };
+  } catch (err) {
+    console.error("accessVault Error:", err);
+    return { success: false, message: "Network error" };
+  }
+}
+
+/**
+ * Fetch all article types (categories)
+ */
+export async function fetchArticleTypes() {
+  try {
+    const res = await fetch(`${baseUrl}/article-types`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Api-Key": "P4OIp8prRKBeO0kogfGViTNzmAT8UnzL"
+      },
+      next: { revalidate: 60 }
+    });
+    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    const json = await res.json();
+    return json?.data || [];
+  } catch (err) {
+    console.error("fetchArticleTypes Error:", err);
+    return [];
+  }
+}
+
+/**
+ * Fetch articles filtered by type
+ * @param {string} typeSlug 
+ */
+export async function fetchArticlesList(typeSlug) {
+  try {
+    const url = typeSlug ? `${baseUrl}/articles?type_slug=${typeSlug}` : `${baseUrl}/articles`;
+    const res = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Api-Key": "P4OIp8prRKBeO0kogfGViTNzmAT8UnzL"
+      },
+      next: { revalidate: 60 }
+    });
+    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    const json = await res.json();
+    return json?.data?.data || [];
+  } catch (err) {
+    console.error("fetchArticlesList Error:", err);
+    return [];
+  }
+}
+
+/**
+ * Fetch a single article by slug
+ * @param {string} slug 
+ */
+export async function fetchArticleDetails(slug) {
+  try {
+    const res = await fetch(`${baseUrl}/articles/${slug}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Api-Key": "P4OIp8prRKBeO0kogfGViTNzmAT8UnzL"
+      },
+      next: { revalidate: 60 }
+    });
+    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    const json = await res.json();
+    return json?.data || null;
+  } catch (err) {
+    console.error("fetchArticleDetails Error:", err);
+    return null;
+  }
+}
+
+/**
+ * Fetch all pages from backend
+ */
+export async function fetchPages() {
+  try {
+    const res = await fetch(`${baseUrl}/pages`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Api-Key": "P4OIp8prRKBeO0kogfGViTNzmAT8UnzL",
+      },
+      next: { revalidate: 0 },
+    });
+
+    if (!res.ok) return [];
+    const json = await res.json();
+    return json?.data || [];
+  } catch (err) {
+    console.error("fetchPages Error:", err);
+    return [];
+  }
+}

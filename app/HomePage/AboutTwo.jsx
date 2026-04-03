@@ -10,7 +10,7 @@ import {
 } from "react-icons/hi2";
 import aboutImage from "../../public/Home/about.png";
 import { FaArrowLeft, FaArrowRight, FaGlobe } from "react-icons/fa";
-
+import Image from "next/image";
 const AboutTwo = () => {
   const t = useTranslations("about");
   const locale = useLocale();
@@ -21,7 +21,6 @@ const AboutTwo = () => {
   const tabs = [
     { key: "about", label: t("tabs.about"), icon: HiRocketLaunch },
     { key: "mission", label: t("tabs.mission"), icon: HiLightBulb },
-    { key: "vision", label: t("tabs.vision"), icon: HiChartBar },
   ];
 
   const activeContent = {
@@ -53,8 +52,8 @@ const AboutTwo = () => {
           >
             <div className="relative z-20 group">
               <div className="absolute -inset-4 bg-gradient-to-r from-primary to-baseTwo rounded-2xl opacity-10 group-hover:opacity-20 transition-opacity duration-500 blur-xl"></div>
-              <img
-                src={aboutImage.src}
+              <Image
+                src={aboutImage}
                 alt={t("imageAlt")}
                 className="rounded-2xl shadow-2xl relative z-10 w-full md:h-[700px] h-[500px] object-contain transform transition-transform duration-700 group-hover:scale-[1.02]"
               />
@@ -71,7 +70,7 @@ const AboutTwo = () => {
                     <HiChartBar />
                   </div>
                   <div>
-                    <p className="text-3xl font-bold text-baseTwo">20+</p>
+                    <p className="text-3xl font-bold text-baseTwo">15+</p>
                     <p className="text-sm text-gray-500 uppercase tracking-wider">
                       {t("yearsExp")}
                     </p>

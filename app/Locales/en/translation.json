@@ -18,7 +18,21 @@
     "seo_keywords": "Mohamed Talaat, Political Analyst, Psychological Analyst, Media Veteran, East News Agency, Journalism, Media, Political Analysis",
     "language": "Change Language",
     "english": "English",
-    "arabic": "Arabic"
+    "arabic": "Arabic",
+    "loading": "Loading...",
+    "analyses": "Analyses",
+    "allAnalyses": "All Analyses",
+    "researchArchive": "Research Archive",
+    "vault": {
+      "enterPassword": "Enter Password to Access",
+      "passwordSubtitle": "Please enter the password to access the research archive and confidential documents",
+      "wrongPassword": "Incorrect password. Please try again.",
+      "submit": "Enter Vault",
+      "noFiles": "No files in the archive",
+      "noFilesSubtitle": "The research archive is currently empty. Please check back later.",
+      "view": "View",
+      "preview": "Document Preview"
+    }
   },
   "megaMenu": {
     "trigger": "Full Menu",
@@ -405,7 +419,19 @@
     "title": "Meetings and Conferences",
     "breadcrumb": "Conferences",
     "loadError": "An error occurred while loading data",
-    "noItems": "No meetings or conferences available at the moment",
-    "watchVideo": "View Meeting"
+    "noItems": "No interviews or conferences at the moment",
+    "watchVideo": "Watch Video"
+  },
+  "analyses": {
+    "title": "Analyses",
+    "readMore": "Read More",
+    "attachments": "Attachments",
+    "noItems": "No analyses found for this category.",
+    "files": {
+      "white_papers": "White Papers",
+      "published_researches": "Published Researches",
+      "executive_briefs": "Executive Briefs",
+      "chronological_archive": "Chronological Archive"
+    }
   }
 }

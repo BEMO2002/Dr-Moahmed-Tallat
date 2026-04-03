@@ -3,12 +3,15 @@
 import { Toaster } from "react-hot-toast";
 import ApiAuthContextProvider from "../../AuthContext";
 import SettingsProvider from "../Context/SettingContext";
+import { VaultProvider } from "../Context/VaultContext";
 
 export default function Providers({ children, initialSettings }) {
   return (
     <ApiAuthContextProvider>
       <SettingsProvider initialSettings={initialSettings}>
-        {children}
+        <VaultProvider>
+          {children}
+        </VaultProvider>
         <Toaster
           position="top-center"
           toastOptions={{

@@ -1,0 +1,69 @@
+import React from "react";
+import { fetchSettings, fetchArticlesList } from "../../lib/server-api";
+import { getTranslations } from "next-intl/server";
+import AnalysesHeader from "../../AnalysesPage/AnalysesHeader";
+import Analyses from "../../AnalysesPage/Analyses";
+
+export async function generateMetadata({ params }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale });
+  const settings = await fetchSettings();
+
+  const siteName = settings?.site_name
+    ? locale === "ar"
+      ? settings.site_name.ar
+      : settings.site_name.en
+    : "Dr. Mohamed Talaat";
+
+  const title = t("navbar.allAnalyses");
+
+  return {
+    title: `${title} | ${siteName}`,
+    description: t("navbar.seo_description"),
+    openGraph: {
+      title: title,
+      type: "website",
+      ...(settings?.logo && { images: [settings.logo] }),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: title,
+      ...(settings?.logo && { images: [settings.logo] }),
+    },
+  };
+}
+
+const AnalysesAllPage = async ({ params }) => {
+  const { locale } = await params;
+  const t = await getTranslations({ locale });
+  const isRTL = locale === "ar";
+  
+  const title = t("navbar.allAnalyses");
+
+  // Fetch all articles (passing null/undefined for typeSlug parameter)
+  const articles = await fetchArticlesList();
+
+  const translations = {
+    noItems: t("analyses.noItems"),
+    readMore: t("analyses.readMore")
+  };
+
+  return (
+    <div className="analyses-page-container mt-20">
+      <AnalysesHeader 
+        title={title}
+        breadcrumbHome={t("navbar.home")}
+        breadcrumbCurrent={title}
+        isRTL={isRTL}
+      />
+      <Analyses 
+        articles={articles} 
+        translations={translations} 
+        locale={locale} 
+        isRTL={isRTL} 
+      />
+    </div>
+  );
+};
+
+export default AnalysesAllPage;
