@@ -8,7 +8,12 @@ import Image from "next/image";
 import spinnerImage from "../../public/Home/shape-31.png";
 import spinnerImageTwo from "../../public/Home/shape-32.png";
 
-const AnalysesHeader = ({ title, breadcrumbHome, breadcrumbCurrent, isRTL }) => {
+const AnalysesHeader = ({
+  title,
+  breadcrumbHome,
+  breadcrumbCurrent,
+  isRTL,
+}) => {
   return (
     <div className="relative">
       <div className="bg-third p-12 md:p-20 text-white relative overflow-hidden">
@@ -25,7 +30,7 @@ const AnalysesHeader = ({ title, breadcrumbHome, breadcrumbCurrent, isRTL }) => 
         {/* Content */}
         <div className="flex items-center justify-center flex-col gap-6 relative z-10">
           <h1
-            className={`text-4xl md:text-5xl whitespace-nowrap text-primary font-bold ${isRTL ? "text-right" : "text-left"} text-center uppercase tracking-tighter`}
+            className={`text-3xl md:text-5xl whitespace-nowrap text-primary font-bold ${isRTL ? "text-right" : "text-left"} text-center uppercase tracking-tighter`}
           >
             {title}
           </h1>
@@ -36,7 +41,7 @@ const AnalysesHeader = ({ title, breadcrumbHome, breadcrumbCurrent, isRTL }) => 
           >
             <Link
               href="/"
-              className="text-black transition-colors duration-300 font-medium hover:text-primary whitespace-nowrap"
+              className="text-black text-sm md:text-lg transition-colors duration-300 font-medium hover:text-primary whitespace-nowrap"
             >
               {breadcrumbHome}
             </Link>
@@ -47,7 +52,7 @@ const AnalysesHeader = ({ title, breadcrumbHome, breadcrumbCurrent, isRTL }) => 
               <MdOutlineKeyboardDoubleArrowRight className="text-primary" />
             )}
 
-            <span className="text-black whitespace-nowrap font-medium">
+            <span className="text-black text-sm md:text-lg whitespace-nowrap font-medium">
               {breadcrumbCurrent}
             </span>
           </div>
