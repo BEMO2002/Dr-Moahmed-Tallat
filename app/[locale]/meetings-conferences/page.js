@@ -16,7 +16,7 @@ export async function generateMetadata({ params }) {
     : "Dr. Mohamed Talaat";
 
   const title = t("meetings.title");
-  const description = t("meetings.title"); // Use title as fallback for description
+  const description = t("meetings.seo_description");
 
   return {
     title: `${title} - ${siteName}`,
