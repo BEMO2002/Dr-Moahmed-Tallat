@@ -1,9 +1,25 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
+import { useRouter } from "../../i18n/routing";
+import { useParams } from "next/navigation";
 import { FaFilePdf, FaDownload, FaRegCalendarAlt } from "react-icons/fa";
 
 const AnalysesDetails = ({ article, translations, locale, isRTL }) => {
+  const router = useRouter();
+  const params = useParams();
+  const slug = params ? params.slug : null;
+
+  useEffect(() => {
+    if (!article || !slug) return;
+    const correctSlug = article.slug?.[locale] || article.slug?.["en"];
+    const decodedCorrect = correctSlug ? decodeURIComponent(correctSlug) : "";
+    const decodedCurrent = decodeURIComponent(slug);
+    if (decodedCorrect && decodedCorrect !== decodedCurrent) {
+      router.replace(`/analyses/article/${correctSlug}`, { scroll: false });
+    }
+  }, [article, slug, locale, router]);
+
   if (!article) return null;
 
   const title = article.title?.[locale] || article.title?.["en"];

@@ -1,4 +1,3 @@
-import React from "react";
 import { fetchSettings, fetchArticleTypes, fetchArticlesList } from "../../../lib/server-api";
 import { getTranslations } from "next-intl/server";
 import AnalysesHeader from "../../../AnalysesPage/AnalysesHeader";
@@ -10,9 +9,9 @@ export async function generateMetadata({ params }) {
   const settings = await fetchSettings();
   const decodedType = decodeURIComponent(type);
 
-  // Need to find the type name from the types array since we only have the slug
+  // Find the type to get its metadata
   const types = await fetchArticleTypes();
-  const currentType = types.find(t => (t.slug?.[locale] === decodedType) || (t.slug?.["en"] === decodedType));
+  const currentType = types.find(t => (t.slug?.[locale] === decodedType) || (t.slug?.["en"] === decodedType) || (t.slug?.["ar"] === decodedType));
 
   const siteName = settings?.site_name
     ? locale === "ar"
@@ -23,19 +22,34 @@ export async function generateMetadata({ params }) {
   const fallbackName = decodedType ? decodedType.replace(/-/g, " ") : t("analyses.title");
   const typeName = currentType ? (currentType.name?.[locale] || currentType.name?.["en"]) : fallbackName;
   const title = `${typeName} - ${t("analyses.title")}`;
+  
+  // Use category-specific metadata if available
+  const description = currentType?.meta_description?.[locale] || currentType?.meta_description?.["en"] || currentType?.description?.[locale] || t("navbar.seo_description");
+  const image = currentType?.meta_image_url || currentType?.image_url || settings?.logo;
+
+  const arSlug = currentType?.slug?.["ar"] || currentType?.slug?.["en"] || decodedType;
+  const enSlug = currentType?.slug?.["en"] || currentType?.slug?.["ar"] || decodedType;
 
   return {
     title: `${title} | ${siteName}`,
-    description: t("navbar.seo_description"),
+    description: description,
+    alternates: {
+      languages: {
+        "ar": `/ar/analyses/${arSlug}`,
+        "en": `/en/analyses/${enSlug}`,
+      },
+    },
     openGraph: {
       title: title,
+      description: description,
       type: "website",
-      ...(settings?.logo && { images: [settings.logo] }),
+      ...(image && { images: [image] }),
     },
     twitter: {
       card: "summary_large_image",
       title: title,
-      ...(settings?.logo && { images: [settings.logo] }),
+      description: description,
+      ...(image && { images: [image] }),
     },
   };
 }
@@ -48,13 +62,12 @@ const AnalysesListPage = async ({ params }) => {
   const decodedType = decodeURIComponent(type);
 
   const types = await fetchArticleTypes();
-  const currentType = types.find(t => (t.slug?.[locale] === decodedType) || (t.slug?.["en"] === decodedType));
+  const currentType = types.find(t => (t.slug?.[locale] === decodedType) || (t.slug?.["en"] === decodedType) || (t.slug?.["ar"] === decodedType));
   
   const fallbackName = decodedType ? decodedType.replace(/-/g, " ") : t("analyses.title");
   const typeName = currentType ? (currentType.name?.[locale] || currentType.name?.["en"]) : fallbackName;
 
-  // Actually, fetchArticlesList expects the typeSlug
-  const articles = await fetchArticlesList(decodedType);
+  const articles = await fetchArticlesList(currentType?.slug?.[locale] || currentType?.slug?.["en"] || decodedType);
 
   const translations = {
     noItems: t("analyses.noItems"),
@@ -74,6 +87,7 @@ const AnalysesListPage = async ({ params }) => {
         translations={translations} 
         locale={locale} 
         isRTL={isRTL} 
+        currentType={currentType}
       />
     </div>
   );

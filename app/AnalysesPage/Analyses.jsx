@@ -1,13 +1,29 @@
-import React from "react";
+"use client";
+import React, { useEffect } from "react";
 import Image from "next/image";
-import { Link } from "../../i18n/routing";
+import { Link, useRouter } from "../../i18n/routing";
+import { useParams } from "next/navigation";
 import {
   MdOutlineKeyboardDoubleArrowRight,
   MdOutlineKeyboardDoubleArrowLeft,
 } from "react-icons/md";
 import { FaRegCalendarAlt } from "react-icons/fa";
 
-const Analyses = ({ articles, translations, locale, isRTL }) => {
+const Analyses = ({ articles, translations, locale, isRTL, currentType }) => {
+  const router = useRouter();
+  const params = useParams();
+  const type = params ? params.type : null;
+
+  useEffect(() => {
+    if (!currentType || !type) return;
+    const correctSlug = currentType.slug?.[locale] || currentType.slug?.["en"];
+    const decodedCorrect = correctSlug ? decodeURIComponent(correctSlug) : "";
+    const decodedCurrent = decodeURIComponent(type);
+    if (decodedCorrect && decodedCorrect !== decodedCurrent) {
+      router.replace(`/analyses/${correctSlug}`, { scroll: false });
+    }
+  }, [currentType, type, locale, router]);
+
   if (!articles || articles.length === 0) {
     return (
       <div className="py-20 text-center text-slate-500 font-medium bg-gray-50 min-h-[50vh] flex items-center justify-center">

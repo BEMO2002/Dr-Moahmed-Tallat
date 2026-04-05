@@ -1,8 +1,12 @@
-import React from "react";
 import { fetchSettings, fetchArticleDetails } from "../../../../lib/server-api";
 import { getTranslations } from "next-intl/server";
 import AnalysesHeader from "../../../../AnalysesPage/AnalysesHeader";
 import AnalysesDetails from "../../../../AnalysesPage/AnalysesDetails";
+
+function stripHtml(html) {
+  if (!html) return "";
+  return html.replace(/<[^>]*>?/gm, "").replace(/\s+/g, " ").trim();
+}
 
 export async function generateMetadata({ params }) {
   const { locale, slug } = await params;
@@ -17,13 +21,34 @@ export async function generateMetadata({ params }) {
       : settings.site_name.en
     : "Dr. Mohamed Talaat";
 
-  const title = article ? (article.meta_title?.[locale] || article.meta_title?.["en"] || article.title?.[locale]) : t("analyses.title");
-  const description = article ? (article.meta_description?.[locale] || article.meta_description?.["en"]) : t("navbar.seo_description");
+  const title = article 
+    ? (article.meta_title?.[locale] || article.meta_title?.["en"] || article.title?.[locale] || article.title?.["en"]) 
+    : t("analyses.title");
+  
+  // Custom description logic: Meta Description or Content Snippet
+  let description = article ? (article.meta_description?.[locale] || article.meta_description?.["en"]) : null;
+  if (!description && article?.content?.[locale]) {
+    description = stripHtml(article.content[locale]).substring(0, 160);
+  }
+  if (!description && article?.content?.["en"]) {
+    description = stripHtml(article.content["en"]).substring(0, 160);
+  }
+  description = description || t("navbar.seo_description");
+
   const image = article ? (article.meta_image_url || article.image_url) : settings?.logo;
+
+  const arSlug = article?.slug?.["ar"] || article?.slug?.["en"] || slug;
+  const enSlug = article?.slug?.["en"] || article?.slug?.["ar"] || slug;
 
   return {
     title: `${title} | ${siteName}`,
     description: description,
+    alternates: {
+      languages: {
+        "ar": `/ar/analyses/article/${arSlug}`,
+        "en": `/en/analyses/article/${enSlug}`,
+      }
+    },
     openGraph: {
       title: title,
       description: description,
@@ -45,7 +70,7 @@ const ArticleDetailsPage = async ({ params }) => {
   const isRTL = locale === "ar";
   
   const article = await fetchArticleDetails(slug);
-
+  
   const translations = {
     attachments: t("analyses.attachments"),
     noItems: t("analyses.noItems"),
