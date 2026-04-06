@@ -434,5 +434,13 @@
       "executive_briefs": "Executive Briefs",
       "chronological_archive": "Chronological Archive"
     }
+  },
+  "chatbot": {
+    "title": "Talaat AI",
+    "subtitle": "Smart Assistant",
+    "welcome": "Hello! I am Talaat, your smart assistant. How can I help you today?",
+    "placeholder": "Type your message here...",
+    "error": "Sorry, an error occurred. Please try again.",
+    "connectionError": "Sorry, I cannot connect to the server right now."
   }
 }

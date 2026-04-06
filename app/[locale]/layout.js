@@ -12,6 +12,7 @@ import { fetchSettings } from "../lib/server-api";
 import PixelScripts from "../Components/PixelScripts";
 import ScrollToTop from "../Components/ScrollToTop";
 import { Top } from "../Components/Top";
+import Chatbot from "../Components/Chatbot";
 // import Loader from "../Components/Loader";
 
 const geistSans = Geist({
@@ -89,6 +90,7 @@ export default async function RootLayout(props) {
             <Navbar />
             <main>{children}</main>
             <Footer />
+            <Chatbot />
           </Providers>
         </NextIntlClientProvider>
       </body>

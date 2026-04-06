@@ -2,6 +2,8 @@ import { fetchSettings } from "../../lib/server-api";
 import { getTranslations } from "next-intl/server";
 import HeadAbout from "../../AboutPage/HeadAbout";
 import AboutTwo from "../../HomePage/AboutTwo";
+import TallatCv from "../../HomePage/TallatCv";
+import TallatCvServer from "@/app/HomePage/TallatCvServer";
 
 export async function generateMetadata({ params }) {
   const { locale } = await params;
@@ -35,6 +37,7 @@ export default function AboutPage() {
       <HeadAbout />
       <div className="pt-20">
         <AboutTwo />
+        <TallatCvServer />
       </div>
     </div>
   );

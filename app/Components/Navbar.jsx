@@ -151,6 +151,7 @@ const Navbar = () => {
 
   const navLinks = [
     { to: "/", label: t("navbar.home") },
+    { to: "/about", label: t("navbar.about") },
     {
       label: t("navbar.media.title"),
       isDropdown: true,
@@ -174,13 +175,13 @@ const Navbar = () => {
         })),
       ],
     },
-    { to: "/about", label: t("navbar.about") },
-    { to: "/contact", label: t("navbar.contact") },
+
     {
       to: "/research-archive",
       label: t("navbar.researchArchive"),
       isVault: true,
     },
+    { to: "/contact", label: t("navbar.contact") },
   ];
 
   const DesktopNavLink = ({ to, children, isVault }) => {
