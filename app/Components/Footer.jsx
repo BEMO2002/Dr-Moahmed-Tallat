@@ -246,11 +246,7 @@ const Footer = () => {
                 } mb-4`}
               >
                 {settings?.footer_logo && (
-                  <img
-                    src={settings.footer_logo}
-                    alt="Logo"
-                    className="w-60"
-                  />
+                  <img src={settings.footer_logo} alt="Logo" className="w-60" />
                 )}
               </div>
               <h3 className="text-lg font-bold mb-3">
@@ -331,12 +327,12 @@ const Footer = () => {
                   </Link>
                 </li> */}
                 <li>
-                  <a
+                  <Link
                     href="/sitemap"
                     className="text-black hover:text-secondary transition-colors duration-200 text-md"
                   >
                     {t("footer.sitemap", "Sitemap")}
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
