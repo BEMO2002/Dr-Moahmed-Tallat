@@ -7,18 +7,26 @@
     "contact": "Contact",
     "executiveRequest": "Executive Request",
     "links": "LinkTree",
+    "posts": "Articles & Columns",
+    "allPosts": "All Articles",
     "media": {
       "title": "Media",
-      "interviews": "Interviews",
-      "articles": "Articles and Columns",
+      "interviews": "Meetings & Conferences",
+      "articles": "Articles & Columns",
       "conferences": "Conferences",
-      "citations": "Media Citations"
+      "citations": "Press Citations",
+      "galleries": "Photo Gallery"
     },
     "seo_description": "Dr. Mohamed Talaat - Media Veteran, Journalist, and Political & Psychological Analyst. Founder of East News Agency. Specialist in policy analysis and international relations.",
+    "articles_seo_description": "Browse the latest analytical articles and columns by Dr. Mohamed Talaat in geopolitics, political psychology, and strategic media.",
     "seo_keywords": "Mohamed Talaat, Political Analyst, Psychological Analyst, Media Veteran, East News Agency, Journalism, Media, Political Analysis",
     "language": "Change Language",
     "english": "English",
     "arabic": "Arabic",
+    "podcasts": {
+      "title": "Podcasts",
+      "seo_description": "Browse and watch the latest podcast episodes of Dr. Mohamed Talaat."
+    },
     "loading": "Loading...",
     "analyses": "Analyses",
     "allAnalyses": "All Analyses",
@@ -33,6 +41,17 @@
       "view": "View",
       "preview": "Document Preview"
     }
+  },
+  "postDetails": {
+    "strategicBrief": "Strategic Brief",
+    "fullDocument": "Full Document (PDF)",
+    "pdfDescription": "Read and download the original file below",
+    "download": "Download File",
+    "articleInfo": "Article Info",
+    "category": "Category",
+    "date": "Date",
+    "originalSource": "Original Source",
+    "visitSource": "Visit Source"
   },
   "megaMenu": {
     "trigger": "Full Menu",
@@ -442,5 +461,13 @@
     "placeholder": "Type your message here...",
     "error": "Sorry, an error occurred. Please try again.",
     "connectionError": "Sorry, I cannot connect to the server right now."
+  },
+  "podcasts": {
+    "title": "Podcasts",
+    "breadcrumb": "Podcasts",
+    "loadError": "An error occurred while loading podcasts",
+    "noItems": "No podcasts available at the moment",
+    "watchVideo": "Watch Now",
+    "seo_description": "Listen and watch the latest analytical podcast episodes by Dr. Mohamed Talaat on global politics and artificial intelligence."
   }
 }

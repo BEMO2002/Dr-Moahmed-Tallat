@@ -2,7 +2,7 @@ import React from "react";
 import { fetchSettings } from "../../lib/server-api";
 import { getTranslations } from "next-intl/server";
 import QuotationsHeader from "../../QuotationsPage/QuotationsHeader";
-import Quotations from "../../QuotationsPage/Quotations";
+import Quotations from "../../MeetingsAndConferencesPage/Quotations";
 
 export async function generateMetadata({ params }) {
   const { locale } = await params;

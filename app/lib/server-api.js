@@ -549,7 +549,7 @@ export async function fetchConferences(params = {}) {
 
 /**
  * Access research vault/archive with password
- * @param {string} password 
+ * @param {string} password
  */
 export async function accessVault(password) {
   try {
@@ -569,7 +569,11 @@ export async function accessVault(password) {
     }
 
     const json = await res.json();
-    return { success: true, data: json?.data || null, message: json?.message || "Success" };
+    return {
+      success: true,
+      data: json?.data || null,
+      message: json?.message || "Success",
+    };
   } catch (err) {
     console.error("accessVault Error:", err);
     return { success: false, message: "Network error" };
@@ -585,9 +589,9 @@ export async function fetchArticleTypes() {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "X-Api-Key": "P4OIp8prRKBeO0kogfGViTNzmAT8UnzL"
+        "X-Api-Key": "P4OIp8prRKBeO0kogfGViTNzmAT8UnzL",
       },
-      next: { revalidate: 60 }
+      next: { revalidate: 60 },
     });
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
     const json = await res.json();
@@ -600,18 +604,20 @@ export async function fetchArticleTypes() {
 
 /**
  * Fetch articles filtered by type
- * @param {string} typeSlug 
+ * @param {string} typeSlug
  */
 export async function fetchArticlesList(typeSlug) {
   try {
-    const url = typeSlug ? `${baseUrl}/articles?type_slug=${typeSlug}` : `${baseUrl}/articles`;
+    const url = typeSlug
+      ? `${baseUrl}/articles?type_slug=${typeSlug}`
+      : `${baseUrl}/articles`;
     const res = await fetch(url, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "X-Api-Key": "P4OIp8prRKBeO0kogfGViTNzmAT8UnzL"
+        "X-Api-Key": "P4OIp8prRKBeO0kogfGViTNzmAT8UnzL",
       },
-      next: { revalidate: 60 }
+      next: { revalidate: 60 },
     });
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
     const json = await res.json();
@@ -624,7 +630,7 @@ export async function fetchArticlesList(typeSlug) {
 
 /**
  * Fetch a single article by slug
- * @param {string} slug 
+ * @param {string} slug
  */
 export async function fetchArticleDetails(slug) {
   try {
@@ -632,9 +638,9 @@ export async function fetchArticleDetails(slug) {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "X-Api-Key": "P4OIp8prRKBeO0kogfGViTNzmAT8UnzL"
+        "X-Api-Key": "P4OIp8prRKBeO0kogfGViTNzmAT8UnzL",
       },
-      next: { revalidate: 60 }
+      next: { revalidate: 60 },
     });
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
     const json = await res.json();
@@ -665,5 +671,123 @@ export async function fetchPages() {
   } catch (err) {
     console.error("fetchPages Error:", err);
     return [];
+  }
+}
+
+/**
+ * Fetch all post categories
+ */
+export async function fetchPostCategories() {
+  try {
+    const res = await fetch(`${baseUrl}/post-categories`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Api-Key": "P4OIp8prRKBeO0kogfGViTNzmAT8UnzL",
+      },
+      next: { revalidate: 60 },
+    });
+    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    const json = await res.json();
+    return json?.data?.data || [];
+  } catch (err) {
+    console.error("fetchPostCategories Error:", err);
+    return [];
+  }
+}
+
+/**
+ * Fetch posts with optional category filter
+ * @param {Object} params - { category_slug, page }
+ */
+export async function fetchPosts(params = {}) {
+  try {
+    const url = new URL(`${baseUrl}/posts`);
+    Object.keys(params).forEach((key) => {
+      if (params[key]) url.searchParams.append(key, params[key]);
+    });
+
+    const res = await fetch(url.toString(), {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Api-Key": "P4OIp8prRKBeO0kogfGViTNzmAT8UnzL",
+      },
+      next: { revalidate: 60 },
+    });
+    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    const json = await res.json();
+    return json?.data || null;
+  } catch (err) {
+    console.error("fetchPosts Error:", err);
+    return null;
+  }
+}
+
+/**
+ * Fetch a single post by slug
+ * @param {string} slug
+ */
+export async function fetchPostDetails(slug) {
+  try {
+    const res = await fetch(`${baseUrl}/posts/${slug}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Api-Key": "P4OIp8prRKBeO0kogfGViTNzmAT8UnzL",
+      },
+      next: { revalidate: 60 },
+    });
+    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    const json = await res.json();
+    return json?.data || null;
+  } catch (err) {
+    console.error("fetchPostDetails Error:", err);
+    return null;
+  }
+}
+
+/**
+ * Fetch podcasts with pagination support
+ * @param {Object} params - { page }
+ */
+export async function fetchPodcasts(params = {}) {
+  try {
+    const url = new URL(`${baseUrl}/podcasts`);
+    Object.keys(params).forEach((key) => {
+      if (params[key]) url.searchParams.append(key, params[key]);
+    });
+
+    const res = await fetch(url.toString(), {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Api-Key": "P4OIp8prRKBeO0kogfGViTNzmAT8UnzL",
+      },
+      next: { revalidate: 60 },
+    });
+    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    const json = await res.json();
+    return json?.data || null;
+  } catch (err) {
+    console.error("fetchPodcasts Error:", err);
+    return null;
+  }
+}
+
+export async function fetchGalleries({ page = 1 } = {}) {
+  try {
+    const res = await fetch(`${baseUrl}/galleries?page=${page}`, {
+      method: "GET",
+      headers: {
+        "X-Api-Key": "P4OIp8prRKBeO0kogfGViTNzmAT8UnzL",
+      },
+      next: { revalidate: 60 },
+    });
+    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    return await res.json();
+  } catch (err) {
+    console.error("fetchGalleries Error:", err);
+    return null;
   }
 }

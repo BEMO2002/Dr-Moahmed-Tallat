@@ -7,7 +7,11 @@ import { useSettings } from "../Context/SettingContext";
 import { useVault } from "../Context/VaultContext";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { FaPaperPlane, FaChevronDown } from "react-icons/fa";
-import { fetchContactTypes, fetchArticleTypes } from "../lib/server-api";
+import {
+  fetchContactTypes,
+  fetchArticleTypes,
+  fetchPostCategories,
+} from "../lib/server-api";
 import Image from "next/image";
 import VaultModal from "./VaultModal";
 
@@ -124,10 +128,12 @@ const Navbar = () => {
   const [isMobileExecutiveDropdownOpen, setIsMobileExecutiveDropdownOpen] =
     useState(false);
   const [isLangDropdownOpen, setIsLangDropdownOpen] = useState(false);
+  const [postCategories, setPostCategories] = useState([]);
 
   useEffect(() => {
     fetchContactTypes().then(setContactTypes).catch(console.error);
     fetchArticleTypes().then(setArticleTypes).catch(console.error);
+    fetchPostCategories().then(setPostCategories).catch(console.error);
   }, []);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
@@ -151,14 +157,22 @@ const Navbar = () => {
 
   const navLinks = [
     { to: "/", label: t("navbar.home") },
-    { to: "/about", label: t("navbar.about") },
+    {
+      label: t("navbar.about"),
+      isDropdown: true,
+      dropdownId: "about",
+      items: [
+        { to: "/about", label: t("navbar.about") },
+        { to: "/podcasts", label: t("navbar.podcasts.title") },
+        { to: "/galleries", label: t("navbar.media.galleries") },
+      ],
+    },
     {
       label: t("navbar.media.title"),
       isDropdown: true,
       dropdownId: "media",
       items: [
         { to: "/meetings-conferences", label: t("navbar.media.interviews") },
-        { to: "/blogs?type=articles", label: t("navbar.media.articles") },
         { to: "/meetings-conferences", label: t("navbar.media.conferences") },
         { to: "/quotations", label: t("navbar.media.citations") },
       ],
@@ -172,6 +186,21 @@ const Navbar = () => {
         ...articleTypes.map((type) => ({
           to: `/analyses/${type.slug[locale] || type.slug["en"]}`,
           label: type.name[locale] || type.name["en"],
+        })),
+      ],
+    },
+    {
+      label: t("navbar.posts", "Articles and Columns"),
+      isDropdown: true,
+      dropdownId: "posts",
+      items: [
+        {
+          to: "/articles-columns",
+          label: t("navbar.allPosts", "All Articles"),
+        },
+        ...postCategories.map((cat) => ({
+          to: `/articles-columns/${cat.slug[locale] || cat.slug["en"]}`,
+          label: cat.name[locale] || cat.name["en"],
         })),
       ],
     },
@@ -213,7 +242,7 @@ const Navbar = () => {
   return (
     <>
       <nav className="bg-white shadow-sm backdrop-blur-sm fixed top-0 left-0 right-0 z-[999] py-4 md:px-6 px-2">
-        <div className="max-w-7xl mx-auto md:px-4 px-2 sm:px-6 lg:px-8">
+        <div className="max-w-[1450px] mx-auto md:px-4 px-2 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-18">
             {/* Logo Section */}
             <div className="">
@@ -259,7 +288,7 @@ const Navbar = () => {
                         <div
                           className={`absolute top-full ${isRTL ? "right-0" : "left-0"} pt-1 min-w-[220px] animate-in fade-in slide-in-from-top-2 duration-200 z-[9000]`}
                         >
-                          <div className="bg-white border border-gray-100 shadow-xl rounded-2xl flex flex-col py-1 overflow-hidden">
+                          <div className="bg-white border border-gray-100 shadow-xl rounded-2xl flex flex-col py-1 overflow-y-auto max-h-[350px] scrollbar-thin scrollbar-thumb-primary/20 scrollbar-track-transparent">
                             {link.items.length > 0 ? (
                               link.items.map((item, i) => (
                                 <Link
@@ -328,7 +357,7 @@ const Navbar = () => {
                   <div
                     className={`absolute top-full ${isRTL ? "-left-4" : "-right-4"} pt-2  min-w-[240px] animate-in fade-in slide-in-from-top-2 duration-200`}
                   >
-                    <div className="bg-white border border-gray-100 shadow-2xl rounded-2xl flex flex-col py-1 overflow-hidden">
+                    <div className="bg-white border border-gray-100 shadow-2xl rounded-2xl flex flex-col py-1 overflow-y-auto max-h-[350px] scrollbar-thin scrollbar-thumb-primary/20 scrollbar-track-transparent">
                       {contactTypes.map((type) => (
                         <Link
                           key={type.id}
@@ -442,7 +471,7 @@ const Navbar = () => {
                             : "max-h-0 opacity-0"
                         }`}
                       >
-                        <div className="flex flex-col border-l-2 border-gray-100 ml-2 pl-4 space-y-1">
+                        <div className="flex flex-col border-l-2 border-gray-100 ml-2 pl-4 space-y-1 overflow-y-auto max-h-[400px]">
                           {link.items.length > 0 ? (
                             link.items.map((item, i) => (
                               <Link
@@ -515,7 +544,7 @@ const Navbar = () => {
                   <div
                     className={`overflow-hidden transition-all duration-300 ease-in-out ${isMobileExecutiveDropdownOpen ? "max-h-[500px] opacity-100 mt-2" : "max-h-0 opacity-0"}`}
                   >
-                    <div className="flex flex-col gap-2 border-s-2 border-gray-100 rtl:border-r-2 rtl:border-l-0 pl-4 rtl:pr-4 mx-2">
+                    <div className="flex flex-col gap-2 border-s-2 border-gray-100 rtl:border-r-2 rtl:border-l-0 pl-4 rtl:pr-4 mx-2 overflow-y-auto max-h-[400px]">
                       {contactTypes.map((type) => (
                         <Link
                           key={type.id}

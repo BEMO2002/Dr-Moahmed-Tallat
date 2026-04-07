@@ -109,7 +109,7 @@ const Chatbot = () => {
 
       {/* Chat Window */}
       <div
-        className={`fixed bottom-24 ${isRTL ? "left-6" : "right-6"} w-[350px] sm:w-[400px] h-[500px] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-gray-100 transition-all duration-300 ease-out transform ${
+        className={`fixed bottom-24 ${isRTL ? "left-6" : "right-6"} w-[350px] sm:w-[400px] h-[500px] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden  border border-gray-100 transition-all duration-300 ease-out transform ${
           isOpen
             ? "translate-y-0 scale-100 opacity-100 pointer-events-auto"
             : "translate-y-10 scale-95 opacity-0 pointer-events-none"
@@ -140,7 +140,7 @@ const Chatbot = () => {
         </div>
 
         {/* Content */}
-        <div className="flex-1 p-4 overflow-y-auto bg-gray-50 flex flex-col gap-4">
+        <div className="flex-1 p-4 overflow-y-auto bg-gray-50 overflow-x-hidden flex flex-col gap-4">
           {/* Welcome Message */}
           <div className="flex justify-start">
             <div className="bg-white text-baseTwo px-4 py-3 rounded-2xl rounded-tr-none shadow-sm border border-gray-100 max-w-[85%] text-sm font-semibold leading-relaxed">
@@ -168,15 +168,15 @@ const Chatbot = () => {
 
           {/* Typing Indicator */}
           {isTyping && (
-            <div className="flex justify-start animate-pulse">
-              <div className="bg-white px-4 py-3 rounded-2xl rounded-tr-none shadow-sm border border-gray-100 flex items-center gap-1">
-                <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></span>
+            <div className="flex justify-start">
+              <div className="bg-white px-4 py-3 rounded-2xl rounded-tr-none shadow-sm border border-gray-200 flex items-center gap-1">
+                <span className="w-2 h-2 bg-primary rounded-full animate-bounce"></span>
                 <span
-                  className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                  className="w-2 h-2 bg-primary rounded-full animate-bounce"
                   style={{ animationDelay: "0.2s" }}
                 ></span>
                 <span
-                  className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                  className="w-2 h-2 bg-primary rounded-full animate-bounce"
                   style={{ animationDelay: "0.4s" }}
                 ></span>
               </div>
@@ -211,7 +211,6 @@ const Chatbot = () => {
         </div>
       </div>
     </div>
-
   );
 };
 
