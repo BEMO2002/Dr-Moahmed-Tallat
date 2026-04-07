@@ -469,5 +469,13 @@
     "noItems": "No podcasts available at the moment",
     "watchVideo": "Watch Now",
     "seo_description": "Listen and watch the latest analytical podcast episodes by Dr. Mohamed Talaat on global politics and artificial intelligence."
+  },
+  "galleries": {
+    "title": "Photo Gallery",
+    "breadcrumb": "Gallery",
+    "view_album": "View Album",
+    "no_galleries": "No photo galleries available at the moment",
+    "loadError": "An error occurred while loading the gallery",
+    "seo_description": "Browse the photo gallery of Dr. Mohamed Talaat from international conferences and media events."
   }
 }
