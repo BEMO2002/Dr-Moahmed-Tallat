@@ -29,7 +29,6 @@ export default async function PostDetailsPage({ params }) {
 
   return (
     <div className="bg-white min-h-screen mt-20">
-      {/* Dynamic Header for Context */}
       <ArticlesandColumnsHeader
         title={post.title[locale] || post.title["en"]}
         breadcrumbHome={locale === "ar" ? "الرئيسية" : "Home"}
