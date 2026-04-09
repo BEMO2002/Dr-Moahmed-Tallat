@@ -32,7 +32,7 @@ const ResearchArchiveHeader = () => {
         {/* Content */}
         <div className="flex items-center justify-center flex-col gap-6 relative z-10">
           <h1
-            className={`text-4xl md:text-6xl whitespace-nowrap text-primary font-bold ${isRTL ? "text-right" : "text-left"} text-center uppercase tracking-tighter`}
+            className={`text-4xl md:text-6xl whitespace-nowrap text-primary font-bold ${isRTL ? "text-right" : "text-left"} text-center uppercase `}
           >
             {t("navbar.researchArchive")}
           </h1>

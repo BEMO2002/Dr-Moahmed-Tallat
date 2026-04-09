@@ -9,6 +9,7 @@ import { useTranslations, useLocale } from "next-intl";
 import { Link } from "../../i18n/routing";
 import spinnerImage from "../../public/Home/shape-31.png";
 import spinnerImageTwo from "../../public/Home/shape-32.png";
+import Image from "next/image";
 
 const HeadContact = () => {
   const t = useTranslations();
@@ -18,12 +19,12 @@ const HeadContact = () => {
   return (
     <div className="pt-20">
       <div className="bg-third p-20  text-white relative overflow-hidden">
-        <img
+        <Image
           src={spinnerImage.src || spinnerImage}
           alt="decoration"
           className="absolute bottom-5 left-5 w-40 h-40 object-contain hidden md:block"
         />
-        <img
+        <Image
           src={spinnerImageTwo.src || spinnerImageTwo}
           alt="decoration"
           className="absolute top-7 right-5 w-50 h-50 object-contain hidden md:block"

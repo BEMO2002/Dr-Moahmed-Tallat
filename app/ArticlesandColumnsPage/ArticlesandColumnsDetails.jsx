@@ -1,11 +1,27 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
+import { useRouter } from "../../i18n/routing";
+import { useParams } from "next/navigation";
 import { FaRegCalendarAlt, FaFilePdf, FaRegLightbulb } from "react-icons/fa";
 import { useTranslations } from "next-intl";
 
 const ArticlesandColumnsDetails = ({ post, locale, isRTL, translations }) => {
   const t = useTranslations("postDetails");
+  const router = useRouter();
+  const params = useParams();
+  const slug = params ? params.slug : null;
+
+  useEffect(() => {
+    if (!post || !slug) return;
+    const correctSlug = post.slug?.[locale] || post.slug?.["en"];
+    const decodedCorrect = correctSlug ? decodeURIComponent(correctSlug) : "";
+    const decodedCurrent = decodeURIComponent(slug);
+    if (decodedCorrect && decodedCorrect !== decodedCurrent) {
+      router.replace(`/articles-columns/post/${correctSlug}`, { scroll: false });
+    }
+  }, [post, slug, locale, router]);
+
   if (!post) return null;
 
   const title = post.title?.[locale] || post.title?.["en"];
