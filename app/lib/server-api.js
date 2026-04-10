@@ -606,12 +606,17 @@ export async function fetchArticleTypes() {
  * Fetch articles filtered by type
  * @param {string} typeSlug
  */
-export async function fetchArticlesList(typeSlug) {
+export async function fetchArticlesList(typeSlug, params = {}) {
   try {
-    const url = typeSlug
-      ? `${baseUrl}/articles?type_slug=${typeSlug}`
-      : `${baseUrl}/articles`;
-    const res = await fetch(url, {
+    const url = new URL(`${baseUrl}/articles`);
+    if (typeSlug) {
+      url.searchParams.append('type_slug', typeSlug);
+    }
+    Object.keys(params).forEach((key) => {
+      if (params[key]) url.searchParams.append(key, params[key]);
+    });
+
+    const res = await fetch(url.toString(), {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

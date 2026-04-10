@@ -3,6 +3,7 @@ import { fetchSettings, fetchArticlesList } from "../../lib/server-api";
 import { getTranslations } from "next-intl/server";
 import AnalysesHeader from "../../AnalysesPage/AnalysesHeader";
 import Analyses from "../../AnalysesPage/Analyses";
+import AnalysesFilter from "../../AnalysesPage/AnalysesFilter";
 
 export async function generateMetadata({ params }) {
   const { locale } = await params;
@@ -33,34 +34,42 @@ export async function generateMetadata({ params }) {
   };
 }
 
-const AnalysesAllPage = async ({ params }) => {
-  const { locale } = await params;
+const AnalysesAllPage = async (props) => {
+  const params = await props.params;
+  const searchParams = await props.searchParams;
+
+  const { locale } = params;
+  const { is_featured, is_old } = searchParams;
+
   const t = await getTranslations({ locale });
   const isRTL = locale === "ar";
-  
+
   const title = t("navbar.allAnalyses");
 
   // Fetch all articles (passing null/undefined for typeSlug parameter)
-  const articles = await fetchArticlesList();
+  const articles = await fetchArticlesList(null, { is_featured, is_old });
 
   const translations = {
     noItems: t("analyses.noItems"),
-    readMore: t("analyses.readMore")
+    readMore: t("analyses.readMore"),
   };
 
   return (
     <div className="analyses-page-container mt-20">
-      <AnalysesHeader 
+      <AnalysesHeader
         title={title}
         breadcrumbHome={t("navbar.home")}
         breadcrumbCurrent={title}
         isRTL={isRTL}
       />
-      <Analyses 
-        articles={articles} 
-        translations={translations} 
-        locale={locale} 
-        isRTL={isRTL} 
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20">
+        <AnalysesFilter isRTL={isRTL} />
+      </div>
+      <Analyses
+        articles={articles}
+        translations={translations}
+        locale={locale}
+        isRTL={isRTL}
       />
     </div>
   );

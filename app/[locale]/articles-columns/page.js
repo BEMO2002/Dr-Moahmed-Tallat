@@ -2,6 +2,7 @@ import { fetchPosts, fetchSettings } from "@/app/lib/server-api";
 import { getTranslations } from "next-intl/server";
 import ArticlesandColumnsHeader from "@/app/ArticlesandColumnsPage/ArticlesandColumnsHeader";
 import ArticlesandColumns from "@/app/ArticlesandColumnsPage/ArticlesandColumns";
+import ArticlesFilter from "@/app/ArticlesandColumnsPage/ArticlesFilter";
 
 export async function generateMetadata({ params }) {
   const { locale } = await params;
@@ -32,9 +33,14 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default async function ArticlesColumnsPage({ params }) {
-  const { locale } = await params;
-  const postsData = await fetchPosts();
+export default async function ArticlesColumnsPage(props) {
+  const params = await props.params;
+  const searchParams = await props.searchParams;
+  
+  const { locale } = params;
+  const { is_featured, is_old } = searchParams;
+  
+  const postsData = await fetchPosts({ is_featured, is_old });
   const t = await getTranslations({ locale });
   const isRTL = locale === "ar";
 
@@ -48,6 +54,7 @@ export default async function ArticlesColumnsPage({ params }) {
         isRTL={isRTL}
       />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <ArticlesFilter isRTL={isRTL} />
         <ArticlesandColumns
           posts={postsData?.data || []}
           locale={locale}

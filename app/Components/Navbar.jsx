@@ -178,22 +178,19 @@ const Navbar = () => {
       ],
     },
     {
-      label: t("navbar.analyses", "Analyses"),
+      label: t("navbar.strategicAnalyses", "Strategic Articles and Analyses"),
       isDropdown: true,
-      dropdownId: "analyses",
+      dropdownId: "strategicAnalyses",
       items: [
-        { to: "/analyses", label: t("navbar.allAnalyses", "All Analyses") },
+        {
+          to: "/analyses",
+          label: t("navbar.allAnalyses", "All Analyses"),
+        },
         ...articleTypes.map((type) => ({
           to: `/analyses/${type.slug[locale] || type.slug["en"]}`,
           label: type.name[locale] || type.name["en"],
         })),
-      ],
-    },
-    {
-      label: t("navbar.posts", "Articles and Columns"),
-      isDropdown: true,
-      dropdownId: "posts",
-      items: [
+        { isSeparator: true },
         {
           to: "/articles-columns",
           label: t("navbar.allPosts", "All Articles"),
@@ -288,24 +285,37 @@ const Navbar = () => {
                         <div
                           className={`absolute top-full ${isRTL ? "right-0" : "left-0"} pt-1 min-w-[220px] animate-in fade-in slide-in-from-top-2 duration-200 z-[9000]`}
                         >
-                          <div className="bg-white border border-gray-100 shadow-xl rounded-2xl flex flex-col py-1 overflow-y-auto max-h-[350px] scrollbar-thin scrollbar-thumb-primary/20 scrollbar-track-transparent">
+                          <div
+                            className="bg-white border border-gray-100 shadow-xl rounded-2xl flex flex-col py-1 overflow-y-auto max-h-[350px] scrollbar-thin scrollbar-thumb-primary/20 scrollbar-track-transparent"
+                            style={{ scrollbarWidth: "thin" }}
+                          >
                             {link.items.length > 0 ? (
-                              link.items.map((item, i) => (
-                                <Link
-                                  key={i}
-                                  href={item.to}
-                                  onClick={() => setOpenDropdown(null)}
-                                  className={`px-5 py-3.5 text-baseTwo hover:bg-gray-50 hover:text-primary transition-all border-b last:border-0 border-gray-50 flex items-center justify-between group ${isRTL ? "text-right" : "text-left"}`}
-                                >
-                                  <span className="font-semibold text-sm">
-                                    {item.label}
-                                  </span>
-                                  <MdOutlineKeyboardArrowDown
-                                    size={16}
-                                    className={`opacity-0 group-hover:opacity-30 transition-all ${isRTL ? "rotate-90" : "-rotate-90"}`}
-                                  />
-                                </Link>
-                              ))
+                              link.items.map((item, i) => {
+                                if (item.isSeparator) {
+                                  return (
+                                    <hr
+                                      key={i}
+                                      className="border-t-2 border-slate-200 my-3 mx-2 opacity-100"
+                                    />
+                                  );
+                                }
+                                return (
+                                  <Link
+                                    key={i}
+                                    href={item.to}
+                                    onClick={() => setOpenDropdown(null)}
+                                    className={`px-5 py-3.5 text-baseTwo hover:bg-gray-50 hover:text-primary transition-all border-b last:border-0 border-gray-50 flex items-center justify-between group ${isRTL ? "text-right" : "text-left"}`}
+                                  >
+                                    <span className="font-semibold text-sm">
+                                      {item.label}
+                                    </span>
+                                    <MdOutlineKeyboardArrowDown
+                                      size={16}
+                                      className={`opacity-0 group-hover:opacity-30 transition-all ${isRTL ? "rotate-90" : "-rotate-90"}`}
+                                    />
+                                  </Link>
+                                );
+                              })
                             ) : (
                               <div className="px-5 py-3.5 text-slate-400 text-sm font-semibold">
                                 {t("navbar.loading", "Loading...")}
@@ -442,7 +452,7 @@ const Navbar = () => {
             </div>
 
             {/* Links */}
-            <div className="flex-1 overflow-y-auto px-6 py-8 flex flex-col gap-1 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+            <div className="flex-1 overflow-y-auto scrollbar-thin px-6 py-8 flex flex-col gap-1 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
               {navLinks.map((link, idx) => {
                 if (link.isDropdown) {
                   return (
@@ -455,7 +465,7 @@ const Navbar = () => {
                               : link.dropdownId,
                           )
                         }
-                        className={`text-lg font-bold py-3 text-left transition-colors flex items-center justify-between ${openMobileDropdown === link.dropdownId ? "text-primary" : "text-baseTwo hover:text-primary"}`}
+                        className={`text-sm font-bold py-3 text-left whitespace-nowrap transition-colors flex items-center justify-between ${openMobileDropdown === link.dropdownId ? "text-primary" : "text-baseTwo hover:text-primary"}`}
                       >
                         <span className="text-start">{link.label}</span>
                         <FaChevronDown
@@ -473,22 +483,32 @@ const Navbar = () => {
                       >
                         <div className="flex flex-col border-l-2 border-gray-100 ml-2 pl-4 space-y-1 overflow-y-auto max-h-[400px]">
                           {link.items.length > 0 ? (
-                            link.items.map((item, i) => (
-                              <Link
-                                key={i}
-                                href={item.to}
-                                onClick={closeMenu}
-                                className="py-2.5 text-base font-medium text-slate-500 hover:text-primary transition-colors flex items-center group"
-                              >
-                                <span>{item.label}</span>
-                                <MdOutlineKeyboardArrowDown
-                                  size={16}
-                                  className={`opacity-0 group-hover:opacity-100 transition-all mx-2 ${isRTL ? "rotate-90" : "-rotate-90"}`}
-                                />
-                              </Link>
-                            ))
+                            link.items.map((item, i) => {
+                              if (item.isSeparator) {
+                                return (
+                                  <div
+                                    key={i}
+                                    className="h-[2px] bg-gray-100 my-2 mr-4 rtl:ml-4 rtl:mr-0"
+                                  />
+                                );
+                              }
+                              return (
+                                <Link
+                                  key={i}
+                                  href={item.to}
+                                  onClick={closeMenu}
+                                  className="py-2.5 text-base font-medium whitespace-nowrap  hover:text-primary transition-colors flex items-center group"
+                                >
+                                  <span>{item.label}</span>
+                                  <MdOutlineKeyboardArrowDown
+                                    size={16}
+                                    className={`opacity-0 group-hover:opacity-100 transition-all mx-2 ${isRTL ? "rotate-90" : "-rotate-90"}`}
+                                  />
+                                </Link>
+                              );
+                            })
                           ) : (
-                            <div className="py-2.5 text-base font-medium text-slate-400">
+                            <div className="py-2.5 text-base font-medium ">
                               {t("navbar.loading", "Loading...")}
                             </div>
                           )}
@@ -509,7 +529,7 @@ const Navbar = () => {
                         closeMenu();
                       }
                     }}
-                    className={`text-lg font-bold py-3 transition-colors flex items-center justify-between ${isActive(link.to) ? "text-primary" : "text-baseTwo hover:text-primary"}`}
+                    className={`text-sm font-bold py-3 transition-colors flex items-center justify-between ${isActive(link.to) ? "text-primary" : "text-baseTwo hover:text-primary"}`}
                   >
                     <span className="text-start">{link.label}</span>
                     <MdOutlineKeyboardArrowDown
@@ -528,11 +548,11 @@ const Navbar = () => {
                         !isMobileExecutiveDropdownOpen,
                       )
                     }
-                    className="w-full bg-gray-100 rounded-xl px-2 flex items-center justify-between text-baseTwo hover:text-primary py-3"
+                    className="w-full bg-gray-50 rounded-xl px-4 flex items-center justify-between text-baseTwo hover:text-primary py-3"
                   >
                     <div className="flex items-center gap-2">
                       <span className="w-1.5 h-1.5 rounded-full bg-primary/40 block"></span>
-                      <span className="text-baseTwo text-md font-black uppercase tracking-widest text-start">
+                      <span className="text-baseTwo text-sm font-black uppercase tracking-widest text-start">
                         {t("navbar.executiveRequest")}
                       </span>
                     </div>

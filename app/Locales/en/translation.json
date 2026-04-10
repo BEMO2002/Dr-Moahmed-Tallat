@@ -7,8 +7,10 @@
     "contact": "Contact",
     "executiveRequest": "Executive Request",
     "links": "LinkTree",
-    "posts": "Articles & Columns",
+    "strategicAnalyses": "Strategic Articles and Analyses",
+    "allAnalyses": "All Analyses",
     "allPosts": "All Articles",
+    "posts": "Articles & Columns",
     "media": {
       "title": "Media",
       "interviews": "Meetings & Conferences",
@@ -28,8 +30,7 @@
       "seo_description": "Browse and watch the latest podcast episodes of Dr. Mohamed Talaat."
     },
     "loading": "Loading...",
-    "analyses": "Analyses",
-    "allAnalyses": "All Analyses",
+    "strategicAnalysesLabel": "Strategic Articles and Analyses",
     "researchArchive": "Research Archive",
     "vault": {
       "enterPassword": "Enter Password to Access",

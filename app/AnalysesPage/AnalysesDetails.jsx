@@ -3,7 +3,18 @@ import React, { useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "../../i18n/routing";
 import { useParams } from "next/navigation";
-import { FaFilePdf, FaDownload, FaRegCalendarAlt } from "react-icons/fa";
+import {
+  FaFilePdf,
+  FaDownload,
+  FaRegCalendarAlt,
+  FaFacebook,
+  FaInstagram,
+  FaLinkedin,
+  FaTwitter,
+  FaHistory,
+  FaStar,
+} from "react-icons/fa";
+import { GrScheduleNew } from "react-icons/gr";
 
 const AnalysesDetails = ({ article, translations, locale, isRTL }) => {
   const router = useRouter();
@@ -25,6 +36,20 @@ const AnalysesDetails = ({ article, translations, locale, isRTL }) => {
   const title = article.title?.[locale] || article.title?.["en"];
   const description =
     article.description?.[locale] || article.description?.["en"];
+
+  const isFeatured = article.is_featured;
+  const isOld = article.is_old;
+  const publishedAt = article.published_at;
+
+  let socialPlatforms = [];
+  if (article.social_platforms) {
+    try {
+      socialPlatforms =
+        typeof article.social_platforms === "string"
+          ? JSON.parse(article.social_platforms)
+          : article.social_platforms;
+    } catch (e) {}
+  }
 
   // Prepare attachments array for easy mapping
   const attachmentsList = [];
@@ -60,6 +85,29 @@ const AnalysesDetails = ({ article, translations, locale, isRTL }) => {
                 priority
                 className="object-cover"
               />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-30" />
+
+              {/* Top Right Tags */}
+              <div className="absolute top-6 right-6 flex flex-col gap-2 items-end z-20">
+                {isFeatured && (
+                  <span className="bg-green-600 px-4 py-1.5 rounded-full text-xs font-black text-white uppercase tracking-widest shadow-xl flex items-center gap-1">
+                    <FaStar className="w-4 h-4" />
+                    {isRTL ? "مميز" : "Featured"}
+                  </span>
+                )}
+                {isOld === false && (
+                  <span className="bg-blue-600 px-4 py-1.5 rounded-full text-xs font-black text-white uppercase tracking-widest shadow-xl flex items-center gap-1">
+                    <GrScheduleNew className="w-4 h-4" />
+                    {isRTL ? "تحليل حديث" : "New"}
+                  </span>
+                )}
+                {isOld === true && (
+                  <span className="bg-amber-600 px-4 py-1.5 rounded-full text-xs font-black text-white uppercase tracking-widest shadow-xl flex items-center gap-1">
+                    <FaHistory className="w-4 h-4" />
+                    {isRTL ? "تحليل قديم" : "Old"}
+                  </span>
+                )}
+              </div>
             </div>
 
             <div className="flex items-center gap-2 text-slate-400 text-sm font-bold uppercase tracking-widest mb-6">
@@ -83,7 +131,92 @@ const AnalysesDetails = ({ article, translations, locale, isRTL }) => {
           {/* Sidebar Area (Attachments) */}
           <div className="lg:col-span-4 space-y-8">
             <div className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100 sticky top-28">
-              <h3 className="text-xl font-black text-baseTwo mb-6 flex items-center gap-3">
+              {/* Article Info Section */}
+              <div className="mb-8 space-y-6">
+                <div className="flex flex-col gap-1">
+                  <span className="text-gray-400 text-[10px] font-black uppercase tracking-widest">
+                    {isRTL ? "القسم" : "Category"}
+                  </span>
+                  <span className="text-baseTwo font-bold text-sm">
+                    {article.type?.name?.[locale] || article.type?.name?.["en"]}
+                  </span>
+                </div>
+
+                <div className="flex flex-col gap-1">
+                  <span className="text-gray-400 text-[10px] font-black uppercase tracking-widest">
+                    {isRTL ? "التاريخ" : "Date"}
+                  </span>
+                  <span className="text-baseTwo font-bold text-sm">
+                    {article.created_at}
+                  </span>
+                </div>
+
+                {publishedAt && (
+                  <div className="flex flex-col gap-1">
+                    <span className="text-gray-400 text-[10px] font-black uppercase tracking-widest">
+                      {isRTL ? "معاد النشر" : "Published At"}
+                    </span>
+                    <span className="text-baseTwo font-bold text-sm">
+                      {publishedAt}
+                    </span>
+                  </div>
+                )}
+
+                {socialPlatforms && socialPlatforms.length > 0 && (
+                  <div className="flex flex-col gap-2 pt-4 border-t border-gray-100">
+                    <span className="text-gray-400 text-[10px] font-black uppercase tracking-widest">
+                      {isRTL ? "المنصات التي نشر عليها" : "Published Platforms"}
+                    </span>
+                    <div className="grid grid-cols-2 gap-2 mt-1">
+                      {socialPlatforms.map((platform) => {
+                        let icon, name, color;
+                        switch (platform.toLowerCase()) {
+                          case "facebook":
+                            icon = <FaFacebook />;
+                            name = isRTL ? "فيسبوك" : "Facebook";
+                            color =
+                              "text-[#1877F2] border-[#1877F2]/20 bg-[#1877F2]/5";
+                            break;
+                          case "twitter":
+                          case "x":
+                            icon = <FaTwitter />;
+                            name = isRTL ? "منصة X" : "X Platform";
+                            color =
+                              "text-black border-black/20 bg-black/5 flex-row-reverse";
+                            break;
+                          case "instagram":
+                            icon = <FaInstagram />;
+                            name = isRTL ? "إنستجرام" : "Instagram";
+                            color =
+                              "text-[#E4405F] border-[#E4405F]/20 bg-[#E4405F]/5";
+                            break;
+                          case "linkedin":
+                            icon = <FaLinkedin />;
+                            name = isRTL ? "لينكد إن" : "LinkedIn";
+                            color =
+                              "text-[#0A66C2] border-[#0A66C2]/20 bg-[#0A66C2]/5";
+                            break;
+                          default:
+                            return null;
+                        }
+                        return (
+                          <div
+                            key={platform}
+                            className={`flex items-center justify-between border rounded-xl px-3 py-2 ${color}`}
+                          >
+                            <span className="text-[11px] font-bold whitespace-nowrap">
+                              {name}
+                            </span>
+                            <span className="text-base">{icon}</span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <h3 className="text-xl font-black text-baseTwo mb-6 flex items-center gap-3 pt-8 border-t border-gray-100">
                 <span className="w-2 h-8 rounded-full bg-primary" />
                 {translations.attachments}
               </h3>

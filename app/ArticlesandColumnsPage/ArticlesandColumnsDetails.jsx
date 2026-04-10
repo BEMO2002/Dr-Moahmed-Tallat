@@ -3,8 +3,19 @@ import React, { useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "../../i18n/routing";
 import { useParams } from "next/navigation";
-import { FaRegCalendarAlt, FaFilePdf, FaRegLightbulb } from "react-icons/fa";
+import {
+  FaRegCalendarAlt,
+  FaFilePdf,
+  FaRegLightbulb,
+  FaFacebook,
+  FaInstagram,
+  FaLinkedin,
+  FaTwitter,
+  FaStar,
+  FaHistory,
+} from "react-icons/fa";
 import { useTranslations } from "next-intl";
+import { GrScheduleNew } from "react-icons/gr";
 
 const ArticlesandColumnsDetails = ({ post, locale, isRTL, translations }) => {
   const t = useTranslations("postDetails");
@@ -18,7 +29,9 @@ const ArticlesandColumnsDetails = ({ post, locale, isRTL, translations }) => {
     const decodedCorrect = correctSlug ? decodeURIComponent(correctSlug) : "";
     const decodedCurrent = decodeURIComponent(slug);
     if (decodedCorrect && decodedCorrect !== decodedCurrent) {
-      router.replace(`/articles-columns/post/${correctSlug}`, { scroll: false });
+      router.replace(`/articles-columns/post/${correctSlug}`, {
+        scroll: false,
+      });
     }
   }, [post, slug, locale, router]);
 
@@ -30,6 +43,19 @@ const ArticlesandColumnsDetails = ({ post, locale, isRTL, translations }) => {
     post.strategic_brief?.[locale] || post.strategic_brief?.["en"];
   const categoryName =
     post.category?.name?.[locale] || post.category?.name?.["en"];
+
+  const isFeatured = post.is_featured;
+  const isOld = post.is_old;
+
+  let socialPlatforms = [];
+  if (post.social_platforms) {
+    try {
+      socialPlatforms =
+        typeof post.social_platforms === "string"
+          ? JSON.parse(post.social_platforms)
+          : post.social_platforms;
+    } catch (e) {}
+  }
 
   // Helper to format HTML-like text (line breaks)
   const formatContent = (text) => {
@@ -55,6 +81,28 @@ const ArticlesandColumnsDetails = ({ post, locale, isRTL, translations }) => {
           className="object-cover"
         />
         <div className="absolute inset-0 bg-linear-to-t from-baseTwo via-baseTwo/60 to-transparent" />
+
+        {/* Top Right Tags */}
+        <div className="absolute top-6 right-6 flex flex-col gap-2 items-end z-20">
+          {isFeatured && (
+            <span className="bg-green-600 px-4 py-1.5 rounded-full text-xs font-black text-white uppercase tracking-widest shadow-xl flex items-center gap-1">
+              <FaStar className="w-4 h-4" />
+              {isRTL ? "مميز" : "Featured"}
+            </span>
+          )}
+          {isOld === false && (
+            <span className="bg-blue-600 px-4 py-1.5 rounded-full text-xs font-black text-white uppercase tracking-widest shadow-xl flex items-center gap-1">
+              <GrScheduleNew className="w-4 h-4" />
+              {isRTL ? "مقال حديث" : "New"}
+            </span>
+          )}
+          {isOld === true && (
+            <span className="bg-amber-600 px-4 py-1.5 rounded-full text-xs font-black text-white uppercase tracking-widest shadow-xl flex items-center gap-1">
+              <FaHistory className="w-4 h-4" />
+              {isRTL ? "مقال قديم" : "Old"}
+            </span>
+          )}
+        </div>
 
         <div className="absolute bottom-0 left-0 right-0 p-6 md:p-16">
           <div className="max-w-7xl mx-auto">
@@ -141,9 +189,7 @@ const ArticlesandColumnsDetails = ({ post, locale, isRTL, translations }) => {
                       className="bg-primary hover:bg-secondary text-white px-4 md:px-8 py-2 md:py-3 rounded-full font-black text-[10px] md:text-xs transition-all shadow-xl flex items-center gap-2"
                     >
                       <FaFilePdf />
-                      <span className="hidden xs:inline">
-                        {t("download")}
-                      </span>
+                      <span className="hidden xs:inline">{t("download")}</span>
                     </a>
                   </div>
                 </div>
@@ -178,6 +224,74 @@ const ArticlesandColumnsDetails = ({ post, locale, isRTL, translations }) => {
                       {post.created_at}
                     </span>
                   </div>
+
+                  {/* Published At */}
+                  {post.published_at && (
+                    <div className="flex flex-col gap-1">
+                      <span className="text-gray-400 text-[10px] font-black uppercase tracking-widest">
+                        {isRTL ? "معاد النشر" : "Published At"}
+                      </span>
+                      <span className="text-baseTwo font-bold text-sm">
+                        {post.published_at}
+                      </span>
+                    </div>
+                  )}
+
+                  {/* Platforms Grid */}
+                  {socialPlatforms && socialPlatforms.length > 0 && (
+                    <div className="flex flex-col gap-2 pt-2 border-t border-gray-100">
+                      <span className="text-gray-400 text-[10px] font-black uppercase tracking-widest">
+                        {isRTL
+                          ? "المنصات التي نشر عليها"
+                          : "Published Platforms"}
+                      </span>
+                      <div className="grid grid-cols-2 gap-2 mt-1">
+                        {socialPlatforms.map((platform) => {
+                          let icon, name, color;
+                          switch (platform.toLowerCase()) {
+                            case "facebook":
+                              icon = <FaFacebook />;
+                              name = isRTL ? "فيسبوك" : "Facebook";
+                              color =
+                                "text-[#1877F2] border-[#1877F2]/20 bg-[#1877F2]/5";
+                              break;
+                            case "twitter":
+                            case "x":
+                              icon = <FaTwitter />;
+                              name = isRTL ? "منصة X" : "X Platform";
+                              color =
+                                "text-black border-black/20 bg-black/5 flex-row-reverse"; // Adjusted to keep flow right
+                              break;
+                            case "instagram":
+                              icon = <FaInstagram />;
+                              name = isRTL ? "إنستجرام" : "Instagram";
+                              color =
+                                "text-[#E4405F] border-[#E4405F]/20 bg-[#E4405F]/5";
+                              break;
+                            case "linkedin":
+                              icon = <FaLinkedin />;
+                              name = isRTL ? "لينكد إن" : "LinkedIn";
+                              color =
+                                "text-[#0A66C2] border-[#0A66C2]/20 bg-[#0A66C2]/5";
+                              break;
+                            default:
+                              return null;
+                          }
+                          return (
+                            <div
+                              key={platform}
+                              className={`flex items-center justify-between border rounded-xl px-3 py-2 ${color}`}
+                            >
+                              <span className="text-[11px] font-bold whitespace-nowrap">
+                                {name}
+                              </span>
+                              <span className="text-base">{icon}</span>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
                   {post.url && (
                     <div className="flex flex-col gap-3">
                       <span className="text-gray-400 text-[10px] font-black uppercase tracking-widest">
