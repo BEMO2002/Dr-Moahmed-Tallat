@@ -15,7 +15,7 @@ import {
   FaHistory,
 } from "react-icons/fa";
 import { useTranslations } from "next-intl";
-import { GrScheduleNew } from "react-icons/gr";
+import { sanitizeHtml } from "@/lib/security";
 
 const ArticlesandColumnsDetails = ({ post, locale, isRTL, translations }) => {
   const t = useTranslations("postDetails");
@@ -38,7 +38,9 @@ const ArticlesandColumnsDetails = ({ post, locale, isRTL, translations }) => {
   if (!post) return null;
 
   const title = post.title?.[locale] || post.title?.["en"];
-  const description = post.description?.[locale] || post.description?.["en"];
+  const rawDescription = post.description?.[locale] || post.description?.["en"];
+  // Sanitize content against XSS
+  const description = rawDescription ? sanitizeHtml(rawDescription) : "";
   const strategicBrief =
     post.strategic_brief?.[locale] || post.strategic_brief?.["en"];
   const categoryName =
@@ -57,15 +59,15 @@ const ArticlesandColumnsDetails = ({ post, locale, isRTL, translations }) => {
     } catch (e) {}
   }
 
-  // Helper to format HTML-like text (line breaks)
+  // Helper to format HTML-like text (line breaks), using dangerouslySetInnerHTML after sanitization
   const formatContent = (text) => {
     return text.split("\n").map((line, i) => (
       <p
         key={i}
         className="mb-6 leading-loose text-gray-700 text-lg font-medium"
-      >
-        {line}
-      </p>
+        // Since we sanitized it, we can safely inject HTML if it contains permitted tags
+        dangerouslySetInnerHTML={{ __html: line }}
+      />
     ));
   };
 
@@ -123,7 +125,7 @@ const ArticlesandColumnsDetails = ({ post, locale, isRTL, translations }) => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 relative">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
           {/* Main Content */}
           <div className="lg:col-span-8">
