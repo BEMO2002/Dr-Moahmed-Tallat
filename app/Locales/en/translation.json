@@ -478,5 +478,11 @@
     "no_galleries": "No photo galleries available at the moment",
     "loadError": "An error occurred while loading the gallery",
     "seo_description": "Browse the photo gallery of Dr. Mohamed Talaat from international conferences and media events."
+  },
+  "notFound": {
+    "title": "404",
+    "subTitle": "Page Not Found",
+    "description": "The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.",
+    "goHome": "Go back home"
   }
 }

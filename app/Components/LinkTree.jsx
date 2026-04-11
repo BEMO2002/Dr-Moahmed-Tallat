@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 
+import Image from "next/image";
 import {
   FaFacebookF,
   FaInstagram,
@@ -11,16 +12,10 @@ import {
 import { Link } from "../../i18n/routing";
 import { useSettings } from "../Context/SettingContext";
 import { useLocale } from "next-intl";
-
 const LinkTree = () => {
   const t = useTranslations();
   const { settings } = useSettings();
   const isRTL = useLocale() === "ar";
-  const [currentUrl, setCurrentUrl] = useState("");
-
-  useEffect(() => {
-    setCurrentUrl(window.location.href);
-  }, []);
 
   const facebookUrl = settings?.social_links?.facebook || null;
   const instagramUrl = settings?.social_links?.instagram || null;
@@ -68,20 +63,22 @@ const LinkTree = () => {
 
   return (
     <div
-      className="min-h-screen flex items-center justify-center py-12 px-4"
+      className=" flex items-center justify-center py-50 px-4"
       style={{ direction: isRTL ? "rtl" : "ltr" }}
     >
       <div className="w-full max-w-lg">
         <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
           {/* Header with Gradient Background */}
-          <div className="w-full bg-third   py-10 flex flex-col items-center justify-center">
+          <div className="w-full bg-primary/10   py-10 flex flex-col items-center justify-center">
             {/* Logo */}
             {logo && (
               <div className="mb-5">
-                <img
+                <Image
                   src={logo}
                   alt="Company Logo"
-                  className="h-20 w-auto object-contain"
+                  width={200}
+                  height={80}
+                  className="h-30 w-auto object-contain"
                 />
               </div>
             )}
@@ -109,7 +106,7 @@ const LinkTree = () => {
                 >
                   {/* Icon */}
                   <div
-                    className={`w-12 h-12 rounded-full flex items-center justify-center text-white flex-shrink-0 ${link.color}`}
+                    className={`w-12 h-12 rounded-full flex items-center justify-center text-white  ${link.color}`}
                   >
                     <IconComponent className="w-6 h-6" />
                   </div>
