@@ -11,6 +11,7 @@ import {
 import aboutImage from "../../public/Home/about.png";
 import { FaArrowLeft, FaArrowRight, FaGlobe } from "react-icons/fa";
 import Image from "next/image";
+import { Link } from "../../i18n/routing";
 const AboutTwo = () => {
   const t = useTranslations("about");
   const locale = useLocale();
@@ -208,8 +209,11 @@ const AboutTwo = () => {
                 </motion.div>
               </AnimatePresence>
 
-              <div className="mt-12">
-                <button className="px-8 py-4 bg-baseTwo text-white rounded-xl font-bold hover:bg-primary transition-all duration-300 shadow-xl hover:shadow-primary/20 flex items-center gap-3 group">
+              {/* <div className="mt-12">
+                <Link
+                  href="/about"
+                  className="px-8 py-4 w-fit bg-baseTwo text-white rounded-xl font-bold hover:bg-primary transition-all duration-300 shadow-xl hover:shadow-primary/20 flex items-center gap-3 group"
+                >
                   {t("learnMore")}
                   <motion.span
                     animate={{ x: [0, 5, 0] }}
@@ -217,8 +221,8 @@ const AboutTwo = () => {
                   >
                     {isRTL ? <FaArrowLeft /> : <FaArrowRight />}
                   </motion.span>
-                </button>
-              </div>
+                </Link>
+              </div> */}
             </div>
           </div>
         </div>
