@@ -214,7 +214,7 @@ const AboutTwo = () => {
 
               <div className="mt-12">
                 <Link
-                  href="/articles-columns"
+                  href="/analyses"
                   className="px-8 py-4 w-fit bg-baseTwo text-white rounded-xl font-bold hover:bg-primary transition-all duration-300 shadow-xl hover:shadow-primary/20 flex items-center gap-3 group"
                 >
                   {t("learnMore")}

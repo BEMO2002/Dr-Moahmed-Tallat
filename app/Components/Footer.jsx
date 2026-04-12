@@ -10,6 +10,7 @@ import {
   FaInstagram,
   FaTwitter,
   FaWhatsapp,
+  FaHeart,
 } from "react-icons/fa";
 import { useTranslations, useLocale } from "next-intl";
 import toast from "react-hot-toast";
@@ -615,9 +616,28 @@ const Footer = () => {
                 {t("footer.securityDisclosure")}
               </Link>
             </div>
+            <div className="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-8 mt-8 pt-6 border-t border-black/5">
+              <p className="text-sm text-black/60 font-medium">
+                {currentFooterText}
+              </p>
 
-            <div className="flex justify-center items-center gap-4">
-              <p className="text-sm text-black">{currentFooterText}</p>
+              <a
+                href="https://wa.me/201028768312?text=%D8%AA%D8%AD%D9%8A%D8%A9%20%D8%B7%D9%8A%D8%A8%D8%A9%D8%8C%20%20%D9%84%D9%82%D8%AF%20%D8%A3%D8%B9%D8%AC%D8%A8%D9%86%D9%8A%20%D8%A7%D9%84%D9%85%D9%88%D9%82%D8%B9%20%D8%A7%D9%84%D8%B0%D9%8A%20%D8%B5%D9%85%D9%85%D8%AA%D9%87%20%D9%84%D9%84%D8%AF%D9%83%D8%AA%D9%88%D8%B1%20%D9%85%D8%AD%D9%85%D8%AF%20%D8%B7%D9%84%D8%B9%D8%AA%D8%8C%20%20%D9%88%D9%83%D9%86%D8%AA%20%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D8%AE%D8%AF%D9%85%D8%A7%D8%AA%D9%83%20%D8%A7%D9%84%D8%A8%D8%B1%D9%85%D8%AC%D9%8A%D8%A9."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[13px] md:text-sm text-black flex items-center gap-2 font-bold group no-print transition-transform hover:scale-105"
+                dir="ltr"
+              >
+                <span className="opacity-50 group-hover:opacity-100 transition-opacity">
+                  Made By
+                </span>
+                <span className="text-primary underline decoration-primary/30 underline-offset-4 group-hover:decoration-primary transition-all">
+                  Mohamed Khder
+                </span>
+                <div className="flex items-center justify-center bg-primary/50 w-8 h-8 rounded-full group-hover:bg-primary group-hover:text-white transition-all shadow-inner">
+                  <FaHeart className="text-primary group-hover:text-white  w-3 h-3" />
+                </div>
+              </a>
             </div>
           </div>
         </div>

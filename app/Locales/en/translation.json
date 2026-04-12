@@ -260,6 +260,36 @@
     "researchLabel": "Research Axes"
   },
 
+  "specialServices": {
+    "subtitle": "Research Axes",
+    "title1": "Fields",
+    "titleHighlight": "Strategic",
+    "strategicDomains": "Strategic Domains",
+    "geopolitics": {
+      "title": "Geopolitics",
+      "description": "Reading the map where interests and ideology intersect — including the geopolitics of femininity."
+    },
+    "hybridWarfare": {
+      "title": "Hybrid Warfare",
+      "description": "War as more than bullets — information as a weapon, and consciousness as the first and last battlefield."
+    },
+    "politicalPsychology": {
+      "title": "Political Psychology",
+      "description": "Dissecting mechanisms of influence and submission and engineering collective consciousness — identification, alienation, emotional estrangement."
+    },
+    "techAI": {
+      "title": "Technology and Artificial Intelligence",
+      "description": "Artificial intelligence as a field of control and liberation — and the future of sovereign decision-making in a digital world."
+    },
+    "strategicMedia": {
+      "title": "Strategic Media",
+      "description": "How narratives are made and broken — managing discourse in the age of information chaos."
+    },
+    "strategicGovernance": {
+      "title": "Strategic Governance",
+      "description": "Building systems and decision structures in complex environments — sovereign mobilization and imposing will."
+    }
+  },
   "quotations": {
     "title": "Media Citations",
     "breadcrumb": "Citations",
