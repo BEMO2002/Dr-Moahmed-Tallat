@@ -8,7 +8,7 @@
     "executiveRequest": "Executive Request",
     "links": "LinkTree",
     "strategicAnalyses": "Strategic Articles and Analyses",
-    "allAnalyses": "All Analyses",
+    "allAnalyses": "All Articles",
     "allPosts": "All Articles",
     "posts": "Articles & Columns",
     "media": {
@@ -54,29 +54,6 @@
     "originalSource": "Original Source",
     "visitSource": "Visit Source"
   },
-  "megaMenu": {
-    "trigger": "Full Menu",
-    "viewSitemap": "VIEW SITEMAP",
-    "sections": {
-      "marketing": "Marketing",
-      "pms": "PMS",
-      "iotBusiness": "IOT & Business",
-      "courses": "IT Solutions"
-    },
-    "items": {
-      "home": "Home",
-      "services": "Services",
-      "blogs": "Blogs",
-      "about": "About",
-      "contact": "Contact us",
-      "solutions": "Solutions",
-      "courses": "Services",
-      "pricing": "Pricing",
-      "blog": "Blog",
-      "clientsPartners": "Clients and partners",
-      "course": "Service"
-    }
-  },
   "slider": {
     "error": "Error loading slider",
     "noSliders": "No sliders available",
@@ -93,14 +70,14 @@
     "titleHighlight": "Talaat",
     "title2": "Media Veteran & Political Analyst",
     "tabs": {
-      "about": "About the Doctor",
-      "mission": "Political Vision",
-      "vision": "Psychological Analysis"
+      "about": "Political Message",
+      "mission": "Philosophical Statement",
+      "vision": "Decision Making"
     },
     "title": "Who is Dr. Mohamed Talaat?",
     "keywords": "Mohamed Talaat, Media, Journalism, Political Analysis",
     "author": "Dr. Mohamed Talaat",
-    "description": "A seasoned media veteran and journalist, founder of East News Agency, and a political and psychological analyst with deep insights into decoding geopolitical events and the occupation of consciousness.",
+    "description": "A seasoned media veteran and journalist, founder of East News Agency, and a political and psychological analyst.",
     "ogTitle": "Dr. Mohamed Talaat | Media Veteran & Political Analyst",
     "ogDescription": "Dr. Mohamed Talaat's platform for political and psychological analysis, founder of East News Agency.",
     "ogType": "website",
@@ -112,73 +89,35 @@
     "twitterImage": "https://mohamedtalaat.com/images/og-image.jpg",
     "tabContent": {
       "about": {
-        "text": "Dr. Mohamed Talaat is a seasoned media veteran and political analyst, dedicated to dismantling crises and enlightening the Arab consciousness.",
+        "text": "Redefining the concepts of initiative and sovereign deterrence in the contemporary international order.",
         "points": [
-          "Strategic Growth Planning",
-          "Premium Brand Identity",
-          "Full-Service Digital Solutions"
+          "Deconstructing complex crises",
+          "International political corridors",
+          "Reshaping Arab awareness"
         ]
       },
       "mission": {
-        "text": "Our strategy is built on data and creativity. We transform insights into impactful campaigns that resonate with your audience and drive measurable growth.",
+        "text": "Confronting consciousness occupation with tools of intellectual sovereignty and geopolitical deterrence.",
         "points": [
-          "Data-Driven Insights",
-          "Creative Campaign Strategy",
-          "Targeted Audience Engagement"
+          "Sovereign Foresight",
+          "Dissecting Invisible Actors",
+          "Fortified Awareness Engineering"
         ]
       },
       "vision": {
-        "text": "We aim to be the global catalyst for brand transformation, setting new standards in digital marketing excellence and innovative storytelling.",
+        "text": "Crafting tools for statesmen to understand and make decisions away from media superficiality.",
         "points": [
-          "Global Brand Reach",
-          "Innovative Marketing Standards",
-          "Market Leadership"
+          "Mass Consciousness Engineering",
+          "Geopolitical Deterrence",
+          "Strategic Initiative"
         ]
       }
     },
-    "learnMore": "Learn More",
+    "learnMore": "Explore Analyses",
     "imageAlt": "About Dr. Mohamed Talaat",
     "yearsExp": "Years Exp."
   },
-  "features": {
-    "tag": "FEATURES",
-    "title": "Emerging Technologies and Trends in Digital Marketing",
-    "imageAlt": "Feature",
-    "items": [
-      {
-        "title": "Brand Strategy",
-        "description": "Develop a unique brand voice and visual identity that stands out in the marketplace."
-      },
-      {
-        "title": "Top Marketing Experts",
-        "description": "Work with experienced strategists who focus on real results and creative excellence."
-      },
-      {
-        "title": "Proven Success",
-        "description": "Receive comprehensive strategies and reports to showcase your growth and progress."
-      }
-    ]
-  },
-  "services": {
-    "title": "Our Services",
-    "readMore": "Read More",
-    "readLess": "Read Less",
-    "events": {
-      "title": "Events Management",
-      "body": "Including: In-person & Virtual events such as standalone webinars, webinar series, symposiums,",
-      "more": "conferences, Ad-boards and medical writing services. CPD certification for events and team building activities."
-    },
-    "clinical": {
-      "title": "Clinical Services Facilitation & Educational Tools",
-      "body": "We have a number of educational tools tailored to provide access to up-to-date clinical information, whether clinical studies or medical conferences",
-      "more": "Additionally we cater for different forms of clinical services to facilitate its execution for the medical or pharmaceutical industry."
-    },
-    "marketing": {
-      "title": "Medical Marketing",
-      "body": "We can conduct marketing campaigns and social medical campaigns for the medical community, examples include: disease awareness campaigns and social media account boosting.",
-      "more": "In addition to these services we can facilitate regular media access through our network and connections to Journalists."
-    }
-  },
+
   "loading": "Loading...",
   "contactForm": {
     "tag": "Contact Us",
@@ -247,6 +186,9 @@
     "privacyPolicy": "Privacy Policy",
     "termsOfService": "Terms of Service",
     "sitemap": "Sitemap",
+    "aiUsagePolicy": "AI Usage Policy",
+    "dataProtection": "Data Protection Framework",
+    "securityDisclosure": "Security Disclosure Policy",
     "mathCaptchaLabel": "Verify you're human",
     "mathPlaceholder": "Enter answer",
     "accreditations": "Accreditations and Certifications"
@@ -263,34 +205,6 @@
     "keywords": "Marketing Services, Brand Strategy, Digital Growth, Content Creation, SEO, Social Media, Business Consulting",
     "all": "All"
   },
-  "courses": {
-    "loadError": "Failed to load services",
-    "detailsLoadError": "Failed to load service details",
-    "notFound": "Service not found",
-    "noCourses": "No services found",
-    "showing": "Showing",
-    "of": "Of",
-    "results": "Results",
-    "searchPlaceholder": "Search Services...",
-    "viewDetails": "View Details",
-    "prev": "Previous",
-    "next": "Next",
-    "back": "Back",
-    "backToCourses": "Back to Services",
-    "overview": "Service Overview",
-    "details": "Service Details",
-    "category": "Category",
-    "price": "Price",
-    "currency": "EGP",
-    "free": "Not specified",
-    "enrollNow": "Get Started",
-    "timeline": "Timeline",
-    "timelineValue": "Ongoing",
-    "availability": "Availability",
-    "availabilityValue": "Available Now",
-    "guarantee": "Results",
-    "guaranteeValue": "Verified Growth"
-  },
   "headContact": {
     "title": "Contact us",
     "description": "Have questions? Contact Dr. Mohamed Talaat today. We're here to help you understand the political landscape.",
@@ -303,43 +217,7 @@
     "title": "Blogs",
     "comingSoon": "Coming Soon"
   },
-  "blogs": {
-    "title2": "Our Blogs",
-    "title": " Dr. Mohamed Talaat - Blogs",
-    "description": "Stay updated with the latest insights in politics, psychology, and media. Read articles from Dr. Mohamed Talaat.",
-    "loadError": "Failed to load blogs",
-    "readMore": "Read More",
-    "minRead": "min read",
-    "comingSoonTitle": "Exciting Blogs Coming Soon!",
-    "comingSoonMessage": "We're working on creating amazing blog posts. Stay tuned!",
-    "all": "All",
-    "noBlogs": "No posts found",
-    "showing": "Showing",
-    "of": "Of",
-    "results": "Results",
-    "searchPlaceholder": "Search Blogs...",
-    "viewDetails": "View Details",
-    "prev": "Previous",
-    "next": "Next",
-    "notFound": "Post not found",
-    "detailsLoadError": "Failed to load post details",
-    "back": "Back",
-    "backToBlogs": "Back to Blogs",
-    "overview": "Blogs Overview",
-    "details": "Blogs Details",
-    "category": "Category"
-  },
-  "leadMagnet": {
-    "labelEmail": "Email Address",
-    "placeholderEmail": "Enter your email address",
-    "buttonSubmit": "Submit",
-    "buttonSending": "Sending...",
-    "successMessage": "Thank you! Your email has been submitted successfully.",
-    "errorValidation": "Please fill in all required fields correctly.",
-    "errorGeneral": "Something went wrong. Please try again later.",
-    "errorEmailRequired": "Email address is required",
-    "errorEmailInvalid": "Please enter a valid email address"
-  },
+
   "linkTree": {
     "title": "Connect With Us",
     "connectText": "Connect with us on your favorite platform",
@@ -381,48 +259,7 @@
     "research": "5+",
     "researchLabel": "Research Axes"
   },
-  "accreditations": {
-    "title": "Accreditations & Partnerships",
-    "description": "Browse all our latest marketing case studies and updates",
-    "keywords": "marketing, agency, success stories, articles",
-    "all": "All"
-  },
-  "sitemap": {
-    "description": "Browse our complete agency structure and find what you're looking for",
-    "mainPages": "Main Pages",
-    "xmlSitemaps": "XML Sitemaps",
-    "error": "Failed to load sitemap"
-  },
-  "specialServices": {
-    "subtitle": "Research Axes",
-    "title1": "Strategic",
-    "titleHighlight": "Domains",
-    "strategicDomains": "Strategic Domains",
-    "geopolitics": {
-      "title": "Geopolitics",
-      "description": "Reading the map where interests and ideology intersect — including the geopolitics of femininity."
-    },
-    "hybridWarfare": {
-      "title": "Hybrid Warfare",
-      "description": "War as more than bullets — information is a weapon, and awareness is the first and last battlefield."
-    },
-    "politicalPsychology": {
-      "title": "Political Psychology",
-      "description": "Dissecting the mechanisms of influence and compliance and engineering collective consciousness — identification, alienation, emotional alienation."
-    },
-    "techAI": {
-      "title": "Technology and Artificial Intelligence",
-      "description": "Artificial intelligence as a field of control and liberation — and the future of sovereign decision-making in a digital world."
-    },
-    "strategicMedia": {
-      "title": "Strategic Media",
-      "description": "How narratives are made and how they are broken — managing discourse in the age of information chaos."
-    },
-    "strategicGovernance": {
-      "title": "Strategic Governance",
-      "description": "Building systems and decision structures in complex environments — sovereign mobilization and imposing will."
-    }
-  },
+
   "quotations": {
     "title": "Media Citations",
     "breadcrumb": "Citations",
@@ -484,5 +321,35 @@
     "subTitle": "Page Not Found",
     "description": "The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.",
     "goHome": "Go back home"
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Answers to your inquiries regarding the platform and our methodology",
+    "items": [
+      {
+        "question": "What is the nature of the content provided by the platform?",
+        "answer": "The platform provides specialized analytical content in political and strategic affairs, focused on geopolitical interpretation, media discourse analysis, and the development of deep explanatory frameworks that go beyond surface-level event narration."
+      },
+      {
+        "question": "Does the content reflect a specific political orientation?",
+        "answer": "The content follows a sovereign analytical approach grounded in a structural understanding of the state and society, aiming to interpret developments within strategic frameworks rather than through simplification or propaganda."
+      },
+      {
+        "question": "How is the accuracy of the analysis ensured?",
+        "answer": "Content is built through layered conceptual and analytical methodologies, including mechanism-based analysis, contextual reading, and the integration of political and social variables into coherent explanatory models."
+      },
+      {
+        "question": "Does the platform use artificial intelligence?",
+        "answer": "Yes. Artificial intelligence is used as a support layer for analysis, structuring, and efficiency enhancement, while intellectual and editorial oversight remains under qualified human review."
+      },
+      {
+        "question": "Can the content be used for research purposes?",
+        "answer": "The content may be used as an analytical reference with proper attribution, given that it is developed according to standards aligned with international think tanks and research institutions."
+      },
+      {
+        "question": "How is user data handled?",
+        "answer": "User data is managed under strict protection measures including encryption, access minimization, and no sharing beyond approved legal and regulatory frameworks."
+      }
+    ]
   }
 }

@@ -16,6 +16,7 @@ import toast from "react-hot-toast";
 import { subscribeNewsletter } from "../lib/server-api";
 import { useSettings } from "../Context/SettingContext";
 import { Link } from "../../i18n/routing";
+import Image from "next/image";
 const Footer = () => {
   const t = useTranslations();
   const locale = useLocale();
@@ -246,18 +247,69 @@ const Footer = () => {
                 } mb-4`}
               >
                 {settings?.footer_logo && (
-                  <img src={settings.footer_logo} alt="Logo" className="w-60" />
+                  <Image
+                    src={settings.footer_logo}
+                    alt="Logo"
+                    width={200}
+                    height={200}
+                    className="w-60"
+                  />
                 )}
               </div>
-              <h3 className="text-lg font-bold mb-3">
+              <h3 className="text-2xl font-bold mb-3">
                 {t("footer.companyName")}
               </h3>
               <p className="text-sm text-black/90 leading-relaxed mb-4 max-w-sm">
                 {t("footer.aboutDescription")}
               </p>
-              <div className="text-sm font-medium text-secondary">
-                {t("footer.mission")}
-              </div>
+              {(facebookUrl || instagramUrl || twitterUrl || whatsappUrl) && (
+                <div className="flex justify-start items-start gap-4 mt-2">
+                  {facebookUrl && (
+                    <a
+                      href={facebookUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-black/80 hover:text-secondary transition-colors duration-200"
+                      aria-label="Facebook"
+                    >
+                      <FaFacebookF className="w-5 h-5 text-primary" />
+                    </a>
+                  )}
+                  {instagramUrl && (
+                    <a
+                      href={instagramUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-black/80 hover:text-secondary transition-colors duration-200"
+                      aria-label="Instagram"
+                    >
+                      <FaInstagram className="w-5 h-5 text-primary" />
+                    </a>
+                  )}
+                  {twitterUrl && (
+                    <a
+                      href={twitterUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-black/80 hover:text-secondary transition-colors duration-200"
+                      aria-label="Twitter"
+                    >
+                      <FaTwitter className="w-5 h-5 text-primary" />
+                    </a>
+                  )}
+                  {whatsappUrl && (
+                    <a
+                      href={whatsappUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-black hover:text-secondary transition-colors duration-200"
+                      aria-label="WhatsApp"
+                    >
+                      <FaWhatsapp className="w-5 h-5 text-primary" />
+                    </a>
+                  )}
+                </div>
+              )}
             </div>
 
             {/* Quick Links */}
@@ -316,22 +368,6 @@ const Footer = () => {
                     className="text-black hover:text-secondary transition-colors duration-200 text-md"
                   >
                     {t("navbar.links")}
-                  </Link>
-                </li>
-                {/* <li>
-                  <Link
-                    href="/accreditations"
-                    className="text-black hover:text-secondary transition-colors duration-200 text-md"
-                  >
-                    {t("footer.accreditations")}
-                  </Link>
-                </li> */}
-                <li>
-                  <Link
-                    href="/sitemap"
-                    className="text-black hover:text-secondary transition-colors duration-200 text-md"
-                  >
-                    {t("footer.sitemap", "Sitemap")}
                   </Link>
                 </li>
               </ul>
@@ -547,54 +583,38 @@ const Footer = () => {
 
           {/* Copyright */}
           <div className="text-center pt-6 border-t border-black/20 space-y-2">
-            {(facebookUrl || instagramUrl || twitterUrl || whatsappUrl) && (
-              <div className="flex justify-center items-center gap-4 mt-2">
-                {facebookUrl && (
-                  <a
-                    href={facebookUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-black/80 hover:text-secondary transition-colors duration-200"
-                    aria-label="Facebook"
-                  >
-                    <FaFacebookF className="w-5 h-5 text-primary" />
-                  </a>
-                )}
-                {instagramUrl && (
-                  <a
-                    href={instagramUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-black/80 hover:text-secondary transition-colors duration-200"
-                    aria-label="Instagram"
-                  >
-                    <FaInstagram className="w-5 h-5 text-primary" />
-                  </a>
-                )}
-                {twitterUrl && (
-                  <a
-                    href={twitterUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-black/80 hover:text-secondary transition-colors duration-200"
-                    aria-label="Twitter"
-                  >
-                    <FaTwitter className="w-5 h-5 text-primary" />
-                  </a>
-                )}
-                {whatsappUrl && (
-                  <a
-                    href={whatsappUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-black hover:text-secondary transition-colors duration-200"
-                    aria-label="WhatsApp"
-                  >
-                    <FaWhatsapp className="w-5 h-5 text-primary" />
-                  </a>
-                )}
-              </div>
-            )}
+            <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-2 mb-4  pt-6">
+              <Link
+                href="/privacy"
+                className="text-sm text-black/70 hover:text-primary transition-colors"
+              >
+                {t("footer.privacyPolicy")}
+              </Link>
+              <Link
+                href="/terms-conditions"
+                className="text-sm text-black/70 hover:text-primary transition-colors"
+              >
+                {t("footer.termsOfService")}
+              </Link>
+              <Link
+                href="/ai-poilcy"
+                className="text-sm text-black/70 hover:text-primary transition-colors"
+              >
+                {t("footer.aiUsagePolicy")}
+              </Link>
+              <Link
+                href="/data-protection"
+                className="text-sm text-black/70 hover:text-primary transition-colors"
+              >
+                {t("footer.dataProtection")}
+              </Link>
+              <Link
+                href="/security-policy"
+                className="text-sm text-black/70 hover:text-primary transition-colors"
+              >
+                {t("footer.securityDisclosure")}
+              </Link>
+            </div>
 
             <div className="flex justify-center items-center gap-4">
               <p className="text-sm text-black">{currentFooterText}</p>

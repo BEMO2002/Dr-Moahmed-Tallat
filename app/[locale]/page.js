@@ -7,6 +7,7 @@ import SpecialServices from "../HomePage/SpecialServices";
 import InfinitySliderTwo from "../HomePage/InfintySliderTwo";
 import Counter from "../HomePage/Counter";
 import TallatCvServer from "../HomePage/TallatCvServer";
+import FaqSection from "../HomePage/FaqSection";
 
 export async function generateMetadata({ params }) {
   const resolvedParams = await params;
@@ -65,6 +66,7 @@ export default function MainHome() {
       <SpecialServices />
       <InfinitySlider />
       <TallatCvServer />
+      <FaqSection />
     </>
   );
 }

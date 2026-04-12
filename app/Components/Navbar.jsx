@@ -163,7 +163,7 @@ const Navbar = () => {
       dropdownId: "about",
       items: [
         { to: "/about", label: t("navbar.about") },
-        { to: "/podcasts", label: t("navbar.podcasts.title") },
+
         { to: "/galleries", label: t("navbar.media.galleries") },
       ],
     },
@@ -173,7 +173,6 @@ const Navbar = () => {
       dropdownId: "media",
       items: [
         { to: "/meetings-conferences", label: t("navbar.media.interviews") },
-        { to: "/meetings-conferences", label: t("navbar.media.conferences") },
         { to: "/quotations", label: t("navbar.media.citations") },
       ],
     },
@@ -190,24 +189,15 @@ const Navbar = () => {
           to: `/analyses/${type.slug[locale] || type.slug["en"]}`,
           label: type.name[locale] || type.name["en"],
         })),
-        { isSeparator: true },
-        {
-          to: "/articles-columns",
-          label: t("navbar.allPosts", "All Articles"),
-        },
-        ...postCategories.map((cat) => ({
-          to: `/articles-columns/${cat.slug[locale] || cat.slug["en"]}`,
-          label: cat.name[locale] || cat.name["en"],
-        })),
       ],
     },
-
+    { to: "/podcasts", label: t("navbar.podcasts.title") },
     {
       to: "/research-archive",
       label: t("navbar.researchArchive"),
       isVault: true,
     },
-    { to: "/contact", label: t("navbar.contact") },
+    // { to: "/contact", label: t("navbar.contact") },
   ];
 
   const DesktopNavLink = ({ to, children, isVault }) => {

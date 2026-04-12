@@ -88,7 +88,12 @@ const AnalysesDetails = ({ article, translations, locale, isRTL }) => {
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-30" />
 
               {/* Top Right Tags */}
-              <div className="absolute top-6 right-6 flex flex-col gap-2 items-end z-20">
+              <div
+                className={`absolute top-6 ${
+                  isRTL ? "right-6" : "left-6"
+                } flex flex-col gap-2 items-start z-20`}
+                dir={isRTL ? "rtl" : "ltr"}
+              >
                 {isFeatured && (
                   <span className="bg-green-600 px-4 py-1.5 rounded-full text-xs font-black text-white uppercase tracking-widest shadow-xl flex items-center gap-1">
                     <FaStar className="w-4 h-4" />

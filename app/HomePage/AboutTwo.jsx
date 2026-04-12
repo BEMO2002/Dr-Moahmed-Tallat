@@ -22,6 +22,7 @@ const AboutTwo = () => {
   const tabs = [
     { key: "about", label: t("tabs.about"), icon: HiRocketLaunch },
     { key: "mission", label: t("tabs.mission"), icon: HiLightBulb },
+    { key: "vision", label: t("tabs.vision"), icon: HiChartBar },
   ];
 
   const activeContent = {
@@ -109,23 +110,25 @@ const AboutTwo = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
-                className="text-4xl sm:text-5xl lg:text-6xl font-bold text-baseTwo mb-8 leading-[1.1]"
+                className="text-4xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-baseTwo mb-8 leading-[1.1]"
               >
-                {t("title1")}{" "}
-                <span className="text-primary relative inline-block">
-                  {t("titleHighlight")}
-                  <svg
-                    className="absolute -bottom-2 left-0 w-full h-2 text-primary/30"
-                    viewBox="0 0 100 10"
-                    preserveAspectRatio="none"
-                  >
-                    <path
-                      d="M0 5 Q 25 0, 50 5 T 100 5"
-                      stroke="currentColor"
-                      strokeWidth="4"
-                      fill="none"
-                    />
-                  </svg>
+                <span className="inline-block whitespace-nowrap">
+                  {t("title1")}{" "}
+                  <span className="text-primary relative inline-block">
+                    {t("titleHighlight")}
+                    <svg
+                      className="absolute -bottom-2 left-0 w-full h-2 text-primary/30"
+                      viewBox="0 0 100 10"
+                      preserveAspectRatio="none"
+                    >
+                      <path
+                        d="M0 5 Q 25 0, 50 5 T 100 5"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                        fill="none"
+                      />
+                    </svg>
+                  </span>
                 </span>{" "}
                 {t("title2")}
               </motion.h2>
@@ -209,9 +212,9 @@ const AboutTwo = () => {
                 </motion.div>
               </AnimatePresence>
 
-              {/* <div className="mt-12">
+              <div className="mt-12">
                 <Link
-                  href="/about"
+                  href="/articles-columns"
                   className="px-8 py-4 w-fit bg-baseTwo text-white rounded-xl font-bold hover:bg-primary transition-all duration-300 shadow-xl hover:shadow-primary/20 flex items-center gap-3 group"
                 >
                   {t("learnMore")}
@@ -222,7 +225,7 @@ const AboutTwo = () => {
                     {isRTL ? <FaArrowLeft /> : <FaArrowRight />}
                   </motion.span>
                 </Link>
-              </div> */}
+              </div>
             </div>
           </div>
         </div>
