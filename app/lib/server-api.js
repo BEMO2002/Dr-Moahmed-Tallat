@@ -12,7 +12,7 @@ export async function fetchSettings() {
         "Content-Type": "application/json",
         "X-Api-Key": "P4OIp8prRKBeO0kogfGViTNzmAT8UnzL",
       },
-      next: { revalidate: 60 },
+      next: { revalidate: 0 },
     });
 
     if (!res.ok) return null;
@@ -35,7 +35,7 @@ export async function fetchSliders() {
         "Content-Type": "application/json",
         "X-Api-Key": "P4OIp8prRKBeO0kogfGViTNzmAT8UnzL",
       },
-      next: { revalidate: 60 },
+      next: { revalidate: 0 },
     });
 
     if (!res.ok) return [];

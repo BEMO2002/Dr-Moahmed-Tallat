@@ -236,11 +236,11 @@ const Navbar = () => {
               <Link
                 href="/"
                 onClick={closeMenu}
-                className="block group relative w-30 h-30 md:w-30 lg:w-30 lg:h-30"
+                className="block group relative w-32 h-32"
               >
-                {settings?.logo && (
+                {(settings?.logo || settings?.footer_logo || settings?.main_logo || settings?.main_logo_dark) && (
                   <Image
-                    src={settings.logo}
+                    src={settings?.logo || settings?.footer_logo || settings?.main_logo || settings?.main_logo_dark}
                     alt="Logo"
                     fill
                     priority
@@ -419,9 +419,9 @@ const Navbar = () => {
                 onClick={closeMenu}
                 className="block relative h-20 w-32"
               >
-                {settings?.logo ? (
+                {(settings?.logo || settings?.footer_logo || settings?.main_logo || settings?.main_logo_dark) ? (
                   <Image
-                    src={settings.logo}
+                    src={settings?.logo || settings?.footer_logo || settings?.main_logo || settings?.main_logo_dark}
                     alt="Logo"
                     fill
                     className="object-contain"
