@@ -333,30 +333,6 @@ const Footer = () => {
                 </li>
                 <li>
                   <Link
-                    href="/courses"
-                    className="text-black hover:text-secondary transition-colors duration-200 text-md"
-                  >
-                    {t("navbar.services")}
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/blogs"
-                    className="text-black hover:text-secondary transition-colors duration-200 text-md"
-                  >
-                    {t("navbar.blogs")}
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/contact"
-                    className="text-black hover:text-secondary transition-colors duration-200 text-md"
-                  >
-                    {t("navbar.contact")}
-                  </Link>
-                </li>
-                <li>
-                  <Link
                     href="/about"
                     className="text-black hover:text-secondary transition-colors duration-200 text-md"
                   >
@@ -365,10 +341,42 @@ const Footer = () => {
                 </li>
                 <li>
                   <Link
-                    href="/links"
+                    href="/analyses"
                     className="text-black hover:text-secondary transition-colors duration-200 text-md"
                   >
-                    {t("navbar.links")}
+                    {t("navbar.strategicAnalyses")}
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/podcasts"
+                    className="text-black hover:text-secondary transition-colors duration-200 text-md"
+                  >
+                    {t("navbar.podcasts.title")}
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/meetings-conferences"
+                    className="text-black hover:text-secondary transition-colors duration-200 text-md"
+                  >
+                    {t("navbar.media.interviews")}
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/quotations"
+                    className="text-black hover:text-secondary transition-colors duration-200 text-md"
+                  >
+                    {t("navbar.media.citations")}
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/contact"
+                    className="text-black hover:text-secondary transition-colors duration-200 text-md"
+                  >
+                    {t("navbar.contact")}
                   </Link>
                 </li>
               </ul>

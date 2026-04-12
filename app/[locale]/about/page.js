@@ -4,6 +4,7 @@ import HeadAbout from "../../AboutPage/HeadAbout";
 import AboutTwo from "../../HomePage/AboutTwo";
 import TallatCv from "../../HomePage/TallatCv";
 import TallatCvServer from "@/app/HomePage/TallatCvServer";
+import FaqSection from "@/app/HomePage/FaqSection";
 
 export async function generateMetadata({ params }) {
   const { locale } = await params;
@@ -38,6 +39,7 @@ export default function AboutPage() {
       <div className="pt-20">
         <AboutTwo />
         <TallatCvServer />
+        <FaqSection />
       </div>
     </div>
   );

@@ -20,11 +20,15 @@ const AnalysesHeader = ({
         <Image
           src={spinnerImage}
           alt="decoration"
+          width={200}
+          height={200}
           className="absolute bottom-5 left-5 w-32 h-32 md:w-40 md:h-40 object-contain hidden md:block"
         />
         <Image
           src={spinnerImageTwo}
           alt="decoration"
+          width={200}
+          height={200}
           className="absolute top-7 right-5 w-40 h-40 md:w-50 md:h-50 object-contain hidden md:block"
         />
         {/* Content */}

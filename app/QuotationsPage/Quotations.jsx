@@ -206,7 +206,7 @@ const Quotations = () => {
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 50 }}
-            className="fixed bottom-10 left-1/2 -translate-x-1/2 z-[1000] bg-white text-slate-900 px-8 py-4 rounded-2xl shadow-2xl font-bold flex items-center gap-3 border border-black/10"
+            className="fixed bottom-10 left-1/2 whitespace-nowrap -translate-x-1/2 z-[1000] bg-white text-slate-900 px-8 py-4 rounded-2xl shadow-2xl font-bold flex items-center gap-3 border border-black/10"
           >
             <div className=" animate-pulse">
               <MdDoneAll className="text-green-700" size={24} />
