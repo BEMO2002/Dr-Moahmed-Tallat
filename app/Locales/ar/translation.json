@@ -304,10 +304,11 @@
     "attachments": "المرفقات",
     "noItems": "لا توجد تحليلات لهذا القسم حالياً.",
     "files": {
-      "white_papers": "الأوراق البيضاء",
-      "published_researches": "الأبحاث المنشورة",
-      "executive_briefs": "الملخصات التنفيذية",
-      "chronological_archive": "الأرشيف الزمني"
+      "policy_paper": "ورقة سياسات",
+      "strategic_fact_sheets": "حقائق استراتيجية",
+      "strategic_brief": "إيجاز استراتيجي",
+      "analytical_infographic": "إنفوجرافيك تحليلي",
+      "analytical_article": "مقال تحليلي"
     },
     "tallatCv": {
       "tag": "من أنا",

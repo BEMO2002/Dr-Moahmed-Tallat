@@ -55,10 +55,11 @@ const AnalysesDetails = ({ article, translations, locale, isRTL }) => {
   const attachmentsList = [];
   if (article.attachments) {
     const keys = [
-      "white_papers",
-      "published_researches",
-      "executive_briefs",
-      "chronological_archive",
+      "policy_paper",
+      "strategic_fact_sheets",
+      "strategic_brief",
+      "analytical_infographic",
+      "analytical_article",
     ];
     keys.forEach((key) => {
       if (article.attachments[key]) {
@@ -139,16 +140,16 @@ const AnalysesDetails = ({ article, translations, locale, isRTL }) => {
               {/* Article Info Section */}
               <div className="mb-8 space-y-6">
                 <div className="flex flex-col gap-1">
-                  <span className="text-gray-400 text-[10px] font-black uppercase tracking-widest">
+                  <span className="text-primary text-[13px] font-black uppercase tracking-widest">
                     {isRTL ? "القسم" : "Category"}
                   </span>
-                  <span className="text-baseTwo font-bold text-sm">
+                  <span className="text-baseTwo text-sm font-bold">
                     {article.type?.name?.[locale] || article.type?.name?.["en"]}
                   </span>
                 </div>
 
                 <div className="flex flex-col gap-1">
-                  <span className="text-gray-400 text-[10px] font-black uppercase tracking-widest">
+                  <span className="text-primary text-[13px] font-black uppercase tracking-widest">
                     {isRTL ? "التاريخ" : "Date"}
                   </span>
                   <span className="text-baseTwo font-bold text-sm">
@@ -158,7 +159,7 @@ const AnalysesDetails = ({ article, translations, locale, isRTL }) => {
 
                 {publishedAt && (
                   <div className="flex flex-col gap-1">
-                    <span className="text-gray-400 text-[10px] font-black uppercase tracking-widest">
+                    <span className="text-primary text-[13px] font-black uppercase tracking-widest">
                       {isRTL ? "معاد النشر" : "Published At"}
                     </span>
                     <span className="text-baseTwo font-bold text-sm">
@@ -169,10 +170,10 @@ const AnalysesDetails = ({ article, translations, locale, isRTL }) => {
 
                 {socialPlatforms && socialPlatforms.length > 0 && (
                   <div className="flex flex-col gap-2 pt-4 border-t border-gray-100">
-                    <span className="text-gray-400 text-[10px] font-black uppercase tracking-widest">
+                    <span className="text-primary text-[13px] font-black uppercase tracking-widest">
                       {isRTL ? "المنصات التي نشر عليها" : "Published Platforms"}
                     </span>
-                    <div className="grid grid-cols-2 gap-2 mt-1">
+                    <div className="grid grid-cols-1 gap-2 text-2xl mt-1">
                       {socialPlatforms.map((platform) => {
                         let icon, name, color;
                         switch (platform.toLowerCase()) {
@@ -209,7 +210,7 @@ const AnalysesDetails = ({ article, translations, locale, isRTL }) => {
                             key={platform}
                             className={`flex items-center justify-between border rounded-xl px-3 py-2 ${color}`}
                           >
-                            <span className="text-[11px] font-bold whitespace-nowrap">
+                            <span className="text-[15px] font-bold whitespace-nowrap">
                               {name}
                             </span>
                             <span className="text-base">{icon}</span>
@@ -248,7 +249,7 @@ const AnalysesDetails = ({ article, translations, locale, isRTL }) => {
                       </div>
                       <div className="flex items-center justify-between mt-auto pt-3 border-t border-gray-100">
                         <span className="text-[10px] uppercase tracking-widest font-bold text-slate-400 bg-white group-hover:bg-gray-50 px-2 py-1 rounded-md transition-colors">
-                          PDF
+                          PDF & DOCX
                         </span>
                         <div className="w-8 h-8 rounded-full bg-baseTwo text-white flex items-center justify-center group-hover:bg-primary transition-colors hover:shadow-lg hover:shadow-primary/30">
                           <FaDownload size={12} />

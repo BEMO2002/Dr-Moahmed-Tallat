@@ -75,10 +75,11 @@ const ArticleDetailsPage = async ({ params }) => {
     attachments: t("analyses.attachments"),
     noItems: t("analyses.noItems"),
     files: {
-      white_papers: t("analyses.files.white_papers"),
-      published_researches: t("analyses.files.published_researches"),
-      executive_briefs: t("analyses.files.executive_briefs"),
-      chronological_archive: t("analyses.files.chronological_archive"),
+      policy_paper: t("analyses.files.policy_paper"),
+      strategic_fact_sheets: t("analyses.files.strategic_fact_sheets"),
+      strategic_brief: t("analyses.files.strategic_brief"),
+      analytical_infographic: t("analyses.files.analytical_infographic"),
+      analytical_article: t("analyses.files.analytical_article"),
     }
   };
 

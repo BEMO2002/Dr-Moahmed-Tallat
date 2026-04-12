@@ -316,10 +316,11 @@
     "attachments": "Attachments",
     "noItems": "No analyses found for this category.",
     "files": {
-      "white_papers": "White Papers",
-      "published_researches": "Published Researches",
-      "executive_briefs": "Executive Briefs",
-      "chronological_archive": "Chronological Archive"
+      "policy_paper": "Policy Paper",
+      "strategic_fact_sheets": "Strategic Fact Sheets",
+      "strategic_brief": "Strategic Briefing",
+      "analytical_infographic": "Analytical Infographic",
+      "analytical_article": "Analytical Article"
     }
   },
   "chatbot": {
