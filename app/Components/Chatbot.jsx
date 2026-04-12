@@ -128,7 +128,7 @@ const Chatbot = () => {
               <h3 className="text-white font-black text-lg leading-tight">
                 {t("title")}
               </h3>
-              <p className="text-gold/80 text-xs font-bold">{t("subtitle")}</p>
+              {/* <p className="text-gold/80 text-xs font-bold">{t("subtitle")}</p> */}
             </div>
           </div>
           <button
