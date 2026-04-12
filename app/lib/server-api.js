@@ -1,5 +1,7 @@
 const baseUrl =
-  process.env.NEXT_PUBLIC_BASE_URL || "https://api.mohamedtalat.com/api";
+  process.env.NEXT_PUBLIC_BASE_URL ||
+  "https://api.mohamedtalat.org/api" ||
+  "https://api.mohamedtalat.com/api";
 
 /**
  * Fetch generic global website settings from backend

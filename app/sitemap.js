@@ -6,7 +6,7 @@ import {
   fetchPages,
 } from "./lib/server-api";
 
-const baseUrl = "https://mohamedtalat.com";
+const baseUrl = "https://mohamedtalat.org";
 
 export default async function sitemap() {
   const locales = ["ar", "en"];

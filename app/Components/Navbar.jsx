@@ -244,7 +244,6 @@ const Navbar = () => {
                     alt="Logo"
                     fill
                     priority
-                    sizes="(max-width: 768px) 112px, 160px"
                     className="object-contain p-1.5"
                   />
                 )}
