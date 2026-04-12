@@ -93,3 +93,11 @@ body {
     color: black !important;
   }
 }
+
+
+
+
+button ,a {
+  cursor: pointer;
+  user-select: none;
+}
