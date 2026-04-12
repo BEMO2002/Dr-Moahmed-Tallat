@@ -1,6 +1,5 @@
 const baseUrl =
-  process.env.NEXT_PUBLIC_BASE_URL ||
-  "https://phplaravel-1599200-6319906.cloudwaysapps.com/api";
+  process.env.NEXT_PUBLIC_BASE_URL || "https://api.mohamedtalat.com/api";
 
 /**
  * Fetch generic global website settings from backend

@@ -76,6 +76,7 @@ export default async function RootLayout(props) {
     <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>
       <head>
         <link rel="icon" href={globalSettings?.favicon || "/favicon.ico"} />
+        <meta name="referrer" content="no-referrer" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}

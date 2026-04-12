@@ -4,9 +4,7 @@ import React, { createContext, useState, useEffect } from "react";
 export const ApiAuthContext = createContext(0);
 
 export default function ApiAuthContextProvider({ children }) {
-  const [baseUrl, setBaseUrl] = useState(
-    "https://phplaravel-1599200-6319906.cloudwaysapps.com/api",
-  );
+  const [baseUrl, setBaseUrl] = useState("https://api.mohamedtalat.org/api");
   const [token, setToken] = useState(null);
 
   useEffect(() => {

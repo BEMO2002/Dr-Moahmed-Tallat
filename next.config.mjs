@@ -9,7 +9,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "phplaravel-1599200-6319906.cloudwaysapps.com",
+        hostname: "api.mohamedtalat.org",
         pathname: "/**",
       },
       {
