@@ -66,7 +66,7 @@
   },
   "about": {
     "tag": "PROFILE",
-    "title1": "Dr. Mohamed",
+    "title1": "Mohamed",
     "titleHighlight": "Talaat",
     "title2": "Media Veteran & Political Analyst",
     "tabs": {
@@ -300,7 +300,9 @@
     "noQuotes": "No citations available at the moment",
     "copy": "Copy Text",
     "share": "Share",
-    "seo_description": "Browse the most prominent media citations and aphorisms by Dr. Mohamed Talaat in the fields of geopolitics and international politics."
+    "seo_description": "Browse the most prominent media citations and aphorisms by Dr. Mohamed Talaat in the fields of geopolitics and international politics.",
+    "prev": "Previos",
+    "next": "Next"
   },
   "meetings": {
     "title": "Meetings and Conferences",
@@ -308,7 +310,9 @@
     "loadError": "An error occurred while loading data",
     "noItems": "No interviews or conferences at the moment",
     "watchVideo": "Watch Video",
-    "seo_description": "Browse the most prominent television interviews and international conferences of Dr. Mohamed Talaat in the fields of Geopolitics and International Politics."
+    "seo_description": "Browse the most prominent television interviews and international conferences of Dr. Mohamed Talaat in the fields of Geopolitics and International Politics.",
+    "prev": "Previos",
+    "next": "Next"
   },
   "analyses": {
     "title": "Analyses",
@@ -337,7 +341,9 @@
     "loadError": "An error occurred while loading podcasts",
     "noItems": "No podcasts available at the moment",
     "watchVideo": "Watch Now",
-    "seo_description": "Listen and watch the latest analytical podcast episodes by Dr. Mohamed Talaat on global politics and artificial intelligence."
+    "seo_description": "Listen and watch the latest analytical podcast episodes by Dr. Mohamed Talaat on global politics and artificial intelligence.",
+    "prev": "Previos",
+    "next": "Next"
   },
   "galleries": {
     "title": "Photo Gallery",
@@ -345,7 +351,9 @@
     "view_album": "View Album",
     "no_galleries": "No photo galleries available at the moment",
     "loadError": "An error occurred while loading the gallery",
-    "seo_description": "Browse the photo gallery of Dr. Mohamed Talaat from international conferences and media events."
+    "seo_description": "Browse the photo gallery of Dr. Mohamed Talaat from international conferences and media events.",
+    "prev": "Previos",
+    "next": "Next"
   },
   "notFound": {
     "title": "404",

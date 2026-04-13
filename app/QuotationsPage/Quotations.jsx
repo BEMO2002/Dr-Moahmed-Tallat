@@ -176,7 +176,24 @@ const Quotations = () => {
 
         {/* Pagination */}
         {pagination.last_page > 1 && (
-          <div className="mt-20 flex justify-center items-center gap-4">
+          <div className="mt-20 flex justify-center items-center gap-2 md:gap-4 flex-wrap">
+            <button
+              onClick={() => {
+                if (page > 1) {
+                  setPage(page - 1);
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }
+              }}
+              disabled={page === 1}
+              className={`px-4 h-12 md:h-14 flex items-center justify-center rounded-2xl font-bold transition-all border border-slate-100 ${
+                page === 1
+                  ? "bg-slate-50 text-slate-400 cursor-not-allowed opacity-70"
+                  : "bg-white text-slate-600 hover:border-primary/40 hover:bg-primary hover:text-white"
+              }`}
+            >
+              {t("prev") || (isRTL ? "السابق" : "Prev")}
+            </button>
+
             {Array.from({ length: pagination.last_page }, (_, i) => i + 1).map(
               (p) => (
                 <button
@@ -185,7 +202,7 @@ const Quotations = () => {
                     setPage(p);
                     window.scrollTo({ top: 0, behavior: "smooth" });
                   }}
-                  className={`w-14 h-14 flex items-center justify-center rounded-2xl font-black transition-all ${
+                  className={`w-12 h-12 md:w-14 md:h-14 flex items-center justify-center rounded-2xl font-black transition-all ${
                     page === p
                       ? "bg-primary text-white shadow-xl shadow-primary/30 scale-110"
                       : "bg-white text-slate-600 border border-slate-100 hover:border-primary/40 hover:bg-slate-50"
@@ -195,6 +212,23 @@ const Quotations = () => {
                 </button>
               ),
             )}
+
+            <button
+              onClick={() => {
+                if (page < pagination.last_page) {
+                  setPage(page + 1);
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }
+              }}
+              disabled={page === pagination.last_page}
+              className={`px-4 h-12 md:h-14 flex items-center justify-center rounded-2xl font-bold transition-all border border-slate-100 ${
+                page === pagination.last_page
+                  ? "bg-slate-50 text-slate-400 cursor-not-allowed opacity-70"
+                  : "bg-white text-slate-600 hover:border-primary/40 hover:bg-primary hover:text-white"
+              }`}
+            >
+              {t("next") || (isRTL ? "التالي" : "Next")}
+            </button>
           </div>
         )}
       </div>

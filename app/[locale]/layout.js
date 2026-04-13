@@ -1,4 +1,3 @@
-import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
 import Navbar from "../Components/Navbar";
 import Providers from "../Components/Providers";
@@ -12,16 +11,6 @@ import { fetchSettings } from "../lib/server-api";
 import ScrollToTop from "../Components/ScrollToTop";
 import { Top } from "../Components/Top";
 import Chatbot from "../Components/Chatbot";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export async function generateMetadata({ params }) {
   const resolvedParams = await params;
@@ -76,10 +65,7 @@ export default async function RootLayout(props) {
         <link rel="icon" href={globalSettings?.favicon || "/favicon.ico"} />
         <meta name="referrer" content="no-referrer" />
       </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        suppressHydrationWarning
-      >
+      <body className={`antialiased`} suppressHydrationWarning>
         <NextIntlClientProvider messages={messages}>
           <Providers initialSettings={globalSettings}>
             <ScrollToTop />

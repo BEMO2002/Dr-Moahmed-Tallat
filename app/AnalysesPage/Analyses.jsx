@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
 import { Link, useRouter } from "../../i18n/routing";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import {
   MdOutlineKeyboardDoubleArrowRight,
   MdOutlineKeyboardDoubleArrowLeft,
@@ -18,9 +18,18 @@ import {
 } from "react-icons/fa";
 import { GrScheduleNew } from "react-icons/gr";
 
-const Analyses = ({ articles, translations, locale, isRTL, currentType }) => {
+// تمت إضافة prop جديد باسم pagination للتعامل مع الترقيم
+const Analyses = ({
+  articles,
+  pagination,
+  translations,
+  locale,
+  isRTL,
+  currentType,
+}) => {
   const router = useRouter();
   const params = useParams();
+  const searchParams = useSearchParams();
   const type = params ? params.type : null;
 
   useEffect(() => {
@@ -33,10 +42,25 @@ const Analyses = ({ articles, translations, locale, isRTL, currentType }) => {
     }
   }, [currentType, type, locale, router]);
 
+  const handlePageChange = (page) => {
+    if (!pagination || page < 1 || page > pagination.last_page) return;
+    const currentParams = new URLSearchParams(
+      Array.from(searchParams.entries()),
+    );
+    currentParams.set("page", page.toString());
+
+    const currentPath = window.location.pathname;
+    router.push(`${currentPath}?${currentParams.toString()}`, {
+      scroll: false,
+    });
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   if (!articles || articles.length === 0) {
     return (
       <div className="py-20 text-center text-slate-500 font-medium bg-gray-50 min-h-[50vh] flex items-center justify-center">
-        {translations.noItems}
+        {translations.noItems || "لا توجد تحليلات متاحة."}
       </div>
     );
   }
@@ -101,7 +125,7 @@ const Analyses = ({ articles, translations, locale, isRTL, currentType }) => {
                       </span>
                     )}
                     {isOld === false && (
-                      <span className="bg-blue-600 px-4 py-1.5 rounded-full text-xs font-black text-white uppercase tracking-widest shadow-lg flex items-center gap-1">
+                      <span className="bg-[#D4AF37] px-4 py-1.5 rounded-full text-xs font-black text-white uppercase tracking-widest shadow-lg flex items-center gap-1">
                         <GrScheduleNew className="w-3 h-3" />
                         {isRTL ? "تحليل حديث" : "New"}
                       </span>
@@ -131,11 +155,11 @@ const Analyses = ({ articles, translations, locale, isRTL, currentType }) => {
                       </div>
                     )}
                   </div>
-
-                  <h3 className="text-xl font-black text-baseTwo mb-4 line-clamp-2 leading-tight group-hover:text-primary transition-colors">
-                    {title}
-                  </h3>
-
+                  <Link href={`/analyses/article/${articleSlug}`}>
+                    <h3 className="text-xl font-black text-baseTwo mb-4 line-clamp-2 leading-tight hover:text-primary transition-colors cursor-pointer">
+                      {title}
+                    </h3>
+                  </Link>
                   <p className="text-slate-500 text-sm mb-6 line-clamp-3 leading-relaxed flex-1">
                     {description}
                   </p>
@@ -146,7 +170,8 @@ const Analyses = ({ articles, translations, locale, isRTL, currentType }) => {
                       className="flex items-center justify-between gap-5 group/btn py-2"
                     >
                       <span className="text-sm font-black text-baseTwo uppercase tracking-widest group-hover/btn:text-primary transition-colors">
-                        {translations.readMore}
+                        {translations.readMore ||
+                          (isRTL ? "اقرأ المزيد" : "Read More")}
                       </span>
                       <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover/btn:bg-primary group-hover/btn:text-white transition-colors ms-2 rtl:ms-0 rtl:me-2">
                         {isRTL ? (
@@ -172,6 +197,50 @@ const Analyses = ({ articles, translations, locale, isRTL, currentType }) => {
             );
           })}
         </div>
+
+        {pagination && pagination.last_page > 1 && (
+          <div className="mt-20 flex justify-center items-center gap-2 md:gap-4 flex-wrap">
+            <button
+              onClick={() => handlePageChange(pagination.current_page - 1)}
+              disabled={pagination.current_page === 1}
+              className={`px-4 h-12 md:h-14 flex items-center justify-center rounded-2xl font-bold transition-all border border-slate-100 ${
+                pagination.current_page === 1
+                  ? "bg-slate-50 text-slate-400 cursor-not-allowed opacity-70"
+                  : "bg-white text-slate-600 hover:border-primary/40 hover:bg-primary hover:text-white"
+              }`}
+            >
+              {translations.prev || (isRTL ? "السابق" : "Prev")}
+            </button>
+
+            {Array.from({ length: pagination.last_page }, (_, i) => i + 1).map(
+              (p) => (
+                <button
+                  key={p}
+                  onClick={() => handlePageChange(p)}
+                  className={`w-12 h-12 md:w-14 md:h-14 flex items-center justify-center rounded-2xl font-black transition-all ${
+                    pagination.current_page === p
+                      ? "bg-primary text-white shadow-xl shadow-primary/30 scale-110"
+                      : "bg-white text-slate-600 border border-slate-100 hover:border-primary/40 hover:bg-slate-50"
+                  }`}
+                >
+                  {p}
+                </button>
+              ),
+            )}
+
+            <button
+              onClick={() => handlePageChange(pagination.current_page + 1)}
+              disabled={pagination.current_page === pagination.last_page}
+              className={`px-4 h-12 md:h-14 flex items-center justify-center rounded-2xl font-bold transition-all border border-slate-100 ${
+                pagination.current_page === pagination.last_page
+                  ? "bg-slate-50 text-slate-400 cursor-not-allowed opacity-70"
+                  : "bg-white text-slate-600 hover:border-primary/40 hover:bg-primary hover:text-white"
+              }`}
+            >
+              {translations.next || (isRTL ? "التالي" : "Next")}
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

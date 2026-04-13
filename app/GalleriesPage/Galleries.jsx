@@ -9,7 +9,6 @@ import {
   FaChevronRight,
   FaTimes,
   FaExpand,
-  FaCalendarAlt,
 } from "react-icons/fa";
 import { useTranslations, useLocale } from "next-intl";
 import Image from "next/image";
@@ -53,7 +52,9 @@ const Galleries = ({ data, initialPage = 1 }) => {
   }, [lightbox.isOpen]);
 
   const handlePageChange = (page) => {
+    if (page < 1 || page > pagination.last_page) return;
     router.push(`/galleries?page=${page}`, { scroll: false });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   if (!items.length) {
@@ -144,10 +145,6 @@ const Galleries = ({ data, initialPage = 1 }) => {
                 </div>
 
                 <div className="p-8">
-                  <div className="flex items-center gap-2 text-primary/60 text-sm mb-3">
-                    <FaCalendarAlt size={12} />
-                    <span className="font-semibold">{album.created_at}</span>
-                  </div>
                   <h3 className="text-2xl font-bold text-baseTwo mb-4 group-hover:text-primary transition-colors line-clamp-2">
                     {title}
                   </h3>
@@ -171,6 +168,18 @@ const Galleries = ({ data, initialPage = 1 }) => {
         {/* Pagination */}
         {pagination.last_page > 1 && (
           <div className="mt-16 flex justify-center items-center gap-2">
+            <button
+              onClick={() => handlePageChange(pagination.current_page - 1)}
+              disabled={pagination.current_page === 1}
+              className={`px-4 h-12 rounded-2xl flex items-center justify-center font-bold transition-all border border-slate-100 ${
+                pagination.current_page === 1
+                  ? "bg-slate-50 text-slate-400 cursor-not-allowed opacity-70"
+                  : "bg-white text-baseTwo hover:bg-primary hover:text-white"
+              }`}
+            >
+              {t("prev") || (isRTL ? "السابق" : "Prev")}
+            </button>
+
             {Array.from({ length: pagination.last_page }, (_, i) => i + 1).map(
               (p) => (
                 <button
@@ -186,6 +195,17 @@ const Galleries = ({ data, initialPage = 1 }) => {
                 </button>
               ),
             )}
+            <button
+              onClick={() => handlePageChange(pagination.current_page + 1)}
+              disabled={pagination.current_page === pagination.last_page}
+              className={`px-4 h-12 rounded-2xl flex items-center justify-center font-bold transition-all border border-slate-100 ${
+                pagination.current_page === pagination.last_page
+                  ? "bg-slate-50 text-slate-400 cursor-not-allowed opacity-70"
+                  : "bg-white text-baseTwo hover:bg-primary hover:text-white"
+              }`}
+            >
+              {t("next") || (isRTL ? "التالي" : "Next")}
+            </button>
           </div>
         )}
       </div>
@@ -197,7 +217,7 @@ const Galleries = ({ data, initialPage = 1 }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-2000 bg-black/95 flex items-center justify-center backdrop-blur-sm"
+            className="fixed inset-0 z-[2000] bg-black/95 flex items-center justify-center backdrop-blur-sm"
           >
             <button
               onClick={closeLightbox}

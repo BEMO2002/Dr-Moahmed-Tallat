@@ -1,5 +1,7 @@
 const baseUrl =
-  process.env.NEXT_PUBLIC_BASE_URL || "https://api.mohamedtalat.org/api";
+  process.env.NEXT_PUBLIC_BASE_URL || "https://api.mohamedtalat.com/api";
+const apiKey =
+  process.env.NEXT_PUBLIC_API_KEY || "P4OIp8prRKBeO0kogfGViTNzmAT8UnzL";
 
 /**
  * Fetch generic global website settings from backend
@@ -10,9 +12,8 @@ export async function fetchSettings() {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "X-Api-Key": "P4OIp8prRKBeO0kogfGViTNzmAT8UnzL",
+        "X-Api-Key": apiKey,
       },
-      next: { revalidate: 0 },
     });
 
     if (!res.ok) return null;
@@ -33,9 +34,8 @@ export async function fetchSliders() {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "X-Api-Key": "P4OIp8prRKBeO0kogfGViTNzmAT8UnzL",
+        "X-Api-Key": apiKey,
       },
-      next: { revalidate: 0 },
     });
 
     if (!res.ok) return [];
@@ -56,7 +56,7 @@ export async function fetchContactTypes() {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "X-Api-Key": "P4OIp8prRKBeO0kogfGViTNzmAT8UnzL",
+        "X-Api-Key": apiKey,
       },
       next: { revalidate: 0 },
     });
@@ -78,9 +78,9 @@ export async function submitContactForm(formData) {
     const res = await fetch(`${baseUrl}/contact-us`, {
       method: "POST",
       headers: {
-        "X-Api-Key": "P4OIp8prRKBeO0kogfGViTNzmAT8UnzL",
+        "X-Api-Key": apiKey,
       },
-      body: formData, // Passing FormData directly
+      body: formData,
     });
 
     return res;
@@ -99,7 +99,7 @@ export async function subscribeNewsletter(email) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-Api-Key": "P4OIp8prRKBeO0kogfGViTNzmAT8UnzL",
+        "X-Api-Key": apiKey,
       },
       body: JSON.stringify({ email: email.trim(), extra_key: null }),
     });
@@ -120,7 +120,7 @@ export async function fetchPixelsScripts() {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "X-Api-Key": "P4OIp8prRKBeO0kogfGViTNzmAT8UnzL",
+        "X-Api-Key": apiKey,
       },
       next: { revalidate: 0 },
     });
@@ -148,7 +148,7 @@ export async function fetchTestimonials(params = {}) {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "X-Api-Key": "P4OIp8prRKBeO0kogfGViTNzmAT8UnzL",
+        "X-Api-Key": apiKey,
       },
       next: { revalidate: 0 },
     });
@@ -176,7 +176,7 @@ export async function fetchConferences(params = {}) {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "X-Api-Key": "P4OIp8prRKBeO0kogfGViTNzmAT8UnzL",
+        "X-Api-Key": apiKey,
       },
       next: { revalidate: 0 },
     });
@@ -192,18 +192,16 @@ export async function fetchConferences(params = {}) {
 
 /**
  * Access research vault/archive with password
- * @param {string} password
  */
-export async function accessVault(password) {
+export async function accessVault(password, page = 1) {
   try {
-    const res = await fetch(`${baseUrl}/vault/access`, {
+    const res = await fetch(`${baseUrl}/vault/access?page=${page}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-Api-Key": "P4OIp8prRKBeO0kogfGViTNzmAT8UnzL",
+        "X-Api-Key": apiKey,
       },
       body: JSON.stringify({ password }),
-      next: { revalidate: 0 },
     });
 
     if (!res.ok) {
@@ -232,7 +230,7 @@ export async function fetchArticleTypes() {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "X-Api-Key": "P4OIp8prRKBeO0kogfGViTNzmAT8UnzL",
+        "X-Api-Key": apiKey,
       },
       next: { revalidate: 60 },
     });
@@ -247,7 +245,6 @@ export async function fetchArticleTypes() {
 
 /**
  * Fetch articles filtered by type
- * @param {string} typeSlug
  */
 export async function fetchArticlesList(typeSlug, params = {}) {
   try {
@@ -263,9 +260,8 @@ export async function fetchArticlesList(typeSlug, params = {}) {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "X-Api-Key": "P4OIp8prRKBeO0kogfGViTNzmAT8UnzL",
+        "X-Api-Key": apiKey,
       },
-      next: { revalidate: 60 },
     });
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
     const json = await res.json();
@@ -278,7 +274,6 @@ export async function fetchArticlesList(typeSlug, params = {}) {
 
 /**
  * Fetch a single article by slug
- * @param {string} slug
  */
 export async function fetchArticleDetails(slug) {
   try {
@@ -286,9 +281,8 @@ export async function fetchArticleDetails(slug) {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "X-Api-Key": "P4OIp8prRKBeO0kogfGViTNzmAT8UnzL",
+        "X-Api-Key": apiKey,
       },
-      next: { revalidate: 60 },
     });
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
     const json = await res.json();
@@ -299,29 +293,6 @@ export async function fetchArticleDetails(slug) {
   }
 }
 
-// /**
-//  * Fetch a single article by slug
-//  * @param {string} slug
-//  */
-// export async function fetchArticleDetails(slug) {
-//   try {
-//     const res = await fetch(`${baseUrl}/articles/${slug}`, {
-//       method: "GET",
-//       headers: {
-//         "Content-Type": "application/json",
-//         "X-Api-Key": "P4OIp8prRKBeO0kogfGViTNzmAT8UnzL",
-//       },
-//       next: { revalidate: 60 },
-//     });
-//     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-//     const json = await res.json();
-//     return json?.data || null;
-//   } catch (err) {
-//     console.error("fetchArticleDetails Error:", err);
-//     return null;
-//   }
-// }
-
 /**
  * Fetch all pages from backend
  */
@@ -331,9 +302,9 @@ export async function fetchPages() {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "X-Api-Key": "P4OIp8prRKBeO0kogfGViTNzmAT8UnzL",
+        "X-Api-Key": apiKey,
       },
-      next: { revalidate: 0 },
+      next: { revalidate: 60 },
     });
 
     if (!res.ok) return [];
@@ -354,9 +325,8 @@ export async function fetchPostCategories() {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "X-Api-Key": "P4OIp8prRKBeO0kogfGViTNzmAT8UnzL",
+        "X-Api-Key": apiKey,
       },
-      next: { revalidate: 60 },
     });
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
     const json = await res.json();
@@ -369,7 +339,6 @@ export async function fetchPostCategories() {
 
 /**
  * Fetch posts with optional category filter
- * @param {Object} params - { category_slug, page }
  */
 export async function fetchPosts(params = {}) {
   try {
@@ -382,9 +351,8 @@ export async function fetchPosts(params = {}) {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "X-Api-Key": "P4OIp8prRKBeO0kogfGViTNzmAT8UnzL",
+        "X-Api-Key": apiKey,
       },
-      next: { revalidate: 60 },
     });
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
     const json = await res.json();
@@ -397,7 +365,6 @@ export async function fetchPosts(params = {}) {
 
 /**
  * Fetch a single post by slug
- * @param {string} slug
  */
 export async function fetchPostDetails(slug) {
   try {
@@ -405,9 +372,8 @@ export async function fetchPostDetails(slug) {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "X-Api-Key": "P4OIp8prRKBeO0kogfGViTNzmAT8UnzL",
+        "X-Api-Key": apiKey,
       },
-      next: { revalidate: 60 },
     });
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
     const json = await res.json();
@@ -420,7 +386,6 @@ export async function fetchPostDetails(slug) {
 
 /**
  * Fetch podcasts with pagination support
- * @param {Object} params - { page }
  */
 export async function fetchPodcasts(params = {}) {
   try {
@@ -433,9 +398,8 @@ export async function fetchPodcasts(params = {}) {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "X-Api-Key": "P4OIp8prRKBeO0kogfGViTNzmAT8UnzL",
+        "X-Api-Key": apiKey,
       },
-      next: { revalidate: 60 },
     });
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
     const json = await res.json();
@@ -446,14 +410,21 @@ export async function fetchPodcasts(params = {}) {
   }
 }
 
-export async function fetchGalleries({ page = 1 } = {}) {
+/**
+ * Fetch Galleries with pagination
+ */
+export async function fetchGalleries(params = {}) {
   try {
-    const res = await fetch(`${baseUrl}/galleries?page=${page}`, {
+    const url = new URL(`${baseUrl}/galleries`);
+    Object.keys(params).forEach((key) => {
+      if (params[key]) url.searchParams.append(key, params[key]);
+    });
+
+    const res = await fetch(url.toString(), {
       method: "GET",
       headers: {
-        "X-Api-Key": "P4OIp8prRKBeO0kogfGViTNzmAT8UnzL",
+        "X-Api-Key": apiKey,
       },
-      next: { revalidate: 60 },
     });
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
     return await res.json();

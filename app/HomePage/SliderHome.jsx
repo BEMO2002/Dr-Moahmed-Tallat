@@ -137,7 +137,7 @@ const SliderHome = ({ initialSliders = [] }) => {
                     className={`flex flex-wrap items-center gap-4 md:gap-6 mt-10 ${isRTL ? "justify-end" : "justify-start"}`}
                   >
                     <Link
-                      href="/articles-columns"
+                      href="/analyses"
                       className="group flex items-center justify-center gap-3 px-8 md:px-10 py-3.5 md:py-4 bg-primary text-white font-bold text-sm md:text-lg rounded-full shadow-[0_10px_25px_-5px_rgb(197,160,89,0.4)] hover:shadow-[0_15px_30px_-5px_rgb(197,160,89,0.6)] hover:-translate-y-1 hover:brightness-110 transition-all duration-400"
                     >
                       <span className="relative z-10">
