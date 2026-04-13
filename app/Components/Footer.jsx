@@ -264,7 +264,7 @@ const Footer = () => {
                 {t("footer.aboutDescription")}
               </p>
               {(facebookUrl || instagramUrl || twitterUrl || whatsappUrl) && (
-                <div className="flex justify-start items-start gap-4 mt-2">
+                <div className="flex md:justify-start justify-center items-start gap-4 mt-2">
                   {facebookUrl && (
                     <a
                       href={facebookUrl}
