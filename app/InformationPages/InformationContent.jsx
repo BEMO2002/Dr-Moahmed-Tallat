@@ -2,7 +2,7 @@
 import React from "react";
 import { useLocale } from "next-intl";
 import { motion } from "framer-motion";
-import { FaShieldHalved, FaHandshake, FaUserShield, FaBrain, FaTriangleExclamation } from "react-icons/fa6";
+import { FaShieldHalved, FaHandshake, FaUserShield, FaBrain, FaTriangleExclamation, FaScroll, FaLightbulb, FaBullseye, FaUserTie } from "react-icons/fa6";
 
 /**
  * InformationContent Component - Renders the main body of information pages.
@@ -14,7 +14,14 @@ const InformationContent = ({ data }) => {
 
   if (!data) return null;
 
-  const content = data.content?.[locale] || data.content?.["en"] || "";
+  const decodeHtml = (html) => {
+    const txt = document.createElement("textarea");
+    txt.innerHTML = html;
+    return txt.value;
+  };
+
+  const rawContent = data.content?.[locale] || data.content?.["en"] || "";
+  const content = typeof window !== "undefined" ? decodeHtml(rawContent) : rawContent;
   const slug = data.slug;
 
   // Icon mapping based on page slug
@@ -25,6 +32,10 @@ const InformationContent = ({ data }) => {
       case "ai-poilcy": return <FaBrain className="text-5xl text-primary" />;
       case "data-protection": return <FaShieldHalved className="text-5xl text-primary" />;
       case "security-policy": return <FaTriangleExclamation className="text-5xl text-primary" />;
+      case "political-manifesto": return <FaScroll className="text-5xl text-primary" />;
+      case "philosophical-statement": return <FaLightbulb className="text-5xl text-primary" />;
+      case "executive-identity": return <FaUserTie className="text-5xl text-primary" />;
+      case "axiologicalandstrategic-objectives": return <FaBullseye className="text-5xl text-primary" />;
       default: return null;
     }
   };

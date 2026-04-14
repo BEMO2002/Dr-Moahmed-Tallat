@@ -6,7 +6,7 @@ import { useTranslations, useLocale } from "next-intl";
 import { useSettings } from "../Context/SettingContext";
 import { useVault } from "../Context/VaultContext";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
-import { FaPaperPlane, FaChevronDown } from "react-icons/fa";
+import { FaPaperPlane, FaChevronDown, FaLock } from "react-icons/fa";
 import {
   fetchContactTypes,
   fetchArticleTypes,
@@ -163,8 +163,16 @@ const Navbar = () => {
       dropdownId: "about",
       items: [
         { to: "/about", label: t("navbar.about") },
-
-        { to: "/galleries", label: t("navbar.media.galleries") },
+        { to: "/political-manifesto", label: t("navbar.political_manifesto") },
+        {
+          to: "/philosophical-statement",
+          label: t("navbar.philosophical_statement"),
+        },
+        { to: "/executive-identity", label: t("navbar.executive_identity") },
+        {
+          to: "/axiologicalandstrategic-objectives",
+          label: t("navbar.axiological_objectives"),
+        },
       ],
     },
     {
@@ -174,6 +182,7 @@ const Navbar = () => {
       items: [
         { to: "/meetings-conferences", label: t("navbar.media.interviews") },
         { to: "/quotations", label: t("navbar.media.citations") },
+        { to: "/galleries", label: t("navbar.media.galleries") },
       ],
     },
     {
@@ -192,6 +201,7 @@ const Navbar = () => {
       ],
     },
     { to: "/podcasts", label: t("navbar.podcasts.title") },
+    { to: "/faq", label: t("navbar.faq") },
     {
       to: "/research-archive",
       label: t("navbar.researchArchive"),
@@ -218,7 +228,10 @@ const Navbar = () => {
           isActive(to) ? "text-baseTwo" : "text-baseTwo hover:text-primary"
         }`}
       >
-        {children}
+        <div className="flex items-center gap-2">
+          {isVault && <FaLock size={20} className="text-primary/70" />}
+          {children}
+        </div>
         <span
           className={`absolute bottom-0 left-0 h-0.5 bg-primary transition-all duration-300 ${isActive(to) ? "w-full" : "w-0 group-hover:w-full"}`}
         ></span>
@@ -229,14 +242,14 @@ const Navbar = () => {
   return (
     <>
       <nav className="bg-white shadow-sm backdrop-blur-sm fixed top-0 left-0 right-0 z-[999] py-4 md:px-6 px-2">
-        <div className="max-w-[1450px] mx-auto md:px-4 px-2 sm:px-6 lg:px-8">
+        <div className="max-w-[1600px] mx-auto md:px-4 px-2 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-18">
             {/* Logo Section */}
             <div className="">
               <Link
                 href="/"
                 onClick={closeMenu}
-                className="block group relative w-32 h-32"
+                className="block group relative w-30 h-30"
               >
                 {settings?.logo && (
                   <Image
@@ -345,7 +358,7 @@ const Navbar = () => {
                 onMouseEnter={() => setIsExecutiveDropdownOpen(true)}
                 onMouseLeave={() => setIsExecutiveDropdownOpen(false)}
               >
-                <button className="flex items-center justify-center gap-2 px-5 py-3 bg-primary text-white font-bold rounded-full shadow-lg hover:shadow-primary/30 transition-all text-sm">
+                <button className="flex items-center justify-center gap-2 px-5 py-3 bg-primary text-white font-bold rounded-md shadow-lg hover:shadow-primary/30 transition-all text-sm">
                   <span>{t("navbar.executiveRequest")}</span>
                   <FaChevronDown
                     size={12}
@@ -528,7 +541,12 @@ const Navbar = () => {
                     }}
                     className={`text-sm font-bold py-3 transition-colors flex items-center justify-between ${isActive(link.to) ? "text-primary" : "text-baseTwo hover:text-primary"}`}
                   >
-                    <span className="text-start">{link.label}</span>
+                    <div className="flex items-center gap-2">
+                      {link.isVault && (
+                        <FaLock size={12} className="text-primary/70" />
+                      )}
+                      <span className="text-start">{link.label}</span>
+                    </div>
                     <MdOutlineKeyboardArrowDown
                       className={`opacity-30 ${isRTL ? "rotate-90" : "-rotate-90"}`}
                     />

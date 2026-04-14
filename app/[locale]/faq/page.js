@@ -1,16 +1,15 @@
 import { fetchSettings } from "../../lib/server-api";
 import { getTranslations } from "next-intl/server";
-import HeadAbout from "../../AboutPage/HeadAbout";
-import AboutTwo from "../../HomePage/AboutTwo";
-import TallatCvServer from "@/app/HomePage/TallatCvServer";
+import FaqHeader from "../../FaqPage/FaqHeader";
+import FaqSection from "../../FaqPage/FaqSection";
 
 export async function generateMetadata({ params }) {
   const { locale } = await params;
   const t = await getTranslations({ locale });
   const settings = await fetchSettings();
 
-  const title = t("about.title") || t("navbar.about");
-  const description = t("about.description");
+  const title = t("faq.title");
+  const description = t("faq.subtitle");
 
   return {
     title: title,
@@ -30,14 +29,11 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default function AboutPage() {
+export default function FaqPage() {
   return (
-    <div className="about-page-container mt-20">
-      <HeadAbout />
-      <div className="pt-20">
-        <AboutTwo />
-        <TallatCvServer />
-      </div>
+    <div className="faq-page-container mt-20">
+      <FaqHeader />
+      <FaqSection />
     </div>
   );
 }

@@ -145,7 +145,7 @@ const SliderHome = ({ initialSliders = [] }) => {
                   >
                     <Link
                       href="/analyses"
-                      className="group flex items-center justify-center gap-3 px-8 md:px-10 py-3.5 md:py-4 bg-primary text-white font-bold text-sm md:text-lg rounded-full shadow-[0_10px_25px_-5px_rgb(197,160,89,0.4)] hover:shadow-[0_15px_30px_-5px_rgb(197,160,89,0.6)] hover:-translate-y-1 hover:brightness-110 transition-all duration-400"
+                      className="group flex items-center justify-center gap-3 px-8 md:px-10 py-3.5 md:py-4 bg-primary text-white font-bold text-sm md:text-lg rounded-md shadow-[0_10px_25px_-5px_rgb(197,160,89,0.4)] hover:shadow-[0_15px_30px_-5px_rgb(197,160,89,0.6)] hover:-translate-y-1 hover:brightness-110 transition-all duration-400"
                     >
                       <span className="relative z-10">
                         {isRTL ? "استكشف التحليلات" : "Explore Analytics"}
@@ -159,8 +159,8 @@ const SliderHome = ({ initialSliders = [] }) => {
                     </Link>
 
                     <Link
-                      href="/about"
-                      className="group flex items-center justify-center px-8 md:px-10 py-3.5 md:py-4 bg-white/40 backdrop-blur-md border border-slate-200 text-baseTwo font-bold text-sm md:text-lg rounded-full shadow-sm hover:border-primary/50 hover:bg-white hover:shadow-xl hover:-translate-y-1 transition-all duration-400"
+                      href="/executive-identity"
+                      className="group flex items-center justify-center px-8 md:px-10 py-3.5 md:py-4 bg-white/40 backdrop-blur-md border border-slate-200 text-baseTwo font-bold text-sm md:text-lg rounded-md shadow-sm hover:border-primary/50 hover:bg-white hover:shadow-xl hover:-translate-y-1 transition-all duration-400"
                     >
                       {isRTL ? "السيرة التنفيذية" : "Executive Resume"}
                     </Link>

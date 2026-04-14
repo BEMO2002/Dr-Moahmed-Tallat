@@ -9,7 +9,12 @@ import {
   HiChartBar,
 } from "react-icons/hi2";
 import aboutImage from "../../public/Home/about.png";
-import { FaArrowLeft, FaArrowRight, FaGlobe } from "react-icons/fa";
+import {
+  FaArrowLeft,
+  FaArrowRight,
+  FaGlobe,
+  FaChevronDown,
+} from "react-icons/fa";
 import Image from "next/image";
 import { Link } from "../../i18n/routing";
 const AboutTwo = () => {
@@ -18,6 +23,7 @@ const AboutTwo = () => {
   const isRTL = locale === "ar";
 
   const [activeTab, setActiveTab] = useState("about");
+  const [openPointIdx, setOpenPointIdx] = useState(null);
 
   const tabs = [
     { key: "about", label: t("tabs.about"), icon: HiRocketLaunch },
@@ -72,7 +78,7 @@ const AboutTwo = () => {
                     <HiChartBar />
                   </div>
                   <div>
-                    <p className="text-3xl font-bold text-baseTwo">15+</p>
+                    <p className="text-3xl font-bold text-baseTwo">25+</p>
                     <p className="text-sm text-gray-500 uppercase tracking-wider">
                       {t("yearsExp")}
                     </p>
@@ -150,7 +156,10 @@ const AboutTwo = () => {
                   return (
                     <button
                       key={tab.key}
-                      onClick={() => setActiveTab(tab.key)}
+                      onClick={() => {
+                        setActiveTab(tab.key);
+                        setOpenPointIdx(null);
+                      }}
                       className={`relative flex items-center  justify-center gap-2 px-6 py-3 rounded-xl text-sm whitespace-nowrap font-bold transition-all duration-300 flex-1 sm:flex-none ${
                         activeTab === tab.key
                           ? "text-white "
@@ -191,23 +200,78 @@ const AboutTwo = () => {
                     {activeContent.text}
                   </p>
 
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    {points.map((point, idx) => (
-                      <motion.div
-                        initial={{ opacity: 0, x: isRTL ? 20 : -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: idx * 0.1 }}
-                        key={idx}
-                        className="flex items-center gap-3 p-4 bg-gray-50 rounded-xl hover:bg-primary/5 transition-colors group border border-transparent hover:border-primary/10"
-                      >
-                        <div className="h-8 w-8 bg-white rounded-lg shadow-sm flex items-center justify-center text-primary shrink-0">
-                          <HiCheckCircle className="text-xl" />
+                  <div className="flex flex-col gap-3">
+                    {points.map((point, idx) => {
+                      const isObj = typeof point === "object" && point !== null;
+                      const title = isObj ? point.title : point;
+                      const description = isObj ? point.description : null;
+                      const isOpen = openPointIdx === idx;
+
+                      return (
+                        <div
+                          key={idx}
+                          className={`bg-gray-50 rounded-xl transition-all duration-300 border overflow-hidden ${
+                            isOpen
+                              ? "border-primary/30 shadow-sm"
+                              : "border-transparent hover:border-primary/10 hover:shadow-sm"
+                          }`}
+                        >
+                          <div
+                            onClick={() => setOpenPointIdx(isOpen ? null : idx)}
+                            className="flex items-center justify-between p-4 sm:p-5 cursor-pointer group"
+                          >
+                            <div className="flex items-center gap-4 min-w-0">
+                              <div className="h-10 w-10 bg-white rounded-lg shadow-sm flex items-center justify-center text-primary shrink-0 transition-transform duration-300 group-hover:scale-110">
+                                <HiCheckCircle className="text-2xl" />
+                              </div>
+                              <span
+                                className={`font-bold transition-colors duration-300 ${
+                                  isOpen ? "text-primary" : "text-gray-800"
+                                } leading-tight md:text-lg`}
+                              >
+                                {title}
+                              </span>
+                            </div>
+                            {description && (
+                              <div className="shrink-0 ms-4">
+                                <FaChevronDown
+                                  className={`text-gray-400 text-sm transition-transform duration-300 ${
+                                    isOpen
+                                      ? "rotate-180 text-primary"
+                                      : "group-hover:text-primary"
+                                  }`}
+                                />
+                              </div>
+                            )}
+                          </div>
+
+                          <AnimatePresence>
+                            {isOpen && description && (
+                              <motion.div
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ height: "auto", opacity: 1 }}
+                                exit={{ height: 0, opacity: 0 }}
+                                className="overflow-hidden"
+                              >
+                                <div className="px-4 pb-5 pt-0 sm:px-5">
+                                  <div
+                                    className={`ms-14 ps-0 ${
+                                      isRTL
+                                        ? "border-r-2 border-primary/20 pr-4"
+                                        : "border-l-2 border-primary/20 pl-4"
+                                    }`}
+                                  >
+                                    <p className="text-gray-500 text-sm sm:text-base leading-relaxed">
+                                      {description}
+                                    </p>
+                                  </div>
+                                </div>
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
                         </div>
-                        <span className="text-gray-700 font-semibold">
-                          {point}
-                        </span>
-                      </motion.div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </motion.div>
               </AnimatePresence>

@@ -16,8 +16,6 @@ import {
   FaPaperclip,
   FaChevronDown,
 } from "react-icons/fa";
-import contactImage from "../../public/Home/contatc.png";
-
 const ContactFormContent = () => {
   const t = useTranslations();
   const locale = useLocale();
@@ -300,35 +298,71 @@ const ContactFormContent = () => {
 
   return (
     <>
-      <section className="py-16  px-4 md:px-8">
-        <div className="max-w-[1500px] mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 items-stretch">
-            {/* Image on the left */}
-            <div className="hidden md:block">
-              <img
-                src={contactImage.src || contactImage}
-                alt="Contact us"
-                className=" w-full h-full object-cover  "
-              />
-            </div>
+      {/* Executive Gateway Intro */}
+      <section className=" py-10 px-4 md:px-8 relative overflow-hidden border-b border-gray-100">
+        {/* Subtle geometric pattern */}
+        <div className="absolute inset-0 opacity-20 pointer-events-none">
+          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern
+                id="grid"
+                width="40"
+                height="40"
+                patternUnits="userSpaceOnUse"
+              >
+                <path
+                  d="M 40 0 L 0 0 0 40"
+                  fill="none"
+                  stroke="#C5A059"
+                  strokeWidth="1"
+                />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid)" />
+          </svg>
+        </div>
+
+        <div className="max-w-[1200px] mx-auto text-center relative z-10">
+          <h1 className="text-3xl md:text-6xl font-black text-baseTwo mb-10 leading-[1.15] tracking-tight">
+            {t("navbar.executiveGateway.title")}
+          </h1>
+
+          <div className="w-24 h-1 bg-primary mx-auto mb-10 rounded-full opacity-30"></div>
+
+          <p
+            className={`max-w-4xl mx-auto text-gray-600 text-lg md:text-2xl leading-relaxed ${
+              isRTL ? "font-medium" : "font-light"
+            }`}
+          >
+            {t("navbar.executiveGateway.description")}
+          </p>
+        </div>
+      </section>
+
+      <section className="py-10 md:py-20 px-4 md:px-8 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex items-center justify-center">
             {/* Contact Form */}
-            <div className="bg-gray-50 rounded-3xl  p-8 md:p-12 border border-gray-100 flex flex-col justify-center">
-              <form onSubmit={handleSubmit} className="space-y-8">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="w-full max-w-3xl bg-gray-50/50 backdrop-blur-sm rounded-[2.5rem] p-8 md:p-20 border border-gray-100 flex flex-col justify-center shadow-sm relative overflow-hidden">
+              {/* Decorative elements */}
+              <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-[100px] -z-10"></div>
+
+              <form
+                onSubmit={handleSubmit}
+                className="space-y-10  relative z-10"
+              >
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                   {/* Name Field */}
-                  <div className="space-y-2">
+                  <div className="space-y-3">
                     <label
                       htmlFor="name"
-                      className={`flex items-center gap-3 text-lg font-semibold text-baseTwo ${
+                      className={`flex items-center gap-3 text-sm font-black uppercase tracking-widest text-baseTwo ${
                         isRTL ? "flex-row-reverse justify-end" : "justify-start"
                       }`}
-                      style={{ direction: isRTL ? "rtl" : "ltr" }}
                     >
-                      <FaUser className="text-primary" />
-                      <span className={isRTL ? "text-right" : "text-left"}>
-                        {t("contactForm.labelName")}
-                      </span>
-                      <span className="text-red-500">*</span>
+                      <FaUser className="text-primary text-xs" />
+                      <span>{t("contactForm.labelName")}</span>
+                      <span className="text-primary">*</span>
                     </label>
                     <input
                       type="text"
@@ -336,39 +370,25 @@ const ContactFormContent = () => {
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      className={`w-full px-4 py-4 border-2 rounded-xl text-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-baseTwo/20 focus:border-baseTwo ${
-                        errors.name
-                          ? "border-red-500 bg-red-50"
-                          : "border-gray-300 hover:border-gray-400"
+                      className={`w-full px-5 py-4 bg-white border border-gray-200 rounded-2xl text-lg transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary ${
+                        errors.name ? "border-red-400 bg-red-50/30" : ""
                       } ${isRTL ? "text-right" : "text-left"}`}
                       placeholder={t("contactForm.placeholderName")}
                       disabled={isLoading}
                     />
-                    {errors.name && (
-                      <p
-                        className={`text-red-500 text-sm mt-1 ${
-                          isRTL ? "text-right" : "text-left"
-                        }`}
-                      >
-                        {errors.name}
-                      </p>
-                    )}
                   </div>
 
                   {/* Phone Field */}
-                  <div className="space-y-2">
+                  <div className="space-y-3">
                     <label
                       htmlFor="phone"
-                      className={`flex items-center gap-3 text-lg font-semibold text-baseTwo ${
+                      className={`flex items-center gap-3 text-sm font-black uppercase tracking-widest text-baseTwo ${
                         isRTL ? "flex-row-reverse justify-end" : "justify-start"
                       }`}
-                      style={{ direction: isRTL ? "rtl" : "ltr" }}
                     >
-                      <FaPhone className="text-primary" />
-                      <span className={isRTL ? "text-right" : "text-left"}>
-                        {t("contactForm.labelPhone")}
-                      </span>
-                      <span className="text-red-500">*</span>
+                      <FaPhone className="text-primary text-xs" />
+                      <span>{t("contactForm.labelPhone")}</span>
+                      <span className="text-primary">*</span>
                     </label>
                     <input
                       type="tel"
@@ -376,41 +396,27 @@ const ContactFormContent = () => {
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
-                      className={`w-full px-4 py-4 border-2 rounded-xl text-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-baseTwo/20 focus:border-baseTwo ${
-                        errors.phone
-                          ? "border-red-500 bg-red-50"
-                          : "border-gray-300 hover:border-gray-400"
+                      className={`w-full px-5 py-4 bg-white border border-gray-200 rounded-2xl text-lg transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary ${
+                        errors.phone ? "border-red-400 bg-red-50/30" : ""
                       } ${isRTL ? "text-right" : "text-left"}`}
                       placeholder={t("contactForm.placeholderPhone")}
                       disabled={isLoading}
                     />
-                    {errors.phone && (
-                      <p
-                        className={`text-red-500 text-sm mt-1 ${
-                          isRTL ? "text-right" : "text-left"
-                        }`}
-                      >
-                        {errors.phone}
-                      </p>
-                    )}
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                   {/* Email Field */}
-                  <div className="space-y-2">
+                  <div className="space-y-3">
                     <label
                       htmlFor="email"
-                      className={`flex items-center gap-3 text-lg font-semibold text-baseTwo ${
+                      className={`flex items-center gap-3 text-sm font-black uppercase tracking-widest text-baseTwo ${
                         isRTL ? "flex-row-reverse justify-end" : "justify-start"
                       }`}
-                      style={{ direction: isRTL ? "rtl" : "ltr" }}
                     >
-                      <FaEnvelope className="text-primary" />
-                      <span className={isRTL ? "text-right" : "text-left"}>
-                        {t("contactForm.labelEmail")}
-                      </span>
-                      <span className="text-red-500">*</span>
+                      <FaEnvelope className="text-primary text-xs" />
+                      <span>{t("contactForm.labelEmail")}</span>
+                      <span className="text-primary">*</span>
                     </label>
                     <input
                       type="email"
@@ -418,39 +424,25 @@ const ContactFormContent = () => {
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      className={`w-full px-4 py-4 border-2 rounded-xl text-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-baseTwo/20 focus:border-baseTwo ${
-                        errors.email
-                          ? "border-red-500 bg-red-50"
-                          : "border-gray-300 hover:border-gray-400"
+                      className={`w-full px-5 py-4 bg-white border border-gray-200 rounded-2xl text-lg transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary ${
+                        errors.email ? "border-red-400 bg-red-50/30" : ""
                       } ${isRTL ? "text-right" : "text-left"}`}
                       placeholder={t("contactForm.placeholderEmail")}
                       disabled={isLoading}
                     />
-                    {errors.email && (
-                      <p
-                        className={`text-red-500 text-sm mt-1 ${
-                          isRTL ? "text-right" : "text-left"
-                        }`}
-                      >
-                        {errors.email}
-                      </p>
-                    )}
                   </div>
 
                   {/* Contact Type Dropdown */}
-                  <div className="space-y-2">
+                  <div className="space-y-3">
                     <label
                       htmlFor="contact_type_id"
-                      className={`flex items-center gap-3 text-lg font-semibold text-baseTwo ${
+                      className={`flex items-center gap-3 text-sm font-black uppercase tracking-widest text-baseTwo ${
                         isRTL ? "flex-row-reverse justify-end" : "justify-start"
                       }`}
-                      style={{ direction: isRTL ? "rtl" : "ltr" }}
                     >
-                      <FaListUl className="text-primary" />
-                      <span className={isRTL ? "text-right" : "text-left"}>
-                        {t("contactForm.labelContactType")}
-                      </span>
-                      <span className="text-red-500">*</span>
+                      <FaListUl className="text-primary text-xs" />
+                      <span>{t("contactForm.labelContactType")}</span>
+                      <span className="text-primary">*</span>
                     </label>
                     <div className="relative group/select">
                       <select
@@ -458,11 +450,9 @@ const ContactFormContent = () => {
                         name="contact_type_id"
                         value={formData.contact_type_id}
                         onChange={handleChange}
-                        className={`w-full px-4 py-4 border-2 rounded-xl text-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary bg-white appearance-none cursor-pointer pr-10 pl-4 ${
-                          errors.contact_type_id
-                            ? "border-red-500 bg-red-50"
-                            : "border-gray-300 hover:border-primary/50"
-                        } ${isRTL ? "text-right pr-4 pl-10" : "text-left pr-10 pl-4"}`}
+                        className={`w-full px-5 py-4 bg-white border border-gray-200 rounded-2xl text-lg transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary appearance-none cursor-pointer ${
+                          errors.contact_type_id ? "border-red-400" : ""
+                        } ${isRTL ? "text-right pr-5 pl-12" : "text-left pr-12 pl-5"}`}
                         disabled={isLoading}
                       >
                         <option value="">
@@ -474,43 +464,27 @@ const ContactFormContent = () => {
                           </option>
                         ))}
                       </select>
-                      <div
-                        className={`absolute top-1/2 -translate-y-1/2 pointer-events-none transition-transform duration-300 group-hover/select:text-primary ${
-                          isRTL ? "left-4" : "right-4"
+                      <FaChevronDown
+                        size={12}
+                        className={`absolute top-1/2 -translate-y-1/2 pointer-events-none text-gray-400 transition-all group-focus-within/select:text-primary ${
+                          isRTL ? "left-5" : "right-5"
                         }`}
-                      >
-                        <FaChevronDown
-                          size={14}
-                          className="text-gray-400 group-focus-within/select:rotate-180 transition-transform"
-                        />
-                      </div>
+                      />
                     </div>
-                    {errors.contact_type_id && (
-                      <p
-                        className={`text-red-500 text-sm mt-1 ${
-                          isRTL ? "text-right" : "text-left"
-                        }`}
-                      >
-                        {errors.contact_type_id}
-                      </p>
-                    )}
                   </div>
                 </div>
 
                 {/* Message Field */}
-                <div className="space-y-2">
+                <div className="space-y-3">
                   <label
                     htmlFor="message"
-                    className={`flex items-center gap-3 text-lg font-semibold text-baseTwo ${
+                    className={`flex items-center gap-3 text-sm font-black uppercase tracking-widest text-baseTwo ${
                       isRTL ? "flex-row-reverse justify-end" : "justify-start"
                     }`}
-                    style={{ direction: isRTL ? "rtl" : "ltr" }}
                   >
-                    <FaCommentDots className="text-primary" />
-                    <span className={isRTL ? "text-right" : "text-left"}>
-                      {t("contactForm.labelMessage")}
-                    </span>
-                    <span className="text-red-500">*</span>
+                    <FaCommentDots className="text-primary text-xs" />
+                    <span>{t("contactForm.labelMessage")}</span>
+                    <span className="text-primary">*</span>
                   </label>
                   <textarea
                     id="message"
@@ -518,38 +492,24 @@ const ContactFormContent = () => {
                     value={formData.message}
                     onChange={handleChange}
                     rows={6}
-                    className={`w-full px-4 py-4 border-2 rounded-xl text-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-baseTwo/20 focus:border-baseTwo resize-vertical ${
-                      errors.message
-                        ? "border-red-500 bg-red-50"
-                        : "border-gray-300 hover:border-gray-400"
+                    className={`w-full px-5 py-4 bg-white border border-gray-200 rounded-2xl text-lg transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary resize-none ${
+                      errors.message ? "border-red-400" : ""
                     } ${isRTL ? "text-right" : "text-left"}`}
                     placeholder={t("contactForm.placeholderMessage")}
                     disabled={isLoading}
                   />
-                  {errors.message && (
-                    <p
-                      className={`text-red-500 text-sm mt-1 ${
-                        isRTL ? "text-right" : "text-left"
-                      }`}
-                    >
-                      {errors.message}
-                    </p>
-                  )}
                 </div>
 
                 {/* Attachment Field */}
-                <div className="space-y-2">
+                <div className="space-y-3">
                   <label
                     htmlFor="attachment"
-                    className={`flex items-center gap-3 text-lg font-semibold text-baseTwo ${
+                    className={`flex items-center gap-3 text-sm font-black uppercase tracking-widest text-baseTwo ${
                       isRTL ? "flex-row-reverse justify-end" : "justify-start"
                     }`}
-                    style={{ direction: isRTL ? "rtl" : "ltr" }}
                   >
-                    <FaPaperclip className="text-primary" />
-                    <span className={isRTL ? "text-right" : "text-left"}>
-                      {t("contactForm.labelAttachment")}
-                    </span>
+                    <FaPaperclip className="text-primary text-xs" />
+                    <span>{t("contactForm.labelAttachment")}</span>
                   </label>
                   <div className="relative group">
                     <input
@@ -562,64 +522,34 @@ const ContactFormContent = () => {
                     />
                     <label
                       htmlFor="attachment"
-                      className={`flex items-center justify-between w-full px-4 py-4 border-2 rounded-xl text-lg transition-all duration-300 cursor-pointer bg-white group-hover:border-gray-400 ${
+                      className={`flex items-center justify-between w-full px-5 py-4 bg-white border border-gray-200 rounded-2xl text-lg transition-all duration-300 cursor-pointer hover:border-primary/50 ${
                         isRTL ? "flex-row-reverse" : ""
-                      } border-gray-300`}
+                      }`}
                     >
-                      <span
-                        className={`text-gray-500 truncate ${
-                          isRTL ? "text-right mr-2" : "text-left ml-2"
-                        }`}
-                      >
+                      <span className="text-gray-400 truncate text-sm">
                         {formData.attachment
                           ? formData.attachment.name
                           : t("contactForm.placeholderAttachment")}
                       </span>
-                      <div className="px-4 py-1.5 bg-gray-100 text-baseTwo rounded-lg text-sm font-bold group-hover:bg-primary group-hover:text-white transition-colors">
-                        {isRTL ? "اختر ملفاً" : "Browse"}
+                      <div className="px-5 py-2 bg-gray-50 text-baseTwo rounded-xl text-xs font-black uppercase tracking-wider group-hover:bg-primary group-hover:text-white transition-all">
+                        {isRTL ? "إرفاق وثيقة" : "Attach File"}
                       </div>
                     </label>
                   </div>
                 </div>
 
-                {/* Extra Key (Honeypot) */}
-                <div className="hidden">
-                  <label htmlFor="extra_key">
-                    {t("contactForm.honeypotLabel")}
-                  </label>
-                  <input
-                    type="text"
-                    id="extra_key"
-                    name="extra_key"
-                    value={formData.extra_key}
-                    onChange={handleChange}
-                    tabIndex="-1"
-                    autoComplete="off"
-                  />
-                  {errors.extra_key && (
-                    <p
-                      className={`text-red-500 text-sm mt-1 ${
-                        isRTL ? "text-right" : "text-left"
-                      }`}
-                    >
-                      {errors.extra_key}
-                    </p>
-                  )}
-                </div>
-
                 {/* Math CAPTCHA */}
-                <div className="space-y-2">
+                <div className="space-y-3">
                   <label
                     htmlFor="mathAnswer"
-                    className={`flex items-center gap-3 text-lg font-semibold text-baseTwo ${
+                    className={`flex items-center gap-3 text-sm font-black uppercase tracking-widest text-baseTwo ${
                       isRTL ? "flex-row-reverse justify-end" : "justify-start"
                     }`}
-                    style={{ direction: isRTL ? "rtl" : "ltr" }}
                   >
-                    <span className={isRTL ? "text-right" : "text-left"}>
+                    <span>
                       {t("contactForm.labelMath")} ({mathQuestion})
                     </span>
-                    <span className="text-red-500">*</span>
+                    <span className="text-primary">*</span>
                   </label>
                   <input
                     type="number"
@@ -627,46 +557,43 @@ const ContactFormContent = () => {
                     name="mathAnswer"
                     value={mathAnswer}
                     onChange={handleMathAnswerChange}
-                    className={`w-full px-4 py-4 border-2 rounded-xl text-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-baseTwo/20 focus:border-baseTwo ${
-                      errors.mathAnswer
-                        ? "border-red-500 bg-red-50"
-                        : "border-gray-300 hover:border-gray-400"
+                    className={`w-full px-5 py-4 bg-white border border-gray-200 rounded-2xl text-lg transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary ${
+                      errors.mathAnswer ? "border-red-400" : ""
                     } ${isRTL ? "text-right" : "text-left"}`}
                     placeholder={t("contactForm.placeholderMath")}
                     disabled={isLoading}
                   />
-                  {errors.mathAnswer && (
-                    <p
-                      className={`text-red-500 text-sm mt-1 ${
-                        isRTL ? "text-right" : "text-left"
-                      }`}
-                    >
-                      {errors.mathAnswer}
-                    </p>
-                  )}
                 </div>
 
-                {/* Submit Button */}
-                <div className="flex justify-center pt-4">
+                {/* Security Seal & Submit */}
+                <div className="flex flex-col items-center gap-8 pt-6">
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className={`flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-baseTwo to-primary text-white text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none ${
+                    className={`w-full md:w-auto min-w-[300px] flex items-center justify-center gap-4 px-10 py-5 bg-primary text-white text-lg font-black uppercase tracking-widest rounded-2xl shadow-2xl hover:bg-primary transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed group ${
                       isRTL ? "flex-row-reverse" : ""
                     }`}
                   >
                     {isLoading ? (
                       <>
                         <FaSpinner className="animate-spin" />
-                        {t("contactForm.buttonSending")}
+                        <span>{t("contactForm.buttonSending")}</span>
                       </>
                     ) : (
                       <>
-                        <FaPaperPlane />
-                        {t("contactForm.buttonSend")}
+                        <span>{t("contactForm.buttonSend")}</span>
+                        <FaPaperPlane className="text-white " />
                       </>
                     )}
                   </button>
+
+                  {/* Digital Security Seal */}
+                  <div className="flex items-center gap-4 px-6 py-3 bg-gray-100/50 rounded-full border border-gray-100 backdrop-blur-sm">
+                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.6)]"></div>
+                    <span className="text-[10px] md:text-xs font-black text-gray-500 uppercase tracking-[0.1em] whitespace-nowrap">
+                      {t("navbar.executiveGateway.securitySeal")}
+                    </span>
+                  </div>
                 </div>
               </form>
             </div>

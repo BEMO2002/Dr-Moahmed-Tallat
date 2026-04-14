@@ -92,6 +92,11 @@ const SpecialServices = () => {
               {t("titleHighlight")}
             </span>
           </h2>
+          {t.has("headerDescription") && (
+            <p className="text-slate-500 text-lg md:text-xl leading-relaxed mt-6 max-w-3xl mx-auto font-medium">
+              {t("headerDescription")}
+            </p>
+          )}
         </div>
 
         {/* Services Swiper */}

@@ -32,6 +32,7 @@
     "loading": "Loading...",
     "strategicAnalysesLabel": "Strategic Articles and Analyses",
     "researchArchive": "Research Archive",
+    "faq": "FAQ",
     "vault": {
       "enterPassword": "Enter Password to Access",
       "passwordSubtitle": "Please enter the password to access the research archive and confidential documents",
@@ -40,7 +41,43 @@
       "noFiles": "No files in the archive",
       "noFilesSubtitle": "The research archive is currently empty. Please check back later.",
       "view": "View",
-      "preview": "Document Preview"
+      "preview": "Document Preview",
+      "allFiles": "All Files & Documents",
+      "introTitle": "The Research Vault: The Sanctuary of Foresight & Sovereign Documentation",
+      "strategicDefinitionLabel": "Strategic Definition:",
+      "strategicDefinitionText": "This is not merely an information archive; it is the repository of Strategic Consciousness, housing the quintessence of rigorous research and anatomical studies of power dynamics. This vault is engineered to serve as a definitive reference for elite researchers and decision-makers seeking to understand the Hidden Drivers of the international system, and to decode the contemporary geopolitical and psychological ciphers of conflict.",
+      "pillarsTitle": "The Vault’s Strategic Pillars (Content Taxonomy)",
+      "authorizedOnly": "Authorized Personnel Only",
+      "exclusiveAccess": "Exclusive Access Request",
+      "pillars": [
+        {
+          "title": "Sovereignty Papers",
+          "description": "Specialized monographs investigating the mechanisms of Strategic Initiative and the architectures of Geopolitical Deterrence."
+        },
+        {
+          "title": "The Anatomy of Consciousness",
+          "description": "Extensive research into mass psychology and the sophisticated instruments of Collective Psyche Infiltration."
+        },
+        {
+          "title": "Foresight Modeling",
+          "description": "Analytical forecasting of future international power equilibriums within the framework of the digital and technological revolution."
+        },
+        {
+          "title": "Qualitative & Specialized Studies",
+          "description": "Advanced scholarly inquiries featuring the 'Geopolitics of Femininity' and institutional Soft Power strategies."
+        }
+      ],
+      "citationStandard": "APA 7th Edition"
+    },
+    "axiological_objectives": "Axiological and Strategic Objectives",
+    "philosophical_statement": "Philosophical Statement",
+    "political_manifesto": "Political Manifesto",
+    "executive_identity": "Executive Identity",
+    "executiveGateway": {
+      "title": "The Gateway to Executive Excellence",
+      "description": "This interface is exclusively designated for high-level engagement with decision-makers, sovereign institutions, and global research organizations. We maintain that strategic consultancy is a fundamental process of 'Will-Building' and 'Sovereignty Imposition.' Accordingly, we facilitate requests for Strategic Briefings, Geopolitical Risk Assessments, and the Architecture of Psychological and Media Policies—executed with absolute confidentiality and penetrating analytical depth.",
+      "brandStandard": "Global Executive Standard",
+      "securitySeal": "End-to-End Encryption - Private Briefing"
     }
   },
   "postDetails": {
@@ -68,7 +105,7 @@
     "tag": "PROFILE",
     "title1": "Mohamed",
     "titleHighlight": "Talaat",
-    "title2": "Media Veteran & Political Analyst",
+    "title2": "Deconstructing the Architecture of Power",
     "tabs": {
       "about": "Political Message",
       "mission": "Philosophical Statement",
@@ -77,7 +114,7 @@
     "title": "Who is Dr. Mohamed Talaat?",
     "keywords": "Mohamed Talaat, Media, Journalism, Political Analysis",
     "author": "Dr. Mohamed Talaat",
-    "description": "A seasoned media veteran and journalist, founder of East News Agency, and a political and psychological analyst.",
+    "description": "A media expert and geopolitical and psychological analyst who redefines the concepts of national sovereignty by deconstructing complex crises and reshaping Arab consciousness, empowering political will with the tools of initiative in a world that recognizes only the strong.",
     "ogTitle": "Dr. Mohamed Talaat | Media Veteran & Political Analyst",
     "ogDescription": "Dr. Mohamed Talaat's platform for political and psychological analysis, founder of East News Agency.",
     "ogType": "website",
@@ -91,25 +128,52 @@
       "about": {
         "text": "Redefining the concepts of initiative and sovereign deterrence in the contemporary international order.",
         "points": [
-          "Deconstructing complex crises",
-          "International political corridors",
-          "Reshaping Arab awareness"
+          {
+            "title": "Strategic Initiative Engineering",
+            "description": "Transitioning from 'crisis deconstruction' to formulating practical tools for 'imposing will' in managing international conflicts."
+          },
+          {
+            "title": "Comprehensive Sovereign Deterrence Doctrine",
+            "description": "Analyzing the transformations of the deterrence concept from 'traditional military' to 'hybrid deterrence' (economic, cyber, and cognitive)."
+          },
+          {
+            "title": "Anatomy of International System Transformations",
+            "description": "Proactive reading of new power equations in light of the rise of 'multipolarity' and the decline of unilateral hegemony."
+          }
         ]
       },
       "mission": {
         "text": "Confronting consciousness occupation with tools of intellectual sovereignty and geopolitical deterrence.",
         "points": [
-          "Sovereign Foresight",
-          "Dissecting Invisible Actors",
-          "Fortified Awareness Engineering"
+          {
+            "title": "Deconstructing the Psychology of Hegemony",
+            "description": "Uncovering the psychological and social mechanisms used by major powers to impose 'total alienation' and domesticate populations."
+          },
+          {
+            "title": "Fortified Consciousness Engineering",
+            "description": "Developing cognitive and philosophical tools to build sovereign mindsets resistant to the cancer of 'consciousness occupation' and identity penetration."
+          },
+          {
+            "title": "Geophilosophical Foresight of the Upcoming System",
+            "description": "Connecting major philosophical transformations with their geopolitical impacts on the ground, to map out a path for Arab intellectual sovereignty."
+          }
         ]
       },
       "vision": {
         "text": "Crafting tools for statesmen to understand and make decisions away from media superficiality.",
         "points": [
-          "Mass Consciousness Engineering",
-          "Geopolitical Deterrence",
-          "Strategic Initiative"
+          {
+            "title": "Geopolitical Deterrence Modeling",
+            "description": "Providing theoretical and practical frameworks that enable decision-makers to calculate the cost of 'confrontation' and measure the effectiveness of 'deterrence'."
+          },
+          {
+            "title": "Public Consciousness Engineering (CWS)",
+            "description": "Providing strategies to build and guide 'public opinion' to act as a lever, not a burden, in the battles for national sovereignty."
+          },
+          {
+            "title": "Informational Strategic Foresight",
+            "description": "Analyzing the 'behind-the-scenes' of international politics to provide situation estimates that grant the decision-maker 'initiative' before crises occur."
+          }
         ]
       }
     },
@@ -252,11 +316,11 @@
     "close": "Close"
   },
   "counter": {
-    "experience": "15+",
+    "experience": "25+",
     "experienceLabel": "Years of Experience",
-    "articles": "150+",
+    "articles": "250+",
     "articlesLabel": "Analytical Articles",
-    "research": "5+",
+    "research": "120+",
     "researchLabel": "Research Axes"
   },
 
@@ -265,6 +329,7 @@
     "title1": "Fields",
     "titleHighlight": "Strategic",
     "strategicDomains": "Strategic Domains",
+    "headerDescription": "We do not offer intellectual luxury, but rather draw maps to engage with reality; where geopolitics intersects with the psychology of consciousness to create forward-looking models that guarantee the sovereignty of decision-making in a hybrid world.",
     "geopolitics": {
       "title": "Geopolitics",
       "description": "Reading the map where interests and ideology intersect — including the geopolitics of femininity."

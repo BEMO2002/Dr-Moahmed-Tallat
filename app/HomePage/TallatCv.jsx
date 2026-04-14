@@ -82,14 +82,14 @@ const TallatCv = ({ data }) => {
                   </span>
                 </div>
 
-                <h2 className="text-3xl md:text-5xl font-bold text-baseTwo mb-8 leading-tight">
+                <h2 className="text-2xl md:text-4xl font-bold text-primary/80 mb-8 leading-tight">
                   {title}
                 </h2>
 
                 <div className="relative mb-10">
                   <FaQuoteLeft className="absolute -top-6 -left-6 text-primary/10 text-6xl pointer-events-none" />
                   <div
-                    className="text-gray-600 text-lg md:text-xl leading-relaxed font-medium space-y-6"
+                    className="text-gray-500 text-lg md:text-xl leading-relaxed font-medium space-y-6"
                     dangerouslySetInnerHTML={{
                       __html: content.replace(/\r\n/g, "<br/>"),
                     }}
