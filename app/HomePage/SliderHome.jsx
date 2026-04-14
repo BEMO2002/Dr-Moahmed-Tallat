@@ -118,17 +118,24 @@ const SliderHome = ({ initialSliders = [] }) => {
                 <div
                   className={`flex-1 w-full z-30 transition-opacity duration-500 ${activeSlideIndex === index ? "opacity-100" : "opacity-0"} ${isRTL ? "text-right" : "text-left"}`}
                 >
-                  <div className="inline-flex items-center gap-2 px-5 py-2 bg-white/60 backdrop-blur-sm shadow-sm border border-primary/5 rounded-full text-primary text-[15px] font-bold tracking-widest uppercase mb-8">
+                  <div className="inline-flex items-center gap-2 px-5 py-2 bg-white/60 backdrop-blur-sm shadow-sm border border-primary/5 rounded-full text-primary text-[20px] font-bold tracking-widest uppercase mb-8">
                     <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
                     {isRTL
                       ? "المحلل الذي يقرأ ما وراء الحدث"
                       : "The Analyst Who Reads Behind The Event"}
                   </div>
 
-                  <h1 className="text-3xl sm:text-4xl lg:text-[60px] font-black text-baseTwo mb-6 md:mb-8 leading-[1.2] lg:leading-[1.1] tracking-tight">
+                  <h1 className="text-1xl sm:text-2xl lg:text-[30px] font-black text-baseTwo mb-6 md:mb-8 leading-[1.2] lg:leading-[1.1] tracking-tight">
                     {slider.title?.[locale]}
                   </h1>
 
+                  <div className="mb-8">
+                    <span className="text-xl sm:text-2xl lg:text-[35px] whitespace-nowrap font-black text-baseTwo mb-6 md:mb-8 leading-[1.2] lg:leading-[1.1] tracking-tight">
+                      {isRTL
+                        ? "هندسةُ المبادأةِ والردعِ الجيوسياسيِّ"
+                        : "Engineering Initiative and Geopolitical Deterrence"}
+                    </span>
+                  </div>
                   <p className="text-base sm:text-lg md:text-xl mb-8 md:mb-12  leading-relaxed ">
                     {slider.desc?.[locale]}
                   </p>
