@@ -14,6 +14,7 @@ export async function fetchSettings() {
         "Content-Type": "application/json",
         "X-Api-Key": apiKey,
       },
+      next: { revalidate: 3600 },
     });
 
     if (!res.ok) return null;
@@ -36,6 +37,7 @@ export async function fetchSliders() {
         "Content-Type": "application/json",
         "X-Api-Key": apiKey,
       },
+      next: { revalidate: 3600 },
     });
 
     if (!res.ok) return [];
@@ -232,9 +234,9 @@ export async function fetchArticleTypes() {
         "Content-Type": "application/json",
         "X-Api-Key": apiKey,
       },
-      next: { revalidate: 60 },
+      next: { revalidate: 3600 },
     });
-    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    if (!res.ok) return [];
     const json = await res.json();
     return json?.data || [];
   } catch (err) {
@@ -262,8 +264,12 @@ export async function fetchArticlesList(typeSlug, params = {}) {
         "Content-Type": "application/json",
         "X-Api-Key": apiKey,
       },
+      next: { revalidate: 60 },
     });
-    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    if (!res.ok) {
+      console.warn(`fetchArticlesList status ${res.status}`);
+      return [];
+    }
     const json = await res.json();
     return json?.data?.data || [];
   } catch (err) {

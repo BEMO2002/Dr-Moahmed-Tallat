@@ -59,8 +59,27 @@ const Analyses = ({
 
   if (!articles || articles.length === 0) {
     return (
-      <div className="py-20 text-center text-slate-500 font-medium bg-gray-50 min-h-[50vh] flex items-center justify-center">
-        {translations.noItems || "لا توجد تحليلات متاحة."}
+      <div className="py-24 px-4">
+        <div className="max-w-md mx-auto bg-gray-50 rounded-2xl border border-dashed border-gray-200 p-12 text-center">
+          <div className="w-20 h-20 bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm">
+            <FaRegCalendarAlt className="text-gray-300 text-3xl" />
+          </div>
+          <h3 className="text-xl font-black text-baseTwo mb-4">
+            {translations.noItems ||
+              (isRTL ? "لا توجد تحليلات" : "No Analyses Found")}
+          </h3>
+          <p className="text-slate-500 mb-8 leading-relaxed">
+            {isRTL
+              ? "عذراً، لا توجد نتائج تطابق بحثك حالياً. يمكنك تجربة فلتر آخر أو العودة للرئيسية."
+              : "Apologies, no results match your criteria at this time. Try adjusting the filters or return to the main archive."}
+          </p>
+          <Link
+            href="/analyses"
+            className="inline-flex items-center gap-2 px-8 py-3 bg-primary text-white text-sm font-black uppercase tracking-widest rounded-xl hover:bg-primary/90 transition-all shadow-lg shadow-primary/20"
+          >
+            {isRTL ? "كافة التحليلات" : "All Analyses"}
+          </Link>
+        </div>
       </div>
     );
   }

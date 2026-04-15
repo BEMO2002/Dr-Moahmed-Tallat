@@ -34,7 +34,7 @@ const AnalysesHeader = ({
         {/* Content */}
         <div className="flex items-center justify-center flex-col gap-6 relative z-10">
           <h1
-            className={`text-[22px] md:text-5xl whitespace-nowrap text-primary font-bold ${isRTL ? "text-right" : "text-left"} text-center uppercase `}
+            className={`text-[22px] md:text-5xl text-primary font-bold ${isRTL ? "text-right" : "text-left"} text-center uppercase `}
           >
             {title}
           </h1>
@@ -56,7 +56,7 @@ const AnalysesHeader = ({
               <MdOutlineKeyboardDoubleArrowRight className="text-primary" />
             )}
 
-            <span className="text-black text-sm md:text-lg whitespace-nowrap font-medium">
+            <span className="text-black text-sm md:text-lg  font-medium">
               {breadcrumbCurrent}
             </span>
           </div>
