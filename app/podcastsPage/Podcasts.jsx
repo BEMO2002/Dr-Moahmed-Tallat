@@ -47,6 +47,34 @@ const Podcasts = ({ data, initialPage = 1, isLoading = false }) => {
   const locale = useLocale();
   const isRTL = locale === "ar";
 
+  const decodeHtml = (html) => {
+    if (!html) return "";
+
+    const namedEntities = {
+      amp: "&",
+      lt: "<",
+      gt: ">",
+      quot: '"',
+      apos: "'",
+      nbsp: " ",
+      "#39": "'",
+    };
+
+    return html
+      .replace(/&([a-zA-Z0-9#]+);/g, (match, entity) => {
+        if (namedEntities[entity]) return namedEntities[entity];
+        return match;
+      })
+      .replace(/&#(\d+);/g, (_, dec) => {
+        const code = Number.parseInt(dec, 10);
+        return Number.isNaN(code) ? _ : String.fromCodePoint(code);
+      })
+      .replace(/&#x([0-9a-fA-F]+);/g, (_, hex) => {
+        const code = Number.parseInt(hex, 16);
+        return Number.isNaN(code) ? _ : String.fromCodePoint(code);
+      });
+  };
+
   const items = data?.data || [];
   const pagination = {
     current_page: data?.current_page || 1,
@@ -110,6 +138,7 @@ const Podcasts = ({ data, initialPage = 1, isLoading = false }) => {
             const title = item.title?.[locale] || item.title?.["en"];
             const description =
               item.description?.[locale] || item.description?.["en"];
+            const decodedDescription = decodeHtml(description);
             const embedUrl = getEmbedUrl(item.video_url);
 
             return (
@@ -157,7 +186,7 @@ const Podcasts = ({ data, initialPage = 1, isLoading = false }) => {
                         {title}
                       </h2>
                       <p className="text-slate-500 leading-relaxed text-lg line-clamp-3">
-                        {description}
+                        {decodedDescription}
                       </p>
                     </div>
                   </div>

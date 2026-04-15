@@ -136,6 +136,7 @@ const AboutTwo = () => {
                     </svg>
                   </span>
                 </span>{" "}
+                <br />
                 {t("title2")}
               </motion.h2>
 
