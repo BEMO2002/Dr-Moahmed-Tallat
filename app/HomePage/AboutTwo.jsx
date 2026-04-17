@@ -59,7 +59,7 @@ const AboutTwo = () => {
             className="flex-1 relative"
           >
             <div className="relative z-20 group">
-              <div className="absolute -inset-4 bg-gradient-to-r from-primary to-baseTwo rounded-2xl opacity-10 group-hover:opacity-20 transition-opacity duration-500 blur-xl"></div>
+              <div className="absolute -inset-4 bg-gradient-to-r from-primary  to-baseTwo rounded-2xl opacity-10 group-hover:opacity-20 transition-opacity duration-500 blur-xl"></div>
               <Image
                 src={aboutImage}
                 alt={t("imageAlt")}

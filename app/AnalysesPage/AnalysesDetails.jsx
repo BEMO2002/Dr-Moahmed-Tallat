@@ -285,7 +285,7 @@ const AnalysesDetails = ({ article, translations, locale, isRTL }) => {
               {/* Talat AI Section */}
               {content.talatAI && (
                 <div className="border-2 border-primary rounded-[2.5rem] p-1 md:p-1.5 ">
-                  <div className="bg-white rounded-[2.4rem] p-8 md:p-12">
+                  <div className="bg-white rounded-[2.4rem] p-1 md:p-3">
                     <div className="flex items-center justify-between mb-10">
                       <div className="flex items-center gap-4">
                         <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center">

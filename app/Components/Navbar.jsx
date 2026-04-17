@@ -264,7 +264,7 @@ const Navbar = () => {
             </div>
 
             {/* Desktop Navigation */}
-            <div className="hidden whitespace-nowrap lg:flex items-center space-x-2">
+            <div className="hidden whitespace-nowrp lg:flex items-center space-x-2">
               {navLinks.map((link, idx) => {
                 if (link.isDropdown) {
                   return (
@@ -422,7 +422,7 @@ const Navbar = () => {
         />
 
         <div
-          className={`absolute top-0 ${isRTL ? "right-0 translate-x-full" : "left-0 -translate-x-full"} w-72 h-full bg-white shadow-2xl transition-transform duration-500 transform ${isMenuOpen && "!translate-x-0"}`}
+          className={`absolute top-0 ${isRTL ? "right-0 translate-x-full" : "left-0 -translate-x-full"} w-90 h-full bg-white shadow-2xl transition-transform duration-500 transform ${isMenuOpen && "!translate-x-0"}`}
         >
           <div className="flex flex-col h-full bg-third/5">
             {/* Header */}
@@ -475,7 +475,7 @@ const Navbar = () => {
                               : link.dropdownId,
                           )
                         }
-                        className={`text-sm font-bold py-3 text-left whitespace-nowrap transition-colors flex items-center justify-between ${openMobileDropdown === link.dropdownId ? "text-primary" : "text-baseTwo hover:text-primary"}`}
+                        className={`text-md font-bold py-3 text-left transition-colors flex items-center justify-between ${openMobileDropdown === link.dropdownId ? "text-primary" : "text-baseTwo hover:text-primary"}`}
                       >
                         <span className="text-start">{link.label}</span>
                         <FaChevronDown
@@ -507,7 +507,7 @@ const Navbar = () => {
                                   key={i}
                                   href={item.to}
                                   onClick={closeMenu}
-                                  className="py-2.5 text-base font-medium whitespace-nowrap  hover:text-primary transition-colors flex items-center group"
+                                  className="py-2.5 text-base font-medium  hover:text-primary transition-colors flex items-center group"
                                 >
                                   <span>{item.label}</span>
                                   <MdOutlineKeyboardArrowDown
@@ -539,7 +539,7 @@ const Navbar = () => {
                         closeMenu();
                       }
                     }}
-                    className={`text-sm font-bold py-3 transition-colors flex items-center justify-between ${isActive(link.to) ? "text-primary" : "text-baseTwo hover:text-primary"}`}
+                    className={`text-md font-bold py-3 transition-colors flex items-center justify-between ${isActive(link.to) ? "text-primary" : "text-baseTwo hover:text-primary"}`}
                   >
                     <div className="flex items-center gap-2">
                       {link.isVault && (
@@ -567,7 +567,7 @@ const Navbar = () => {
                   >
                     <div className="flex items-center gap-2">
                       <span className="w-1.5 h-1.5 rounded-full bg-primary/40 block"></span>
-                      <span className="text-baseTwo text-sm font-black uppercase tracking-widest text-start">
+                      <span className="text-baseTwo text-md font-black uppercase tracking-widest text-start">
                         {t("navbar.executiveRequest")}
                       </span>
                     </div>
