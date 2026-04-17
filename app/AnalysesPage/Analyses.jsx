@@ -94,7 +94,8 @@ const Analyses = ({
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {articles.map((article) => {
             const title = article.title?.[locale] || article.title?.["en"];
-            const subtitle = article.subtitle?.[locale] || article.subtitle?.["en"];
+            const subtitle =
+              article.subtitle?.[locale] || article.subtitle?.["en"];
             const description =
               article.description?.[locale] || article.description?.["en"];
             const articleSlug = article.slug?.[locale] || article.slug?.["en"];
@@ -137,29 +138,34 @@ const Analyses = ({
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60" />
 
                   {/* Badges */}
-                <div className="absolute top-6 left-6 rtl:right-6 rtl:left-auto flex flex-col gap-2 z-20">
-                  <span className="bg-white/95 backdrop-blur-sm px-4 py-1.5 rounded-full shadow-lg text-xs font-black text-primary uppercase tracking-[0.15em] border border-primary/10">
-                    {article.type?.name?.[locale] ||
-                      article.type?.name?.["en"]}
-                  </span>
-                  {isFeatured && (
-                    <span className="bg-green-600 px-4 py-1.5 rounded-full text-xs font-black text-white uppercase tracking-[0.15em] shadow-lg flex items-center gap-1.5">
-                      <FaStar className="w-2.5 h-2.5" />
-                      {isRTL ? "تحليل مميز" : "Prime"}
+                  <div className="absolute top-6 left-6 rtl:right-6 rtl:left-auto flex flex-col gap-2 z-20">
+                    <span className="bg-white/95 backdrop-blur-sm px-4 py-1.5 rounded-full shadow-lg text-xs font-black text-primary uppercase tracking-[0.15em] border border-primary/10">
+                      {article.type?.name?.[locale] ||
+                        article.type?.name?.["en"]}
                     </span>
-                  )}
-                  {isOld === false && (
-                    <span className="bg-primary px-4 py-1.5 rounded-full text-xs font-black text-white uppercase tracking-[0.15em] shadow-lg flex items-center gap-1.5">
-                      <GrScheduleNew className="w-2.5 h-2.5" />
-                      {isRTL ? "حديث" : "Latest"}
-                    </span>
-                  )}
-                </div>
-
+                    {isFeatured && (
+                      <span className="bg-green-600 w-fit px-4 py-1.5 rounded-full text-xs font-black text-white uppercase tracking-[0.15em] shadow-lg flex items-center gap-1.5">
+                        <FaStar className="w-2.5 h-2.5" />
+                        {isRTL ? "تحليل مميز" : "Prime"}
+                      </span>
+                    )}
+                    {isOld === false && (
+                      <span className="bg-blue-600 w-fit px-4 py-1.5 rounded-full text-xs font-black text-white uppercase tracking-[0.15em] shadow-lg flex items-center gap-1.5">
+                        <GrScheduleNew className="w-2.5 h-2.5" />
+                        {isRTL ? "مقال حديث" : "Latest Article"}
+                      </span>
+                    )}
+                    {isOld === true && (
+                      <span className="bg-primary w-fit px-4 py-1.5 rounded-full text-xs font-black text-white uppercase tracking-[0.15em] shadow-lg flex items-center gap-1.5">
+                        <GrScheduleNew className="w-2.5 h-2.5" />
+                        {isRTL ? "مقال قديم" : "Old Article"}
+                      </span>
+                    )}
+                  </div>
                 </div>
 
                 {/* Content Section */}
-                <div className="p-8 pb-10 flex-1 flex flex-col relative z-20 bg-white">
+                <div className="p-8  flex-1 flex flex-col relative z-20 bg-white">
                   <div className="flex flex-wrap items-center gap-4 mb-6">
                     <div className="flex items-center gap-2 text-slate-400 text-xs font-black uppercase tracking-widest bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-100/50">
                       <FaRegCalendarAlt className="text-primary" />
@@ -167,19 +173,17 @@ const Analyses = ({
                     </div>
                   </div>
 
-
                   <Link href={`/analyses/article/${articleSlug}`}>
                     <h3 className="text-xl font-black text-baseTwo mb-3 line-clamp-2 leading-tight hover:text-primary transition-colors cursor-pointer group-hover:text-primary decoration-primary/30 underline-offset-8 decoration-2 group-hover:underline">
                       {title}
                     </h3>
                   </Link>
-                  
+
                   {subtitle && (
                     <p className="text-sm font-bold text-primary mb-4 line-clamp-1 opacity-80 uppercase tracking-tighter">
                       {subtitle}
                     </p>
                   )}
-
 
                   <p className="text-slate-500 text-sm mb-8 line-clamp-3 leading-relaxed font-medium">
                     {description}
@@ -207,7 +211,11 @@ const Analyses = ({
                     {socialPlatforms?.length > 0 && (
                       <div className="flex items-center gap-2.5 bg-slate-50/50 p-2 rounded-xl">
                         {socialPlatforms.map((platform) => (
-                          <span key={platform} title={platform} className="hover:scale-125 transition-transform duration-300">
+                          <span
+                            key={platform}
+                            title={platform}
+                            className="hover:scale-125 transition-transform duration-300"
+                          >
                             {getPlatformIcon(platform)}
                           </span>
                         ))}

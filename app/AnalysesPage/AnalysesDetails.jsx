@@ -164,13 +164,13 @@ const AnalysesDetails = ({ article, translations, locale, isRTL }) => {
                   {isOld === false && (
                     <span className="bg-primary/90 backdrop-blur-md px-5 py-2 rounded-full text-xs font-black text-white uppercase tracking-[0.2em] shadow-xl flex items-center gap-2">
                       <GrScheduleNew className="w-4 h-4" />
-                      {isRTL ? "تحليل حديث" : "New Analysis"}
+                      {isRTL ? "مقال حديث" : "New Article"}
                     </span>
                   )}
                   {isOld === true && (
                     <span className="bg-amber-600/90 backdrop-blur-md px-5 py-2 rounded-full text-xs font-black text-white uppercase tracking-[0.2em] shadow-xl flex items-center gap-2">
                       <FaHistory className="w-3 h-3" />
-                      {isRTL ? "تحليل قديم" : "Archive"}
+                      {isRTL ? "مقال قديم" : "Old Article"}
                     </span>
                   )}
                 </div>
@@ -315,15 +315,14 @@ const AnalysesDetails = ({ article, translations, locale, isRTL }) => {
                         {content.talatAI}
                       </div>
                     </div>
-                    <TalatAIChat 
-                      articleId={article.id} 
+                    <TalatAIChat
+                      articleId={article.id}
                       articleTitle={content.title}
-                      isRTL={isRTL} 
+                      isRTL={isRTL}
                     />
                   </div>
                 </div>
               )}
-
 
               {/* Sovereign Summary / الخلاصة السيادية */}
               {content.sovereignSummary && (
