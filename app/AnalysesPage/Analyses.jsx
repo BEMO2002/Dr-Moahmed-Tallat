@@ -15,10 +15,10 @@ import {
   FaStar,
   FaTwitter,
   FaHistory,
+  FaInbox,
 } from "react-icons/fa";
 import { GrScheduleNew } from "react-icons/gr";
 
-// تمت إضافة prop جديد باسم pagination للتعامل مع الترقيم
 const Analyses = ({
   articles,
   pagination,
@@ -59,37 +59,42 @@ const Analyses = ({
 
   if (!articles || articles.length === 0) {
     return (
-      <div className="py-24 px-4">
-        <div className="max-w-md mx-auto bg-gray-50 rounded-2xl border border-dashed border-gray-200 p-12 text-center">
-          <div className="w-20 h-20 bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm">
-            <FaRegCalendarAlt className="text-gray-300 text-3xl" />
+      <div className="py-24 px-4 overflow-hidden relative">
+        <div className="max-w-xl mx-auto bg-white rounded-[2.5rem] border border-slate-100 p-16 text-center shadow-xl shadow-slate-200/50 relative z-10">
+          <div className="w-24 h-24 bg-slate-50 rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-inner rotate-3 hover:rotate-0 transition-transform duration-500">
+            <FaInbox className="text-slate-300 text-4xl" />
           </div>
-          <h3 className="text-xl font-black text-baseTwo mb-4">
+          <h3 className="text-2xl font-black text-baseTwo mb-4">
             {translations.noItems ||
-              (isRTL ? "لا توجد تحليلات" : "No Analyses Found")}
+              (isRTL ? "لا توجد تحليلات متاحة" : "No Analyses Available")}
           </h3>
-          <p className="text-slate-500 mb-8 leading-relaxed">
+          <p className="text-slate-500 mb-10 leading-[1.8] text-lg font-medium">
             {isRTL
-              ? "عذراً، لا توجد نتائج تطابق بحثك حالياً. يمكنك تجربة فلتر آخر أو العودة للرئيسية."
-              : "Apologies, no results match your criteria at this time. Try adjusting the filters or return to the main archive."}
+              ? "نعمل حالياً على إعداد محتوى تحليلي جديد. يرجى مراجعة هده الصفحة لاحقاً أو استكشاف أرشيفنا."
+              : "We're currently preparing new analytical content. Please check back soon or explore our existing archive."}
           </p>
           <Link
             href="/analyses"
-            className="inline-flex items-center gap-2 px-8 py-3 bg-primary text-white text-sm font-black uppercase tracking-widest rounded-xl hover:bg-primary/90 transition-all shadow-lg shadow-primary/20"
+            className="inline-flex items-center gap-3 px-10 py-4 bg-primary text-white text-[10px] font-black uppercase tracking-[0.2em] rounded-2xl hover:bg-primary/90 transition-all shadow-xl shadow-primary/25 active:scale-95"
           >
-            {isRTL ? "كافة التحليلات" : "All Analyses"}
+            {isRTL ? "كافة التحليلات" : "Explore Archive"}
           </Link>
+        </div>
+        {/* Background Decorative Element */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[20vw] font-black text-slate-50 -z-0 select-none pointer-events-none opacity-50 uppercase tracking-tighter">
+          Talat
         </div>
       </div>
     );
   }
 
   return (
-    <div className="py-20">
+    <div className="py-20 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {articles.map((article) => {
             const title = article.title?.[locale] || article.title?.["en"];
+            const subtitle = article.subtitle?.[locale] || article.subtitle?.["en"];
             const description =
               article.description?.[locale] || article.description?.["en"];
             const articleSlug = article.slug?.[locale] || article.slug?.["en"];
@@ -102,14 +107,14 @@ const Analyses = ({
             const getPlatformIcon = (platform) => {
               switch (platform.toLowerCase()) {
                 case "facebook":
-                  return <FaFacebook className="w-4 h-4 text-[#1877F2]" />;
+                  return <FaFacebook className="w-3.5 h-3.5 text-[#1877F2]" />;
                 case "twitter":
                 case "x":
-                  return <FaTwitter className="w-4 h-4 text-black" />;
+                  return <FaTwitter className="w-3.5 h-3.5 text-black" />;
                 case "instagram":
-                  return <FaInstagram className="w-4 h-4 text-[#E4405F]" />;
+                  return <FaInstagram className="w-3.5 h-3.5 text-[#E4405F]" />;
                 case "linkedin":
-                  return <FaLinkedin className="w-4 h-4 text-[#0A66C2]" />;
+                  return <FaLinkedin className="w-3.5 h-3.5 text-[#0A66C2]" />;
                 default:
                   return null;
               }
@@ -118,81 +123,79 @@ const Analyses = ({
             return (
               <div
                 key={article.id}
-                className="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-gray-100 flex flex-col h-full relative"
+                className="group bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-700 border border-slate-50 flex flex-col h-full relative"
               >
                 {/* Image Section */}
-                <div className="relative h-64 overflow-hidden">
+                <div className="relative h-72 overflow-hidden">
                   <Image
                     src={article.image_url}
                     alt={title || "Article Image"}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out"
+                    className="object-cover group-hover:scale-110 transition-transform duration-1000 ease-out"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60" />
 
-                  {/* Category Badge & Status Tags */}
-                  <div className="absolute top-4 left-4 rtl:right-4 rtl:left-auto flex flex-col gap-2 items-start rtl:items-start z-20">
-                    <span className="bg-white/90 backdrop-blur-sm px-4 py-1.5 rounded-full shadow-lg text-xs whitespace-nowrap font-black text-primary uppercase tracking-widest">
-                      {article.type?.name?.[locale] ||
-                        article.type?.name?.["en"]}
+                  {/* Badges */}
+                <div className="absolute top-6 left-6 rtl:right-6 rtl:left-auto flex flex-col gap-2 z-20">
+                  <span className="bg-white/95 backdrop-blur-sm px-4 py-1.5 rounded-full shadow-lg text-xs font-black text-primary uppercase tracking-[0.15em] border border-primary/10">
+                    {article.type?.name?.[locale] ||
+                      article.type?.name?.["en"]}
+                  </span>
+                  {isFeatured && (
+                    <span className="bg-green-600 px-4 py-1.5 rounded-full text-xs font-black text-white uppercase tracking-[0.15em] shadow-lg flex items-center gap-1.5">
+                      <FaStar className="w-2.5 h-2.5" />
+                      {isRTL ? "تحليل مميز" : "Prime"}
                     </span>
-                    {isFeatured && (
-                      <span className="bg-green-600 px-4 py-1.5 rounded-full text-xs font-black text-white uppercase tracking-widest shadow-lg flex items-center gap-1">
-                        <FaStar className="w-3 h-3" />
-                        {isRTL ? "مميز" : "Featured"}
-                      </span>
-                    )}
-                    {isOld === false && (
-                      <span className="bg-[#D4AF37] px-4 py-1.5 rounded-full text-xs font-black text-white uppercase tracking-widest shadow-lg flex items-center gap-1">
-                        <GrScheduleNew className="w-3 h-3" />
-                        {isRTL ? "تحليل حديث" : "New"}
-                      </span>
-                    )}
-                    {isOld === true && (
-                      <span className="bg-amber-600 px-4 py-1.5 rounded-full text-xs font-black text-white uppercase tracking-widest shadow-lg flex items-center gap-1">
-                        <FaHistory className="w-3 h-3" />
-                        {isRTL ? "تحليل قديم" : "Old"}
-                      </span>
-                    )}
-                  </div>
+                  )}
+                  {isOld === false && (
+                    <span className="bg-primary px-4 py-1.5 rounded-full text-xs font-black text-white uppercase tracking-[0.15em] shadow-lg flex items-center gap-1.5">
+                      <GrScheduleNew className="w-2.5 h-2.5" />
+                      {isRTL ? "حديث" : "Latest"}
+                    </span>
+                  )}
+                </div>
+
                 </div>
 
                 {/* Content Section */}
-                <div className="p-8 flex-1 flex flex-col relative z-20 bg-white">
-                  <div className="flex flex-wrap items-center gap-4 mb-4">
-                    <div className="flex items-center gap-2 text-slate-400 text-[11px] font-bold uppercase tracking-widest">
-                      <FaRegCalendarAlt className="text-secondary" />
+                <div className="p-8 pb-10 flex-1 flex flex-col relative z-20 bg-white">
+                  <div className="flex flex-wrap items-center gap-4 mb-6">
+                    <div className="flex items-center gap-2 text-slate-400 text-xs font-black uppercase tracking-widest bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-100/50">
+                      <FaRegCalendarAlt className="text-primary" />
                       <span>{article.created_at}</span>
                     </div>
-                    {publishedAt && (
-                      <div className="flex items-center gap-2 text-primary font-bold text-[11px] uppercase tracking-widest">
-                        <FaRegCalendarAlt />
-                        <span>
-                          {isRTL ? "معاد النشر:" : "Republished:"} {publishedAt}
-                        </span>
-                      </div>
-                    )}
                   </div>
+
+
                   <Link href={`/analyses/article/${articleSlug}`}>
-                    <h3 className="text-xl font-black text-baseTwo mb-4 line-clamp-2 leading-tight hover:text-primary transition-colors cursor-pointer">
+                    <h3 className="text-xl font-black text-baseTwo mb-3 line-clamp-2 leading-tight hover:text-primary transition-colors cursor-pointer group-hover:text-primary decoration-primary/30 underline-offset-8 decoration-2 group-hover:underline">
                       {title}
                     </h3>
                   </Link>
-                  <p className="text-slate-500 text-sm mb-6 line-clamp-3 leading-relaxed flex-1">
+                  
+                  {subtitle && (
+                    <p className="text-sm font-bold text-primary mb-4 line-clamp-1 opacity-80 uppercase tracking-tighter">
+                      {subtitle}
+                    </p>
+                  )}
+
+
+                  <p className="text-slate-500 text-sm mb-8 line-clamp-3 leading-relaxed font-medium">
                     {description}
                   </p>
 
-                  <div className="mt-auto pt-4 border-t border-gray-100 flex items-center justify-between">
+                  <div className="mt-auto pt-8 border-t border-slate-50 flex items-center justify-between">
                     <Link
                       href={`/analyses/article/${articleSlug}`}
-                      className="flex items-center justify-between gap-5 group/btn py-2"
+                      className="flex items-center gap-4 group/btn"
                     >
-                      <span className="text-sm font-black text-baseTwo uppercase tracking-widest group-hover/btn:text-primary transition-colors">
+                      <span className="text-xs font-black text-baseTwo uppercase tracking-[0.15em] transition-colors border-b-2 border-transparent group-hover/btn:border-primary group-hover/btn:text-primary">
                         {translations.readMore ||
-                          (isRTL ? "اقرأ المزيد" : "Read More")}
+                          (isRTL ? "التفاصيل الكاملة" : "Read Full Analysis")}
                       </span>
-                      <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover/btn:bg-primary group-hover/btn:text-white transition-colors ms-2 rtl:ms-0 rtl:me-2">
+
+                      <div className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-primary group-hover/btn:bg-primary group-hover/btn:text-white transition-all duration-500 shadow-inner group-hover/btn:shadow-lg group-hover/btn:shadow-primary/30 group-hover/btn:rotate-[360deg]">
                         {isRTL ? (
                           <MdOutlineKeyboardDoubleArrowLeft />
                         ) : (
@@ -202,9 +205,9 @@ const Analyses = ({
                     </Link>
 
                     {socialPlatforms?.length > 0 && (
-                      <div className="flex items-center gap-2 bg-gray-50 px-3 py-2 rounded-xl">
+                      <div className="flex items-center gap-2.5 bg-slate-50/50 p-2 rounded-xl">
                         {socialPlatforms.map((platform) => (
-                          <span key={platform} title={platform}>
+                          <span key={platform} title={platform} className="hover:scale-125 transition-transform duration-300">
                             {getPlatformIcon(platform)}
                           </span>
                         ))}
@@ -218,14 +221,14 @@ const Analyses = ({
         </div>
 
         {pagination && pagination.last_page > 1 && (
-          <div className="mt-20 flex justify-center items-center gap-2 md:gap-4 flex-wrap">
+          <div className="mt-24 flex justify-center items-center gap-3 flex-wrap">
             <button
               onClick={() => handlePageChange(pagination.current_page - 1)}
               disabled={pagination.current_page === 1}
-              className={`px-4 h-12 md:h-14 flex items-center justify-center rounded-2xl font-bold transition-all border border-slate-100 ${
+              className={`px-8 h-14 flex items-center justify-center rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all ${
                 pagination.current_page === 1
-                  ? "bg-slate-50 text-slate-400 cursor-not-allowed opacity-70"
-                  : "bg-white text-slate-600 hover:border-primary/40 hover:bg-primary hover:text-white"
+                  ? "bg-slate-50 text-slate-300 cursor-not-allowed border border-slate-100"
+                  : "bg-white text-baseTwo border border-slate-100 hover:border-primary hover:text-primary hover:shadow-xl hover:shadow-slate-100 active:scale-95"
               }`}
             >
               {translations.prev || (isRTL ? "السابق" : "Prev")}
@@ -236,13 +239,13 @@ const Analyses = ({
                 <button
                   key={p}
                   onClick={() => handlePageChange(p)}
-                  className={`w-12 h-12 md:w-14 md:h-14 flex items-center justify-center rounded-2xl font-black transition-all ${
+                  className={`w-14 h-14 flex items-center justify-center rounded-2xl text-[11px] font-black transition-all ${
                     pagination.current_page === p
-                      ? "bg-primary text-white shadow-xl shadow-primary/30 scale-110"
-                      : "bg-white text-slate-600 border border-slate-100 hover:border-primary/40 hover:bg-slate-50"
+                      ? "bg-primary text-white shadow-2xl shadow-primary/40 scale-110 z-10"
+                      : "bg-white text-slate-400 border border-slate-100 hover:border-primary/40 hover:text-baseTwo"
                   }`}
                 >
-                  {p}
+                  {p < 10 ? `0${p}` : p}
                 </button>
               ),
             )}
@@ -250,10 +253,10 @@ const Analyses = ({
             <button
               onClick={() => handlePageChange(pagination.current_page + 1)}
               disabled={pagination.current_page === pagination.last_page}
-              className={`px-4 h-12 md:h-14 flex items-center justify-center rounded-2xl font-bold transition-all border border-slate-100 ${
+              className={`px-8 h-14 flex items-center justify-center rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all ${
                 pagination.current_page === pagination.last_page
-                  ? "bg-slate-50 text-slate-400 cursor-not-allowed opacity-70"
-                  : "bg-white text-slate-600 hover:border-primary/40 hover:bg-primary hover:text-white"
+                  ? "bg-slate-50 text-slate-300 cursor-not-allowed border border-slate-100"
+                  : "bg-white text-baseTwo border border-slate-100 hover:border-primary hover:text-primary hover:shadow-xl hover:shadow-slate-100 active:scale-95"
               }`}
             >
               {translations.next || (isRTL ? "التالي" : "Next")}
