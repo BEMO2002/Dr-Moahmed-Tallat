@@ -9,7 +9,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "api.mohamedtalat.org",
+        hostname: "api.mohamedtalat.com",
         pathname: "/**",
       },
       {

@@ -28,6 +28,7 @@ import {
   HiOutlineExclamationCircle,
 } from "react-icons/hi";
 import { BiBullseye } from "react-icons/bi";
+import TalatAIChat from "./TalatAIChat";
 
 const AnalysesDetails = ({ article, translations, locale, isRTL }) => {
   const router = useRouter();
@@ -314,9 +315,15 @@ const AnalysesDetails = ({ article, translations, locale, isRTL }) => {
                         {content.talatAI}
                       </div>
                     </div>
+                    <TalatAIChat 
+                      articleId={article.id} 
+                      articleTitle={content.title}
+                      isRTL={isRTL} 
+                    />
                   </div>
                 </div>
               )}
+
 
               {/* Sovereign Summary / الخلاصة السيادية */}
               {content.sovereignSummary && (

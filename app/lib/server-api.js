@@ -439,3 +439,31 @@ export async function fetchGalleries(params = {}) {
     return null;
   }
 }
+
+/**
+ * Ask Talat AI a question about an article
+ */
+export async function askTalatAI(articleId, message, history = []) {
+  try {
+    const res = await fetch(`${baseUrl}/articles/${articleId}/ask-ai`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        "X-Api-Key": apiKey,
+      },
+      body: JSON.stringify({
+        message,
+        history,
+      }),
+    });
+
+    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    const json = await res.json();
+    return json;
+  } catch (err) {
+    console.error("askTalatAI Error:", err);
+    throw err;
+  }
+}
+
