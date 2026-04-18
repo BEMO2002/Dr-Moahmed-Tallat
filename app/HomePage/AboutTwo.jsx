@@ -116,7 +116,7 @@ const AboutTwo = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
-                className="text-4xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-baseTwo mb-8 leading-[1.1]"
+                className="text-4xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-baseTwo mb-8 leading-[1.1]"
               >
                 <span className="inline-block whitespace-nowrap">
                   {t("title1")}{" "}
