@@ -224,7 +224,7 @@ const Navbar = () => {
       <Link
         href={to}
         onClick={handleClick}
-        className={`relative group px-4 py-3 text-lg font-medium transition-all duration-300 rounded-lg hover:bg-black/5 ${
+        className={`relative group px-1 lg:px-2 xl:px-4 py-3 text-sm lg:text-[13px] xl:text-base 2xl:text-lg font-medium transition-all duration-300 rounded-lg hover:bg-black/5 ${
           isActive(to) ? "text-baseTwo" : "text-baseTwo hover:text-primary"
         }`}
       >
@@ -264,7 +264,7 @@ const Navbar = () => {
             </div>
 
             {/* Desktop Navigation */}
-            <div className="hidden whitespace-nowrp lg:flex items-center space-x-2">
+            <div className="hidden whitespace-nowrap lg:flex items-center gap-1 xl:gap-2">
               {navLinks.map((link, idx) => {
                 if (link.isDropdown) {
                   return (
@@ -275,7 +275,7 @@ const Navbar = () => {
                       onMouseLeave={() => setOpenDropdown(null)}
                     >
                       <button
-                        className={`flex items-center gap-1 px-4 py-3 text-lg font-medium transition-all duration-300 rounded-lg hover:bg-black/5 text-baseTwo group-hover:text-primary`}
+                        className={`flex items-center gap-1 px-1 lg:px-2 xl:px-4 py-3 text-sm lg:text-[13px] xl:text-base 2xl:text-lg font-medium transition-all duration-300 rounded-lg hover:bg-black/5 text-baseTwo group-hover:text-primary`}
                       >
                         <span>{link.label}</span>
                         <FaChevronDown
@@ -306,7 +306,7 @@ const Navbar = () => {
                                     key={i}
                                     href={item.to}
                                     onClick={() => setOpenDropdown(null)}
-                                    className={`px-5 py-3.5 text-baseTwo hover:bg-gray-50 hover:text-primary transition-all border-b last:border-0 border-gray-50 flex items-center justify-between group ${isRTL ? "text-right" : "text-left"}`}
+                                    className={`px-5 py-3.5  text-baseTwo hover:bg-gray-50 hover:text-primary transition-all border-b last:border-0 border-gray-50 flex items-center justify-between group ${isRTL ? "text-right" : "text-left"}`}
                                   >
                                     <span className="font-semibold text-sm">
                                       {item.label}
@@ -358,7 +358,7 @@ const Navbar = () => {
                 onMouseEnter={() => setIsExecutiveDropdownOpen(true)}
                 onMouseLeave={() => setIsExecutiveDropdownOpen(false)}
               >
-                <button className="flex items-center justify-center gap-2 px-5 py-3 bg-primary text-white font-bold rounded-md shadow-lg hover:shadow-primary/30 transition-all text-sm">
+                <button className="flex items-center justify-center gap-1 xl:gap-2 px-3 xl:px-5 py-2 xl:py-3 bg-primary text-white font-bold rounded-md shadow-lg hover:shadow-primary/30 transition-all text-[11px] lg:text-xs xl:text-sm">
                   <span>{t("navbar.executiveRequest")}</span>
                   <FaChevronDown
                     size={12}
