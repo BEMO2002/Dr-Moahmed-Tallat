@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import Image from "next/image";
 import { Link, useRouter } from "../../i18n/routing";
 import { useParams, useSearchParams } from "next/navigation";
+import ApiEmptyState from "../Components/ApiEmptyState";
 import {
   MdOutlineKeyboardDoubleArrowRight,
   MdOutlineKeyboardDoubleArrowLeft,
@@ -15,7 +16,6 @@ import {
   FaStar,
   FaTwitter,
   FaHistory,
-  FaInbox,
 } from "react-icons/fa";
 import { GrScheduleNew } from "react-icons/gr";
 
@@ -31,6 +31,7 @@ const Analyses = ({
   const params = useParams();
   const searchParams = useSearchParams();
   const type = params ? params.type : null;
+  const [brokenImages, setBrokenImages] = React.useState({});
 
   useEffect(() => {
     if (!currentType || !type) return;
@@ -59,32 +60,20 @@ const Analyses = ({
 
   if (!articles || articles.length === 0) {
     return (
-      <div className="py-24 px-4 overflow-hidden relative">
-        <div className="max-w-xl mx-auto bg-white rounded-[2.5rem] border border-slate-100 p-16 text-center shadow-xl shadow-slate-200/50 relative z-10">
-          <div className="w-24 h-24 bg-slate-50 rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-inner rotate-3 hover:rotate-0 transition-transform duration-500">
-            <FaInbox className="text-slate-300 text-4xl" />
-          </div>
-          <h3 className="text-2xl font-black text-baseTwo mb-4">
-            {translations.noItems ||
-              (isRTL ? "لا توجد تحليلات متاحة" : "No Analyses Available")}
-          </h3>
-          <p className="text-slate-500 mb-10 leading-[1.8] text-lg font-medium">
-            {isRTL
-              ? "نعمل حالياً على إعداد محتوى تحليلي جديد. يرجى مراجعة هده الصفحة لاحقاً أو استكشاف أرشيفنا."
-              : "We're currently preparing new analytical content. Please check back soon or explore our existing archive."}
-          </p>
-          <Link
-            href="/analyses"
-            className="inline-flex items-center gap-3 px-10 py-4 bg-primary text-white text-[10px] font-black uppercase tracking-[0.2em] rounded-2xl hover:bg-primary/90 transition-all shadow-xl shadow-primary/25 active:scale-95"
-          >
-            {isRTL ? "كافة التحليلات" : "Explore Archive"}
-          </Link>
-        </div>
-        {/* Background Decorative Element */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[20vw] font-black text-slate-50 -z-0 select-none pointer-events-none opacity-50 uppercase tracking-tighter">
-          Talat
-        </div>
-      </div>
+      <ApiEmptyState
+        title={
+          translations.noItems ||
+          (isRTL ? "لا توجد تحليلات متاحة" : "No Analyses Available")
+        }
+        description={
+          isRTL
+            ? "نعمل حالياً على إعداد محتوى تحليلي جديد. يرجى مراجعة هذه الصفحة لاحقاً أو استكشاف الأرشيف."
+            : "We're currently preparing new analytical content. Please check back soon or explore the archive."
+        }
+        ctaLabel={isRTL ? "كافة التحليلات" : "Explore Archive"}
+        ctaHref="/analyses"
+        isRTL={isRTL}
+      />
     );
   }
 
@@ -99,6 +88,13 @@ const Analyses = ({
             const description =
               article.description?.[locale] || article.description?.["en"];
             const articleSlug = article.slug?.[locale] || article.slug?.["en"];
+            const hasValidImage =
+              typeof article.image_url === "string" &&
+              article.image_url.trim().length > 0;
+            const imageSrc =
+              brokenImages[article.id] || !hasValidImage
+                ? "/Home/talaat-logo.png"
+                : article.image_url;
 
             const isFeatured = article.is_featured;
             const isOld = article.is_old;
@@ -124,18 +120,25 @@ const Analyses = ({
             return (
               <div
                 key={article.id}
-                className="group bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-700 border border-slate-50 flex flex-col h-full relative"
+                className="group bg-white rounded-4xl overflow-hidden shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-700 border border-slate-50 flex flex-col h-full relative"
               >
                 {/* Image Section */}
                 <div className="relative h-72 overflow-hidden">
                   <Image
-                    src={article.image_url}
+                    src={imageSrc}
                     alt={title || "Article Image"}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="object-cover group-hover:scale-110 transition-transform duration-1000 ease-out"
+                    className={`group-hover:scale-110 transition-transform duration-1000 ease-out ${
+                      imageSrc === "/Home/talaat-logo.png"
+                        ? "object-contain p-6 bg-slate-50"
+                        : "object-cover"
+                    }`}
+                    onError={() =>
+                      setBrokenImages((prev) => ({ ...prev, [article.id]: true }))
+                    }
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60" />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-60" />
 
                   {/* Badges */}
                   <div className="absolute top-6 left-6 rtl:right-6 rtl:left-auto flex flex-col gap-2 z-20">
@@ -199,7 +202,7 @@ const Analyses = ({
                           (isRTL ? "التفاصيل الكاملة" : "Read Full Analysis")}
                       </span>
 
-                      <div className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-primary group-hover/btn:bg-primary group-hover/btn:text-white transition-all duration-500 shadow-inner group-hover/btn:shadow-lg group-hover/btn:shadow-primary/30 group-hover/btn:rotate-[360deg]">
+                      <div className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-primary group-hover/btn:bg-primary group-hover/btn:text-white transition-all duration-500 shadow-inner group-hover/btn:shadow-lg group-hover/btn:shadow-primary/30 group-hover/btn:rotate-360">
                         {isRTL ? (
                           <MdOutlineKeyboardDoubleArrowLeft />
                         ) : (

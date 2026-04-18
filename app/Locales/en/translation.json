@@ -356,7 +356,8 @@
     }
   },
   "quotations": {
-    "title": "Media Citations",
+    "title": "Press Quotations",
+    "innerTitle": "Media Citations",
     "breadcrumb": "Citations",
     "copySuccess": "Quotation copied successfully",
     "shareSuccess": "Thank you for sharing",

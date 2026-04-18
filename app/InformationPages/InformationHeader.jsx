@@ -37,7 +37,7 @@ const InformationHeader = ({ title }) => {
         {/* Content */}
         <div className="flex items-center justify-center flex-col gap-6 relative z-10">
           <h1
-            className={`text-3xl md:text-5xl lg:text-6xl whitespace-nowrap text-primary font-black ${isRTL ? "text-right font-cairo" : "text-left font-bold"} text-center uppercase tracking-tight`}
+            className={`text-3xl md:text-5xl lg:text-6xl whitespace-nowrap text-primary font-black ${isRTL ? "text-right " : "text-left font-bold"} text-center `}
           >
             {title}
           </h1>

@@ -34,6 +34,7 @@ const AnalysesDetails = ({ article, translations, locale, isRTL }) => {
   const router = useRouter();
   const params = useParams();
   const slug = params ? params.slug : null;
+  const [imageBroken, setImageBroken] = React.useState(false);
 
   useEffect(() => {
     if (!article || !slug) return;
@@ -74,6 +75,10 @@ const AnalysesDetails = ({ article, translations, locale, isRTL }) => {
   const isFeatured = article.is_featured;
   const isOld = article.is_old;
   const publishedAt = article.published_at;
+  const hasValidImage =
+    typeof article.image_url === "string" && article.image_url.trim().length > 0;
+  const heroImageSrc =
+    imageBroken || !hasValidImage ? "/Home/talaat-logo.png" : article.image_url;
 
   let socialPlatforms = [];
   if (article.social_platforms) {
@@ -143,11 +148,16 @@ const AnalysesDetails = ({ article, translations, locale, isRTL }) => {
             <div className="bg-white rounded-[2.5rem] p-6 md:p-12 shadow-sm border border-slate-100">
               <div className="relative w-full h-[400px] md:h-[550px] rounded-[2rem] overflow-hidden mb-12 group">
                 <Image
-                  src={article.image_url}
+                  src={heroImageSrc}
                   alt={content.title || "Article Image"}
                   fill
                   priority
-                  className="object-cover group-hover:scale-105 transition-transform duration-1000"
+                  className={`group-hover:scale-105 transition-transform duration-1000 ${
+                    heroImageSrc === "/Home/talaat-logo.png"
+                      ? "object-contain p-8 bg-slate-50"
+                      : "object-cover"
+                  }`}
+                  onError={() => setImageBroken(true)}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60" />
 

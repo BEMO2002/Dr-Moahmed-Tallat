@@ -13,6 +13,7 @@ import {
 import { useTranslations, useLocale } from "next-intl";
 import Image from "next/image";
 import { useRouter } from "@/i18n/routing";
+import ApiEmptyState from "../Components/ApiEmptyState";
 
 // Import Swiper styles
 import "swiper/css";
@@ -29,6 +30,7 @@ const Galleries = ({ data, initialPage = 1 }) => {
   const locale = useLocale();
   const isRTL = locale === "ar";
   const router = useRouter();
+  const [brokenImages, setBrokenImages] = useState({});
 
   // API structure: data -> { code, status, message, data: { current_page, last_page, data: [...] } }
   const items = data?.data?.data || [];
@@ -59,11 +61,15 @@ const Galleries = ({ data, initialPage = 1 }) => {
 
   if (!items.length) {
     return (
-      <div className="py-20 text-center">
-        <p className="text-xl text-slate-500 font-medium">
-          {t("no_galleries") || "No galleries found."}
-        </p>
-      </div>
+      <ApiEmptyState
+        title={t("no_galleries") || "No galleries found."}
+        description={
+          isRTL
+            ? "سيتم عرض ألبومات الصور هنا فور رفعها."
+            : "Photo albums will appear here once they are uploaded."
+        }
+        isRTL={isRTL}
+      />
     );
   }
 
@@ -104,17 +110,25 @@ const Galleries = ({ data, initialPage = 1 }) => {
                         {/* Blurred background to fill empty space */}
                         <div className="absolute inset-0 blur-xl opacity-30 scale-110">
                           <Image
-                            src={img}
+                            src={brokenImages[img] ? "/Home/talaat-logo.png" : img}
                             alt="bg"
                             fill
                             className="object-cover"
+                            onError={() =>
+                              setBrokenImages((prev) => ({ ...prev, [img]: true }))
+                            }
                           />
                         </div>
                         <Image
-                          src={img}
+                          src={brokenImages[img] ? "/Home/talaat-logo.png" : img}
                           alt={`${title} - ${i + 1}`}
                           fill
-                          className="object-contain relative z-10 p-2 transition-transform duration-700 group-hover:scale-105"
+                          className={`relative z-10 p-2 transition-transform duration-700 group-hover:scale-105 ${
+                            brokenImages[img] ? "object-contain p-8" : "object-contain"
+                          }`}
+                          onError={() =>
+                            setBrokenImages((prev) => ({ ...prev, [img]: true }))
+                          }
                         />
                         <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-20">
                           <FaExpand className="text-white text-3xl drop-shadow-lg" />
@@ -217,7 +231,7 @@ const Galleries = ({ data, initialPage = 1 }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[2000] bg-black/95 flex items-center justify-center backdrop-blur-sm"
+            className="fixed inset-0 z-2000 bg-black/95 flex items-center justify-center backdrop-blur-sm"
           >
             <button
               onClick={closeLightbox}
@@ -244,11 +258,14 @@ const Galleries = ({ data, initialPage = 1 }) => {
                   >
                     <div className="relative w-full h-full">
                       <Image
-                        src={img}
+                        src={brokenImages[img] ? "/Home/talaat-logo.png" : img}
                         alt={`Image ${i + 1}`}
                         fill
                         className="object-contain"
                         priority
+                        onError={() =>
+                          setBrokenImages((prev) => ({ ...prev, [img]: true }))
+                        }
                       />
                     </div>
                   </SwiperSlide>

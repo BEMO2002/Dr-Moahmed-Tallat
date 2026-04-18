@@ -4,7 +4,6 @@ import Image from "next/image";
 import { Link } from "../../i18n/routing";
 import {
   FaRegCalendarAlt,
-  FaLayerGroup,
   FaFacebook,
   FaInstagram,
   FaLinkedin,
@@ -14,22 +13,21 @@ import {
 } from "react-icons/fa";
 import { HiOutlineArrowRight, HiOutlineArrowLeft } from "react-icons/hi";
 import { GrScheduleNew } from "react-icons/gr";
+import ApiEmptyState from "../Components/ApiEmptyState";
 const ArticlesandColumns = ({ posts, locale, isRTL, translations }) => {
+  const [brokenImages, setBrokenImages] = React.useState({});
+
   if (!posts || posts.length === 0) {
     return (
-      <div className="py-24 text-center">
-        <div className="inline-flex items-center justify-center w-20 h-20 bg-gray-100 rounded-full mb-6">
-          <FaLayerGroup className="w-10 h-10 text-gray-400" />
-        </div>
-        <h3 className="text-2xl font-black text-baseTwo mb-2">
-          {isRTL ? "لا يوجد مقالات" : "No Articles Found"}
-        </h3>
-        <p className="text-gray-500 font-bold">
-          {isRTL
+      <ApiEmptyState
+        title={isRTL ? "لا يوجد مقالات" : "No Articles Found"}
+        description={
+          isRTL
             ? "لم يتم العثور على مقالات في هذا القسم حالياً."
-            : "No articles found in this category at the moment."}
-        </p>
-      </div>
+            : "No articles found in this category at the moment."
+        }
+        isRTL={isRTL}
+      />
     );
   }
 
@@ -71,10 +69,15 @@ const ArticlesandColumns = ({ posts, locale, isRTL, translations }) => {
             {/* Image Wrapper */}
             <div className="relative h-64 overflow-hidden">
               <Image
-                src={post.image_url}
+                src={brokenImages[post.id] ? "/Home/talaat-logo.png" : post.image_url}
                 alt={title}
                 fill
-                className="object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out"
+                className={`group-hover:scale-110 transition-transform duration-700 ease-in-out ${
+                  brokenImages[post.id] ? "object-contain p-6 bg-slate-50" : "object-cover"
+                }`}
+                onError={() =>
+                  setBrokenImages((prev) => ({ ...prev, [post.id]: true }))
+                }
               />
               <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslations, useLocale } from "next-intl";
-import { PiSparkleFill } from "react-icons/pi";
-const StarIcon = () => <PiSparkleFill className="text-primary" size={30} />;
+import { FaDashcube } from "react-icons/fa";
+const DashcubeIcon = () => <FaDashcube className="text-primary" size={30} />;
 
 const InfinitySlider = () => {
   const t = useTranslations();
@@ -46,7 +46,7 @@ const InfinitySlider = () => {
                 <span className="text-black text-xl md:text-xl font-bold uppercase whitespace-nowrap tracking-tight px-4">
                   {word}
                 </span>
-                <StarIcon />
+                <DashcubeIcon />
               </div>
             ))}
           </div>

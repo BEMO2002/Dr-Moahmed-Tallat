@@ -1,8 +1,10 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { useLocale } from "next-intl";
 import { motion } from "framer-motion";
-import { FaShieldHalved, FaHandshake, FaUserShield, FaBrain, FaTriangleExclamation, FaScroll, FaLightbulb, FaBullseye, FaUserTie } from "react-icons/fa6";
+
+import Image from "next/image";
+import { useSettings } from "../Context/SettingContext";
 
 /**
  * InformationContent Component - Renders the main body of information pages.
@@ -11,34 +13,55 @@ import { FaShieldHalved, FaHandshake, FaUserShield, FaBrain, FaTriangleExclamati
 const InformationContent = ({ data }) => {
   const locale = useLocale();
   const isRTL = locale === "ar";
+  const { settings } = useSettings();
+  const [imageBroken, setImageBroken] = useState(false);
+  const [logoBroken, setLogoBroken] = useState(false);
 
   if (!data) return null;
 
   const decodeHtml = (html) => {
-    const txt = document.createElement("textarea");
-    txt.innerHTML = html;
-    return txt.value;
+    if (!html) return "";
+
+    const namedEntities = {
+      amp: "&",
+      lt: "<",
+      gt: ">",
+      quot: '"',
+      apos: "'",
+      nbsp: " ",
+      "#39": "'",
+    };
+
+    return html
+      .replace(/&([a-zA-Z0-9#]+);/g, (match, entity) => {
+        if (namedEntities[entity]) return namedEntities[entity];
+        return match;
+      })
+      .replace(/&#(\d+);/g, (_, dec) => {
+        const code = Number.parseInt(dec, 10);
+        return Number.isNaN(code) ? _ : String.fromCodePoint(code);
+      })
+      .replace(/&#x([0-9a-fA-F]+);/g, (_, hex) => {
+        const code = Number.parseInt(hex, 16);
+        return Number.isNaN(code) ? _ : String.fromCodePoint(code);
+      });
   };
 
   const rawContent = data.content?.[locale] || data.content?.["en"] || "";
-  const content = typeof window !== "undefined" ? decodeHtml(rawContent) : rawContent;
+  const content = decodeHtml(rawContent);
   const slug = data.slug;
-
-  // Icon mapping based on page slug
-  const getIcon = () => {
-    switch (slug) {
-      case "privacy": return <FaUserShield className="text-5xl text-primary" />;
-      case "terms-conditions": return <FaHandshake className="text-5xl text-primary" />;
-      case "ai-poilcy": return <FaBrain className="text-5xl text-primary" />;
-      case "data-protection": return <FaShieldHalved className="text-5xl text-primary" />;
-      case "security-policy": return <FaTriangleExclamation className="text-5xl text-primary" />;
-      case "political-manifesto": return <FaScroll className="text-5xl text-primary" />;
-      case "philosophical-statement": return <FaLightbulb className="text-5xl text-primary" />;
-      case "executive-identity": return <FaUserTie className="text-5xl text-primary" />;
-      case "axiologicalandstrategic-objectives": return <FaBullseye className="text-5xl text-primary" />;
-      default: return null;
-    }
-  };
+  const title = data.title?.[locale] || data.title?.["en"] || "Page image";
+  const pageImage =
+    Array.isArray(data.images_urls) &&
+    typeof data.images_urls[0] === "string" &&
+    data.images_urls[0].trim().length > 0
+      ? data.images_urls[0]
+      : null;
+  const siteLogo =
+    typeof settings?.logo === "string" && settings.logo.trim().length > 0
+      ? settings.logo
+      : "/Home/talaat-logo.png";
+  const imageSrc = !imageBroken && pageImage ? pageImage : siteLogo;
 
   return (
     <section className="py-20 bg-white min-h-[50vh]">
@@ -47,45 +70,51 @@ const InformationContent = ({ data }) => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className={`flex flex-col md:flex-row gap-12 ${isRTL ? "md:flex-row-reverse" : ""}`}
+          className={`flex flex-col gap-12 `}
         >
-          {/* Side Icon/Meta info */}
-          <div className="md:w-1/4 flex flex-col items-center">
-            <div className="w-24 h-24 rounded-3xl bg-primary/5 flex items-center justify-center mb-6 border border-primary/20 shadow-inner">
-              {getIcon()}
+          <div className="w-full">
+            <div className="relative w-full h-64 md:h-[500px] rounded-3xl overflow-hidden border border-slate-200 bg-slate-50 mb-10 shadow-sm">
+              <Image
+                src={logoBroken ? "/Home/talaat-logo.png" : imageSrc}
+                alt={title}
+                fill
+                className={`${
+                  !imageBroken && pageImage
+                    ? "object-cover"
+                    : "object-contain p-6"
+                }`}
+                onError={() => {
+                  if (!imageBroken && pageImage) {
+                    setImageBroken(true);
+                    return;
+                  }
+                  setLogoBroken(true);
+                }}
+              />
             </div>
-            <div className={`text-center ${isRTL ? "md:text-right" : "md:text-left"}`}>
-              <p className="text-xs uppercase tracking-widest text-gray-400 font-bold mb-2">
-                {isRTL ? "آخر تحديث" : "Last Updated"}
-              </p>
-              <p className="text-sm font-bold text-baseTwo">
-                {data.created_at || "2026-04-12"}
-              </p>
-            </div>
-          </div>
 
-          {/* Main Content */}
-          <div className="md:w-3/4">
-            <div 
-              className={`prose prose-lg max-w-none text-gray-600 leading-[1.8] font-medium ${isRTL ? "text-right font-cairo" : "text-left"}`}
+            <div
+              className={`text-lg max-w-none text-gray-600 leading-[1.8] font-medium ${isRTL ? "text-right font-cairo" : "text-left"}`}
               dir={isRTL ? "rtl" : "ltr"}
             >
               {/* Splitting content by newlines to handle formatting */}
-              {content.split('\n').map((line, index) => (
-                <p key={index} className="mb-6">
+              {content.split("\n").map((line, index) => (
+                <p key={index} className="mb-6 text-lg font-medium">
                   {line}
                 </p>
               ))}
             </div>
 
             {/* Print/Download Button (Placeholder) */}
-            <div className={`mt-12 pt-8 border-t border-gray-100 flex ${isRTL ? "justify-end" : "justify-start"}`}>
-               <button 
-                 onClick={() => window.print()} 
-                 className="text-primary hover:text-baseTwo font-bold flex items-center gap-2 transition-colors border-b-2 border-primary/30 hover:border-baseTwo pb-1 active:scale-95 duration-200 no-print"
-               >
-                 {isRTL ? "طباعة هذه الصفحة" : "Print This Page"}
-               </button>
+            <div
+              className={`mt-12 pt-8 border-t border-gray-100 flex ${isRTL ? "justify-end" : "justify-start"}`}
+            >
+              <button
+                onClick={() => window.print()}
+                className="text-primary hover:text-baseTwo font-bold flex items-center gap-2 transition-colors border-b-2 border-primary/30 hover:border-baseTwo pb-1 active:scale-95 duration-200 no-print"
+              >
+                {isRTL ? "طباعة هذه الصفحة" : "Print This Page"}
+              </button>
             </div>
           </div>
         </motion.div>

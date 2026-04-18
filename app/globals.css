@@ -10,6 +10,13 @@ body {
   font-family: "Cairo", sans-serif;
 }
 
+/* Enforce non-italic typography site-wide */
+*,
+*::before,
+*::after {
+  font-style: normal !important;
+}
+
 @theme {
   --color-base: #13131A;
   --color-baseTwo: #000;

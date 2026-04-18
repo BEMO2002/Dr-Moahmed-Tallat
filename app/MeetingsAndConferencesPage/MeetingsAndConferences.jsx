@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { fetchConferences } from "../lib/server-api";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import {
   FaInstagram,
   FaYoutube,
@@ -12,6 +13,7 @@ import {
   FaPlayCircle,
   FaGlobe,
 } from "react-icons/fa";
+import ApiEmptyState from "../Components/ApiEmptyState";
 
 const MeetingsAndConferences = () => {
   const t = useTranslations();
@@ -22,6 +24,7 @@ const MeetingsAndConferences = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
+  const [brokenEmbeds, setBrokenEmbeds] = useState({});
   const [pagination, setPagination] = useState({
     current_page: 1,
     last_page: 1,
@@ -103,11 +106,15 @@ const MeetingsAndConferences = () => {
 
       <div className="container mx-auto px-4 md:px-8 relative z-10">
         {items.length === 0 ? (
-          <div className="text-center py-40 bg-white rounded-[48px] border border-slate-100 shadow-sm transition-all">
-            <h3 className="text-2xl font-bold text-slate-400">
-              {t("meetings.noItems")}
-            </h3>
-          </div>
+          <ApiEmptyState
+            title={t("meetings.noItems")}
+            description={
+              isRTL
+                ? "سيتم عرض اللقاءات والمؤتمرات هنا فور رفع المحتوى."
+                : "Meetings and conferences will appear here once content is uploaded."
+            }
+            isRTL={isRTL}
+          />
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-14">
             {items.map((item, idx) => {
@@ -137,21 +144,44 @@ const MeetingsAndConferences = () => {
                           </span>
                           <span>{item.platform || "Video"}</span>
                         </div>
-                        <h2 className="text-xl md:text-2xl font-bold text-slate-900 leading-tight group-hover:text-primary transition-colors line-clamp-2 min-h-[3rem]">
+                        <h2 className="text-xl md:text-2xl font-bold text-slate-900 leading-tight group-hover:text-primary transition-colors line-clamp-2 min-h-12">
                           {title}
                         </h2>
                       </div>
 
                       {/* Video Embed */}
                       <div className="relative aspect-video w-full rounded-2xl overflow-hidden bg-slate-900 shadow-inner group-hover:shadow-primary/10 transition-shadow">
-                        <iframe
-                          src={embedUrl}
-                          className="absolute inset-0 w-full h-full"
-                          frameBorder="0"
-                          scrolling="no"
-                          allowtransparency="true"
-                          allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                        ></iframe>
+                        {!embedUrl || brokenEmbeds[item.id] ? (
+                          <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 bg-slate-900">
+                            <Image
+                              src="/Home/talaat-logo.png"
+                              alt="Talaat logo"
+                              width={76}
+                              height={76}
+                              className="object-contain mb-4"
+                            />
+                            <p className="text-white/85 font-bold text-sm">
+                              {isRTL
+                                ? "سيظهر الفيديو هنا بعد تحديث الرابط."
+                                : "The video will appear here once the link is updated."}
+                            </p>
+                          </div>
+                        ) : (
+                          <iframe
+                            src={embedUrl}
+                            title={title || "Meeting embed"}
+                            className="absolute inset-0 w-full h-full"
+                            frameBorder="0"
+                            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                            referrerPolicy="strict-origin-when-cross-origin"
+                            onError={() =>
+                              setBrokenEmbeds((prev) => ({
+                                ...prev,
+                                [item.id]: true,
+                              }))
+                            }
+                          ></iframe>
+                        )}
                       </div>
 
                       {/* Footer Actions */}

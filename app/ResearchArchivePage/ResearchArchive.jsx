@@ -8,6 +8,7 @@ import { useTranslations, useLocale } from "next-intl";
 import { FaFilePdf, FaDownload, FaLock, FaShieldAlt } from "react-icons/fa";
 import { RiSafe2Fill } from "react-icons/ri";
 import { motion } from "framer-motion";
+import ApiEmptyState from "../Components/ApiEmptyState";
 
 const FileSkeleton = () => {
   return (
@@ -307,23 +308,17 @@ const ResearchArchive = () => {
               )}
             </>
           ) : (
-            <div className="text-center py-20 bg-white rounded-3xl shadow-sm border border-gray-100">
-              <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6">
-                <FaLock className="text-gray-300 text-3xl" />
-              </div>
-              <h3 className="text-2xl font-black text-baseTwo mb-2">
-                {t("vault.noFiles")}
-              </h3>
-              <p className="text-slate-400 max-w-md mx-auto">
-                {t("vault.noFilesSubtitle")}
-              </p>
-            </div>
+            <ApiEmptyState
+              title={t("vault.noFiles")}
+              description={t("vault.noFilesSubtitle")}
+              isRTL={isRTL}
+            />
           )}
         </div>
 
         {/* PDF Preview Modal */}
         {previewUrl && (
-          <div className="fixed inset-0 z-[2000] flex items-center justify-center p-4 md:p-10">
+          <div className="fixed inset-0 z-2000 flex items-center justify-center p-4 md:p-10">
             <div
               className="absolute inset-0 bg-black/80 backdrop-blur-sm"
               onClick={() => setPreviewUrl(null)}

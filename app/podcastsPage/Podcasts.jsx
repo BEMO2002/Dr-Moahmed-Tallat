@@ -5,6 +5,7 @@ import { useTranslations, useLocale } from "next-intl";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { FaInstagram } from "react-icons/fa";
+import ApiEmptyState from "../Components/ApiEmptyState";
 
 const PodcastSkeleton = () => {
   return (
@@ -46,6 +47,8 @@ const Podcasts = ({ data, initialPage = 1, isLoading = false }) => {
   const t = useTranslations("podcasts");
   const locale = useLocale();
   const isRTL = locale === "ar";
+  const [brokenImages, setBrokenImages] = React.useState({});
+  const [brokenEmbeds, setBrokenEmbeds] = React.useState({});
 
   const decodeHtml = (html) => {
     if (!html) return "";
@@ -114,13 +117,15 @@ const Podcasts = ({ data, initialPage = 1, isLoading = false }) => {
 
   if (!items || items.length === 0) {
     return (
-      <div className="container mx-auto px-4 py-20 text-center">
-        <div className="bg-white rounded-[48px] border border-slate-100 shadow-sm py-40">
-          <h3 className="text-2xl font-bold text-slate-400">
-            {t("noItems") || "لا توجد بودكاست متاحة."}
-          </h3>
-        </div>
-      </div>
+      <ApiEmptyState
+        title={t("noItems") || "لا توجد بودكاست متاحة."}
+        description={
+          isRTL
+            ? "سيتم عرض حلقات البودكاست هنا فور إضافتها."
+            : "Podcast episodes will appear here once they are published."
+        }
+        isRTL={isRTL}
+      />
     );
   }
 
@@ -160,10 +165,15 @@ const Podcasts = ({ data, initialPage = 1, isLoading = false }) => {
                     {/* Thumbnail */}
                     <div className="relative w-full md:w-48 lg:w-64 aspect-video md:aspect-square rounded-3xl overflow-hidden bg-slate-100 shrink-0 shadow-lg shadow-black/5">
                       <Image
-                        src={item.image_url}
+                        src={brokenImages[item.id] ? "/Home/talaat-logo.png" : item.image_url}
                         alt={title}
                         fill
-                        className="object-cover group-hover:scale-110 transition-transform duration-700"
+                        className={`group-hover:scale-110 transition-transform duration-700 ${
+                          brokenImages[item.id] ? "object-contain p-4" : "object-cover"
+                        }`}
+                        onError={() =>
+                          setBrokenImages((prev) => ({ ...prev, [item.id]: true }))
+                        }
                       />
                       <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500"></div>
                     </div>
@@ -193,14 +203,34 @@ const Podcasts = ({ data, initialPage = 1, isLoading = false }) => {
 
                   {/* Bottom Section: Embedded Video/Pod */}
                   <div className="mt-10 relative aspect-video w-full rounded-3xl overflow-hidden bg-black shadow-inner border border-slate-100">
-                    <iframe
-                      src={embedUrl}
-                      className="absolute inset-0 w-full h-full"
-                      frameBorder="0"
-                      scrolling="no"
-                      allowtransparency="true"
-                      allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                    ></iframe>
+                    {!embedUrl || brokenEmbeds[item.id] ? (
+                      <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 bg-slate-900">
+                        <Image
+                          src="/Home/talaat-logo.png"
+                          alt="Talaat logo"
+                          width={76}
+                          height={76}
+                          className="object-contain mb-4"
+                        />
+                        <p className="text-white/85 font-bold text-sm mb-3">
+                          {isRTL
+                            ? "سيظهر الفيديو هنا بعد تحديث الرابط."
+                            : "The video will appear here once the link is updated."}
+                        </p>
+                      </div>
+                    ) : (
+                      <iframe
+                        src={embedUrl}
+                        title={title || "Podcast embed"}
+                        className="absolute inset-0 w-full h-full"
+                        frameBorder="0"
+                        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                        referrerPolicy="strict-origin-when-cross-origin"
+                        onError={() =>
+                          setBrokenEmbeds((prev) => ({ ...prev, [item.id]: true }))
+                        }
+                      ></iframe>
+                    )}
                   </div>
                 </div>
               </motion.div>
