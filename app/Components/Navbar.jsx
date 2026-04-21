@@ -121,6 +121,7 @@ const Navbar = () => {
 
   const [openDropdown, setOpenDropdown] = useState(null);
   const [openMobileDropdown, setOpenMobileDropdown] = useState(null);
+  const [openMobileSubDropdown, setOpenMobileSubDropdown] = useState(null);
 
   const [contactTypes, setContactTypes] = useState([]);
   const [articleTypes, setArticleTypes] = useState([]);
@@ -141,6 +142,7 @@ const Navbar = () => {
     setIsMenuOpen(false);
     setOpenDropdown(null);
     setOpenMobileDropdown(null);
+    setOpenMobileSubDropdown(null);
     setIsExecutiveDropdownOpen(false);
     setIsMobileExecutiveDropdownOpen(false);
     setIsLangDropdownOpen(false);
@@ -195,8 +197,12 @@ const Navbar = () => {
           label: t("navbar.allAnalyses", "All Analyses"),
         },
         ...articleTypes.map((type) => ({
-          to: `/analyses/${type.slug[locale] || type.slug["en"]}`,
-          label: type.name[locale] || type.name["en"],
+          to: `/analyses/${type.slug?.[locale] || type.slug?.["en"] || ""}`,
+          label: type.name?.[locale] || type.name?.["en"] || "",
+          children: type.children?.map(child => ({
+            to: `/analyses/${child.slug?.[locale] || child.slug?.["en"] || ""}`,
+            label: child.name?.[locale] || child.name?.["en"] || ""
+          })) || []
         })),
       ],
     },
@@ -287,10 +293,7 @@ const Navbar = () => {
                         <div
                           className={`absolute top-full ${isRTL ? "right-0" : "left-0"} pt-1 min-w-[220px] animate-in fade-in slide-in-from-top-2 duration-200 z-[9000]`}
                         >
-                          <div
-                            className="bg-white border border-gray-100 shadow-xl rounded-2xl flex flex-col py-1 overflow-y-auto max-h-[350px] scrollbar-thin scrollbar-thumb-primary/20 scrollbar-track-transparent"
-                            style={{ scrollbarWidth: "thin" }}
-                          >
+                          <div className="bg-white border border-gray-100 shadow-xl rounded-2xl flex flex-col py-1">
                             {link.items.length > 0 ? (
                               link.items.map((item, i) => {
                                 if (item.isSeparator) {
@@ -301,21 +304,60 @@ const Navbar = () => {
                                     />
                                   );
                                 }
+                                
+                                const hasChildren = item.children && item.children.length > 0;
+                                const isChildActive = hasChildren && item.children.some(child => isActive(child.to));
+                                const isItemActive = isActive(item.to) || isChildActive;
+                                
                                 return (
-                                  <Link
-                                    key={i}
-                                    href={item.to}
-                                    onClick={() => setOpenDropdown(null)}
-                                    className={`px-5 py-3.5  text-baseTwo hover:bg-gray-50 hover:text-primary transition-all border-b last:border-0 border-gray-50 flex items-center justify-between group ${isRTL ? "text-right" : "text-left"}`}
-                                  >
-                                    <span className="font-semibold text-sm">
-                                      {item.label}
-                                    </span>
-                                    <MdOutlineKeyboardArrowDown
-                                      size={16}
-                                      className={`opacity-0 group-hover:opacity-30 transition-all ${isRTL ? "rotate-90" : "-rotate-90"}`}
-                                    />
-                                  </Link>
+                                  <div key={i} className="relative group/subitem w-full">
+                                    <Link
+                                      href={item.to}
+                                      onClick={() => {
+                                        if(!hasChildren) setOpenDropdown(null);
+                                      }}
+                                      className={`px-5 py-3 w-full transition-all border-b last:border-0 border-gray-50 flex items-center justify-between ${isRTL ? "text-right" : "text-left"} ${isItemActive ? "text-primary bg-primary/[0.05]" : "text-baseTwo hover:bg-gray-50 hover:text-primary bg-white"} ${hasChildren && "group-hover/subitem:text-primary group-hover/subitem:bg-primary/[0.03]"}`}
+                                    >
+                                      <span className={`text-sm pr-2 ${hasChildren || isItemActive ? "font-bold" : "font-semibold"}`}>
+                                        {item.label}
+                                      </span>
+                                      {hasChildren ? (
+                                        <div className={`shrink-0 w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-primary transition-transform duration-300 shadow-sm ${isRTL ? "group-hover/subitem:-translate-x-1" : "group-hover/subitem:translate-x-1"}`}>
+                                          <MdOutlineKeyboardArrowDown
+                                            size={16}
+                                            className={`${isRTL ? "rotate-90" : "-rotate-90"}`}
+                                          />
+                                        </div>
+                                      ) : (
+                                        <MdOutlineKeyboardArrowDown
+                                          size={16}
+                                          className={`opacity-0 group-hover/subitem:opacity-30 transition-all ${isRTL ? "rotate-90" : "-rotate-90"}`}
+                                        />
+                                      )}
+                                    </Link>
+                                    
+                                    {hasChildren && (
+                                      <div
+                                        className={`absolute -top-3 ${isRTL ? "right-full pr-4" : "left-full pl-4"} hidden group-hover/subitem:block pt-3 pb-3 min-w-[240px] z-[9010] animate-in fade-in zoom-in-95 duration-200`}
+                                      >
+                                        <div className="bg-white border border-gray-100 shadow-[0_4px_30px_rgba(0,0,0,0.1)] rounded-2xl flex flex-col py-2 mx-1 overflow-hidden">
+                                          {item.children.map((child, j) => (
+                                            <Link
+                                              key={j}
+                                              href={child.to}
+                                              onClick={() => setOpenDropdown(null)}
+                                              className={`px-5 py-3 text-baseTwo hover:bg-gray-50 hover:text-primary transition-all border-b last:border-0 border-gray-50 flex items-center gap-3 group/child ${isRTL ? "text-right" : "text-left"}`}
+                                            >
+                                              <span className={`w-3 h-[2px] bg-primary/60 group-hover/child:bg-primary transition-colors shrink-0`}></span>
+                                              <span className={`font-semibold text-sm ${isActive(child.to) ? "text-primary" : ""}`}>
+                                                {child.label}
+                                              </span>
+                                            </Link>
+                                          ))}
+                                        </div>
+                                      </div>
+                                    )}
+                                  </div>
                                 );
                               })
                             ) : (
@@ -502,19 +544,62 @@ const Navbar = () => {
                                   />
                                 );
                               }
+                              
+                              const hasChildren = item.children && item.children.length > 0;
+                              const isSubOpen = openMobileSubDropdown === item.label;
+                              const isItemActive = isActive(item.to) || (hasChildren && item.children.some(c => isActive(c.to)));
+                              
                               return (
-                                <Link
-                                  key={i}
-                                  href={item.to}
-                                  onClick={closeMenu}
-                                  className="py-2.5 text-base font-medium  hover:text-primary transition-colors flex items-center group"
-                                >
-                                  <span>{item.label}</span>
-                                  <MdOutlineKeyboardArrowDown
-                                    size={16}
-                                    className={`opacity-0 group-hover:opacity-100 transition-all mx-2 ${isRTL ? "rotate-90" : "-rotate-90"}`}
-                                  />
-                                </Link>
+                                <div key={i} className={`flex flex-col mb-1 transition-all duration-300 ${isSubOpen || isItemActive ? "bg-primary/5 rounded-xl px-2 py-1" : ""}`}>
+                                  <div className="flex items-center justify-between group">
+                                    <Link
+                                      href={item.to}
+                                      onClick={closeMenu}
+                                      className={`py-2 text-base transition-colors flex items-center flex-1 ${isSubOpen || isItemActive ? "font-bold text-primary" : "font-medium text-baseTwo hover:text-primary"}`}
+                                    >
+                                      <span>{item.label}</span>
+                                    </Link>
+                                    {hasChildren && (
+                                      <button
+                                        onClick={() =>
+                                          setOpenMobileSubDropdown(
+                                            isSubOpen ? null : item.label
+                                          )
+                                        }
+                                        className={`p-1.5 rounded-lg transition-colors ${isSubOpen ? "bg-primary/20 text-primary" : "bg-primary/10 text-primary/80 hover:bg-primary/20 hover:text-primary"}`}
+                                      >
+                                        <MdOutlineKeyboardArrowDown
+                                          size={18}
+                                          className={`transition-transform duration-300 ${isSubOpen ? "rotate-180" : ""}`}
+                                        />
+                                      </button>
+                                    )}
+                                  </div>
+                                  
+                                  {hasChildren && (
+                                    <div
+                                      className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                                        openMobileSubDropdown === item.label
+                                          ? "max-h-[800px] opacity-100"
+                                          : "max-h-0 opacity-0"
+                                      }`}
+                                    >
+                                      <div className="flex flex-col border-l-[1.5px] border-primary/30 ml-2 pl-3 rtl:mr-2 rtl:pr-3 rtl:border-l-0 rtl:border-r-[1.5px] space-y-1 mb-2 mt-1">
+                                        {item.children.map((child, j) => (
+                                          <Link
+                                            key={j}
+                                            href={child.to}
+                                            onClick={closeMenu}
+                                            className={`py-2.5 text-[0.9rem] font-semibold transition-colors flex items-center gap-3 group/child-mobile ${isActive(child.to) ? "text-primary" : "text-baseTwo hover:text-primary"}`}
+                                          >
+                                            <span className={`w-4 h-[2px] bg-primary/60 group-hover/child-mobile:bg-primary shrink-0 transition-colors ${isActive(child.to) ? "bg-primary" : ""}`}></span>
+                                            <span className="text-start">{child.label}</span>
+                                          </Link>
+                                        ))}
+                                      </div>
+                                    </div>
+                                  )}
+                                </div>
                               );
                             })
                           ) : (
