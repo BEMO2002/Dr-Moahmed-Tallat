@@ -8,10 +8,12 @@ import {
   FaSpinner,
   FaFacebookF,
   FaInstagram,
-  FaTwitter,
   FaWhatsapp,
   FaHeart,
+  FaYoutube,
+  FaLinkedinIn,
 } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 import { useTranslations, useLocale } from "next-intl";
 import toast from "react-hot-toast";
 import { subscribeNewsletter } from "../lib/server-api";
@@ -41,9 +43,11 @@ const Footer = () => {
   const emailList = settings?.emails || [settings?.email || t("footer.email")];
   const currentPhone = settings?.phone || t("footer.phone");
 
-  const facebookUrl = settings?.social_links?.facebook || null;
-  const instagramUrl = settings?.social_links?.instagram || null;
-  const twitterUrl = settings?.social_links?.twitter || null;
+  const facebookUrl = settings?.social_links?.facebook || "https://www.facebook.com/mohamedtalatabdulaziz";
+  const instagramUrl = settings?.social_links?.instagram || "https://www.instagram.com/mohamedtalatabdulaziz/";
+  const twitterUrl = settings?.social_links?.twitter || "https://x.com/mohdtalaat_gcc";
+  const linkedinUrl = settings?.social_links?.linkedin || "https://www.linkedin.com/in/mohdtalat/";
+  const youtubeUrl = settings?.social_links?.youtube || "https://www.youtube.com/@mohdtalaat";
   const whatsappUrl = settings?.whatsapp || null;
 
   // Math question generator helper function
@@ -263,28 +267,17 @@ const Footer = () => {
               <p className="text-sm text-black/90 leading-relaxed mb-4 max-w-sm">
                 {t("footer.aboutDescription")}
               </p>
-              {(facebookUrl || instagramUrl || twitterUrl || whatsappUrl) && (
-                <div className="flex md:justify-start justify-center items-start gap-4 mt-2">
+              {(facebookUrl || instagramUrl || twitterUrl || linkedinUrl || youtubeUrl || whatsappUrl) && (
+                <div className="flex flex-wrap md:justify-start justify-center items-center gap-3 mt-6">
                   {facebookUrl && (
                     <a
                       href={facebookUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="text-black/80 hover:text-secondary transition-colors duration-200"
+                      className="w-10 h-10 rounded-xl bg-white border border-black/5 flex items-center justify-center text-primary shadow-sm hover:bg-primary hover:text-white hover:-translate-y-1 transition-all duration-300 group"
                       aria-label="Facebook"
                     >
-                      <FaFacebookF className="w-5 h-5 text-primary" />
-                    </a>
-                  )}
-                  {instagramUrl && (
-                    <a
-                      href={instagramUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="text-black/80 hover:text-secondary transition-colors duration-200"
-                      aria-label="Instagram"
-                    >
-                      <FaInstagram className="w-5 h-5 text-primary" />
+                      <FaFacebookF className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
                     </a>
                   )}
                   {twitterUrl && (
@@ -292,10 +285,43 @@ const Footer = () => {
                       href={twitterUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="text-black/80 hover:text-secondary transition-colors duration-200"
-                      aria-label="Twitter"
+                      className="w-10 h-10 rounded-xl bg-white border border-black/5 flex items-center justify-center text-primary shadow-sm hover:bg-primary hover:text-white hover:-translate-y-1 transition-all duration-300 group"
+                      aria-label="X (Twitter)"
                     >
-                      <FaTwitter className="w-5 h-5 text-primary" />
+                      <FaXTwitter className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
+                    </a>
+                  )}
+                  {instagramUrl && (
+                    <a
+                      href={instagramUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="w-10 h-10 rounded-xl bg-white border border-black/5 flex items-center justify-center text-primary shadow-sm hover:bg-primary hover:text-white hover:-translate-y-1 transition-all duration-300 group"
+                      aria-label="Instagram"
+                    >
+                      <FaInstagram className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
+                    </a>
+                  )}
+                  {linkedinUrl && (
+                    <a
+                      href={linkedinUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="w-10 h-10 rounded-xl bg-white border border-black/5 flex items-center justify-center text-primary shadow-sm hover:bg-primary hover:text-white hover:-translate-y-1 transition-all duration-300 group"
+                      aria-label="LinkedIn"
+                    >
+                      <FaLinkedinIn className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
+                    </a>
+                  )}
+                  {youtubeUrl && (
+                    <a
+                      href={youtubeUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="w-10 h-10 rounded-xl bg-white border border-black/5 flex items-center justify-center text-primary shadow-sm hover:bg-primary hover:text-white hover:-translate-y-1 transition-all duration-300 group"
+                      aria-label="YouTube"
+                    >
+                      <FaYoutube className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
                     </a>
                   )}
                   {whatsappUrl && (
@@ -303,10 +329,10 @@ const Footer = () => {
                       href={whatsappUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="text-black hover:text-secondary transition-colors duration-200"
+                      className="w-10 h-10 rounded-xl bg-white border border-black/5 flex items-center justify-center text-primary shadow-sm hover:bg-primary hover:text-white hover:-translate-y-1 transition-all duration-300 group"
                       aria-label="WhatsApp"
                     >
-                      <FaWhatsapp className="w-5 h-5 text-primary" />
+                      <FaWhatsapp className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
                     </a>
                   )}
                 </div>

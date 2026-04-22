@@ -1,5 +1,5 @@
-import PoliticalManifesto from "../../InformationPages/PoliticalManifesto";
-import { fetchPages, fetchSettings } from "../../lib/server-api";
+import PoliticalManifesto from "../../../InformationPages/PoliticalManifesto";
+import { fetchPages, fetchSettings } from "../../../lib/server-api";
 
 export async function generateMetadata({ params }) {
   const { locale } = await params;

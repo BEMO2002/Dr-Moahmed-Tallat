@@ -343,7 +343,7 @@ const ContactFormContent = () => {
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-center">
             {/* Contact Form */}
-            <div className="w-full max-w-3xl bg-gray-50/50 backdrop-blur-sm rounded-[2.5rem] p-8 md:p-20 border border-gray-100 flex flex-col justify-center shadow-sm relative overflow-hidden">
+            <div className="w-full max-w-2xl bg-gray-50/50 backdrop-blur-sm rounded-[2.5rem] p-8 md:p-8 border border-gray-100 flex flex-col justify-center shadow-sm relative overflow-hidden">
               {/* Decorative elements */}
               <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-[100px] -z-10"></div>
 
@@ -570,7 +570,7 @@ const ContactFormContent = () => {
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className={`w-full md:w-auto min-w-[300px] flex items-center justify-center gap-4 px-10 py-5 bg-primary text-white text-lg font-black uppercase tracking-widest rounded-2xl shadow-2xl hover:bg-primary transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed group ${
+                    className={`w-full md:w-auto min-w-[300px] flex items-center justify-center gap-4 px-6 py-4 bg-primary text-white text-lg font-black uppercase tracking-widest rounded-2xl shadow-2xl hover:bg-primary transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed group ${
                       isRTL ? "flex-row-reverse" : ""
                     }`}
                   >

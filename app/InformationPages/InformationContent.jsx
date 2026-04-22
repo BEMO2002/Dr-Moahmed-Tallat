@@ -94,7 +94,7 @@ const InformationContent = ({ data }) => {
             </div>
 
             <div
-              className={`text-lg max-w-none text-gray-600 leading-[1.8] font-medium ${isRTL ? "text-right font-cairo" : "text-left"}`}
+              className={`text-lg max-w-none text-gray-600 bg-gray-50 p-4 rounded-lg leading-[1.8] font-medium ${isRTL ? "text-right font-cairo" : "text-left"}`}
               dir={isRTL ? "rtl" : "ltr"}
             >
               {/* Splitting content by newlines to handle formatting */}

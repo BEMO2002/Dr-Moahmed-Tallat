@@ -164,6 +164,7 @@ const Navbar = () => {
       isDropdown: true,
       dropdownId: "about",
       items: [
+        { to: "/sovereign-manifesto", label: t("navbar.sovereign_manifesto") },
         { to: "/about", label: t("navbar.about") },
         { to: "/political-manifesto", label: t("navbar.political_manifesto") },
         {

@@ -78,7 +78,8 @@
       "description": "This interface is exclusively designated for high-level engagement with decision-makers, sovereign institutions, and global research organizations. We maintain that strategic consultancy is a fundamental process of 'Will-Building' and 'Sovereignty Imposition.' Accordingly, we facilitate requests for Strategic Briefings, Geopolitical Risk Assessments, and the Architecture of Psychological and Media Policies—executed with absolute confidentiality and penetrating analytical depth.",
       "brandStandard": "Global Executive Standard",
       "securitySeal": "End-to-End Encryption - Private Briefing"
-    }
+    },
+    "sovereign_manifesto": "The Sovereign Manifesto of Intellectual Initiative"
   },
   "postDetails": {
     "strategicBrief": "Strategic Brief",
@@ -432,28 +433,44 @@
     "subtitle": "Answers to your inquiries regarding the platform and our methodology",
     "items": [
       {
-        "question": "What is the nature of the content provided by the platform?",
-        "answer": "The platform provides specialized analytical content in political and strategic affairs, focused on geopolitical interpretation, media discourse analysis, and the development of deep explanatory frameworks that go beyond surface-level event narration."
+        "question": "What type of content does the platform provide?",
+        "answer": "The platform provides specialized analytical content focused on political and strategic affairs, emphasizing geopolitical analysis, media discourse deconstruction, and the development of in-depth interpretive frameworks beyond surface-level event coverage."
       },
       {
-        "question": "Does the content reflect a specific political orientation?",
-        "answer": "The content follows a sovereign analytical approach grounded in a structural understanding of the state and society, aiming to interpret developments within strategic frameworks rather than through simplification or propaganda."
+        "question": "Does the content reflect a specific political stance?",
+        "answer": "The content adopts a sovereign analytical approach grounded in structural understanding of state and society, aiming to interpret events within their strategic contexts without engaging in propaganda or oversimplification."
       },
       {
-        "question": "How is the accuracy of the analysis ensured?",
-        "answer": "Content is built through layered conceptual and analytical methodologies, including mechanism-based analysis, contextual reading, and the integration of political and social variables into coherent explanatory models."
+        "question": "How is analytical accuracy ensured?",
+        "answer": "Content is developed using multi-layered analytical methodologies, including conceptual frameworks, mechanism-based analysis, and the integration of political and social variables into coherent interpretive models."
       },
       {
-        "question": "Does the platform use artificial intelligence?",
-        "answer": "Yes. Artificial intelligence is used as a support layer for analysis, structuring, and efficiency enhancement, while intellectual and editorial oversight remains under qualified human review."
+        "question": "Does the platform use AI in content production?",
+        "answer": "Artificial intelligence technologies are used as supportive tools for data analysis and content structuring, while the intellectual and analytical framework remains under expert human oversight to ensure quality and accuracy."
       },
       {
-        "question": "Can the content be used for research purposes?",
-        "answer": "The content may be used as an analytical reference with proper attribution, given that it is developed according to standards aligned with international think tanks and research institutions."
+        "question": "Can the content be used for academic purposes?",
+        "answer": "Yes, the content can be used as an analytical reference, provided proper citation is included, as it is developed in alignment with think tank and research center standards."
       },
       {
         "question": "How is user data handled?",
-        "answer": "User data is managed under strict protection measures including encryption, access minimization, and no sharing beyond approved legal and regulatory frameworks."
+        "answer": "User data is managed under strict privacy protection policies, including encryption, access minimization, and no sharing outside approved legal and regulatory frameworks."
+      },
+      {
+        "question": "Can users engage with or provide feedback on the content?",
+        "answer": "The platform welcomes constructive engagement and objective feedback, contributing to content quality improvement and disciplined intellectual discourse."
+      },
+      {
+        "question": "Is the content updated regularly?",
+        "answer": "Yes, content is regularly updated in line with political and strategic developments while maintaining analytical consistency and conceptual integrity."
+      },
+      {
+        "question": "Does the platform offer advisory or analytical services?",
+        "answer": "The platform may offer specialized analytical or advisory services depending on the nature of requests and institutional agreements."
+      },
+      {
+        "question": "How can users contact the platform?",
+        "answer": "Users can contact the platform through the official communication channels listed on the website, with inquiries handled in a structured and professional manner."
       }
     ]
   }
