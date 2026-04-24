@@ -14,7 +14,7 @@ export async function generateMetadata({ params }) {
   const ogImage = settings?.logo || "";
 
   return {
-    title: `${title} `,
+    title,
     description: content.substring(0, 160) || siteDescription,
     openGraph: {
       title: `${title} | ${siteTitle}`,

@@ -200,20 +200,21 @@ const Navbar = () => {
         ...articleTypes.map((type) => ({
           to: `/analyses/${type.slug?.[locale] || type.slug?.["en"] || ""}`,
           label: type.name?.[locale] || type.name?.["en"] || "",
-          children: type.children?.map(child => ({
-            to: `/analyses/${child.slug?.[locale] || child.slug?.["en"] || ""}`,
-            label: child.name?.[locale] || child.name?.["en"] || ""
-          })) || []
+          children:
+            type.children?.map((child) => ({
+              to: `/analyses/${child.slug?.[locale] || child.slug?.["en"] || ""}`,
+              label: child.name?.[locale] || child.name?.["en"] || "",
+            })) || [],
         })),
       ],
     },
     { to: "/podcasts", label: t("navbar.podcasts.title") },
-    { to: "/faq", label: t("navbar.faq") },
     {
       to: "/research-archive",
       label: t("navbar.researchArchive"),
       isVault: true,
     },
+    { to: "/faq", label: t("navbar.faq") },
     // { to: "/contact", label: t("navbar.contact") },
   ];
 
@@ -305,25 +306,38 @@ const Navbar = () => {
                                     />
                                   );
                                 }
-                                
-                                const hasChildren = item.children && item.children.length > 0;
-                                const isChildActive = hasChildren && item.children.some(child => isActive(child.to));
-                                const isItemActive = isActive(item.to) || isChildActive;
-                                
+
+                                const hasChildren =
+                                  item.children && item.children.length > 0;
+                                const isChildActive =
+                                  hasChildren &&
+                                  item.children.some((child) =>
+                                    isActive(child.to),
+                                  );
+                                const isItemActive =
+                                  isActive(item.to) || isChildActive;
+
                                 return (
-                                  <div key={i} className="relative group/subitem w-full">
+                                  <div
+                                    key={i}
+                                    className="relative group/subitem w-full"
+                                  >
                                     <Link
                                       href={item.to}
                                       onClick={() => {
-                                        if(!hasChildren) setOpenDropdown(null);
+                                        if (!hasChildren) setOpenDropdown(null);
                                       }}
                                       className={`px-5 py-3 w-full transition-all border-b last:border-0 border-gray-50 flex items-center justify-between ${isRTL ? "text-right" : "text-left"} ${isItemActive ? "text-primary bg-primary/[0.05]" : "text-baseTwo hover:bg-gray-50 hover:text-primary bg-white"} ${hasChildren && "group-hover/subitem:text-primary group-hover/subitem:bg-primary/[0.03]"}`}
                                     >
-                                      <span className={`text-sm pr-2 ${hasChildren || isItemActive ? "font-bold" : "font-semibold"}`}>
+                                      <span
+                                        className={`text-sm pr-2 ${hasChildren || isItemActive ? "font-bold" : "font-semibold"}`}
+                                      >
                                         {item.label}
                                       </span>
                                       {hasChildren ? (
-                                        <div className={`shrink-0 w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-primary transition-transform duration-300 shadow-sm ${isRTL ? "group-hover/subitem:-translate-x-1" : "group-hover/subitem:translate-x-1"}`}>
+                                        <div
+                                          className={`shrink-0 w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-primary transition-transform duration-300 shadow-sm ${isRTL ? "group-hover/subitem:-translate-x-1" : "group-hover/subitem:translate-x-1"}`}
+                                        >
                                           <MdOutlineKeyboardArrowDown
                                             size={16}
                                             className={`${isRTL ? "rotate-90" : "-rotate-90"}`}
@@ -336,7 +350,7 @@ const Navbar = () => {
                                         />
                                       )}
                                     </Link>
-                                    
+
                                     {hasChildren && (
                                       <div
                                         className={`absolute -top-3 ${isRTL ? "right-full pr-4" : "left-full pl-4"} hidden group-hover/subitem:block pt-3 pb-3 min-w-[240px] z-[9010] animate-in fade-in zoom-in-95 duration-200`}
@@ -346,11 +360,17 @@ const Navbar = () => {
                                             <Link
                                               key={j}
                                               href={child.to}
-                                              onClick={() => setOpenDropdown(null)}
+                                              onClick={() =>
+                                                setOpenDropdown(null)
+                                              }
                                               className={`px-5 py-3 text-baseTwo hover:bg-gray-50 hover:text-primary transition-all border-b last:border-0 border-gray-50 flex items-center gap-3 group/child ${isRTL ? "text-right" : "text-left"}`}
                                             >
-                                              <span className={`w-3 h-[2px] bg-primary/60 group-hover/child:bg-primary transition-colors shrink-0`}></span>
-                                              <span className={`font-semibold text-sm ${isActive(child.to) ? "text-primary" : ""}`}>
+                                              <span
+                                                className={`w-3 h-[2px] bg-primary/60 group-hover/child:bg-primary transition-colors shrink-0`}
+                                              ></span>
+                                              <span
+                                                className={`font-semibold text-sm ${isActive(child.to) ? "text-primary" : ""}`}
+                                              >
                                                 {child.label}
                                               </span>
                                             </Link>
@@ -545,13 +565,21 @@ const Navbar = () => {
                                   />
                                 );
                               }
-                              
-                              const hasChildren = item.children && item.children.length > 0;
-                              const isSubOpen = openMobileSubDropdown === item.label;
-                              const isItemActive = isActive(item.to) || (hasChildren && item.children.some(c => isActive(c.to)));
-                              
+
+                              const hasChildren =
+                                item.children && item.children.length > 0;
+                              const isSubOpen =
+                                openMobileSubDropdown === item.label;
+                              const isItemActive =
+                                isActive(item.to) ||
+                                (hasChildren &&
+                                  item.children.some((c) => isActive(c.to)));
+
                               return (
-                                <div key={i} className={`flex flex-col mb-1 transition-all duration-300 ${isSubOpen || isItemActive ? "bg-primary/5 rounded-xl px-2 py-1" : ""}`}>
+                                <div
+                                  key={i}
+                                  className={`flex flex-col mb-1 transition-all duration-300 ${isSubOpen || isItemActive ? "bg-primary/5 rounded-xl px-2 py-1" : ""}`}
+                                >
                                   <div className="flex items-center justify-between group">
                                     <Link
                                       href={item.to}
@@ -564,7 +592,7 @@ const Navbar = () => {
                                       <button
                                         onClick={() =>
                                           setOpenMobileSubDropdown(
-                                            isSubOpen ? null : item.label
+                                            isSubOpen ? null : item.label,
                                           )
                                         }
                                         className={`p-1.5 rounded-lg transition-colors ${isSubOpen ? "bg-primary/20 text-primary" : "bg-primary/10 text-primary/80 hover:bg-primary/20 hover:text-primary"}`}
@@ -576,7 +604,7 @@ const Navbar = () => {
                                       </button>
                                     )}
                                   </div>
-                                  
+
                                   {hasChildren && (
                                     <div
                                       className={`overflow-hidden transition-all duration-300 ease-in-out ${
@@ -593,8 +621,12 @@ const Navbar = () => {
                                             onClick={closeMenu}
                                             className={`py-2.5 text-[0.9rem] font-semibold transition-colors flex items-center gap-3 group/child-mobile ${isActive(child.to) ? "text-primary" : "text-baseTwo hover:text-primary"}`}
                                           >
-                                            <span className={`w-4 h-[2px] bg-primary/60 group-hover/child-mobile:bg-primary shrink-0 transition-colors ${isActive(child.to) ? "bg-primary" : ""}`}></span>
-                                            <span className="text-start">{child.label}</span>
+                                            <span
+                                              className={`w-4 h-[2px] bg-primary/60 group-hover/child-mobile:bg-primary shrink-0 transition-colors ${isActive(child.to) ? "bg-primary" : ""}`}
+                                            ></span>
+                                            <span className="text-start">
+                                              {child.label}
+                                            </span>
                                           </Link>
                                         ))}
                                       </div>
