@@ -164,18 +164,33 @@ const Navbar = () => {
       isDropdown: true,
       dropdownId: "about",
       items: [
+        {
+          label: t("navbar.sovereign_identity"),
+          to: "/sovereign-manifesto",
+          children: [
+            { to: "/founding-manifesto", label: t("navbar.founding_manifesto") },
+            {
+              to: "/philosophical-statement",
+              label: t("navbar.philosophical_statement"),
+            },
+            { to: "/political-manifesto", label: t("navbar.strategic_welcome") },
+          ],
+        },
+        {
+          label: t("navbar.intellectual_foundations"),
+          to: "/political-mandate",
+          children: [
+            { to: "/political-mandate", label: t("navbar.political_mandate") },
+            { to: "/operational-paradigm", label: t("navbar.operational_paradigm") },
+            {
+              to: "/axiologicalandstrategic-objectives",
+              label: t("navbar.ethical_imperatives"),
+            },
+          ],
+        },
+        { to: "/strategic-foresight", label: t("navbar.strategic_foresight") },
+        { to: "/executive-identity", label: t("navbar.sovereign_legacy") },
         { to: "/sovereign-manifesto", label: t("navbar.sovereign_manifesto") },
-        { to: "/about", label: t("navbar.about") },
-        { to: "/political-manifesto", label: t("navbar.political_manifesto") },
-        {
-          to: "/philosophical-statement",
-          label: t("navbar.philosophical_statement"),
-        },
-        { to: "/executive-identity", label: t("navbar.executive_identity") },
-        {
-          to: "/axiologicalandstrategic-objectives",
-          label: t("navbar.axiological_objectives"),
-        },
       ],
     },
     {

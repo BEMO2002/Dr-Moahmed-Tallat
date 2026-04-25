@@ -79,7 +79,16 @@
       "brandStandard": "Global Executive Standard",
       "securitySeal": "End-to-End Encryption - Private Briefing"
     },
-    "sovereign_manifesto": "The Sovereign Manifesto of Intellectual Initiative"
+    "sovereign_manifesto": "The Sovereign Manifesto of Intellectual Initiative",
+    "sovereign_identity": "Sovereign Identity & Strategic Initiative",
+    "founding_manifesto": "Founding Manifesto",
+    "strategic_welcome": "Strategic Welcome Message from the owner",
+    "intellectual_foundations": "Intellectual Foundations",
+    "political_mandate": "Political Mandate",
+    "operational_paradigm": "Operational Paradigm",
+    "ethical_imperatives": "Ethical & Strategic Imperatives",
+    "strategic_foresight": "Strategic Foresight",
+    "sovereign_legacy": "Sovereign Legacy & Professional Path"
   },
   "postDetails": {
     "strategicBrief": "Strategic Brief",
@@ -404,6 +413,9 @@
   },
   "podcasts": {
     "title": "Podcasts",
+    "intro_title": "The Voice of Sovereignty: Strategic Deconstruction Podcast",
+    "description": "An auditory portal that transcends conventional headlines, dedicated to the deconstruction of complex geopolitical dossiers and the exploration of the political psyche. Our episodes are architected to cultivate 'Proactive Awareness,' cutting through the noise of traditional media to collectively chart a roadmap for navigating the New International Order.",
+    "brand_standard": "Strategic Audio Branding: Global Think Tank Standard",
     "breadcrumb": "Podcasts",
     "loadError": "An error occurred while loading podcasts",
     "noItems": "No podcasts available at the moment",

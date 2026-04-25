@@ -80,7 +80,16 @@
       "brandStandard": "Global Executive Standard",
       "securitySeal": "تشفير تام (طرف إلى طرف) - إحاطة خاصة"
     },
-    "sovereign_manifesto": "المِيثاقُ السِّيادِيُّ لِبَيانِ المُبادأةِ الفِكْرِيَّةِ "
+    "sovereign_manifesto": "بَيانُ المُبادأةِ: مِيثاقُ السِّيادَةِ المَعْرِفِيَّةِ وَهَنْدَسَةِ الوَعْيِ",
+    "sovereign_identity": "الهوية والمبادأة",
+    "founding_manifesto": "البيان التأسيسي للمُؤَسِّس",
+    "strategic_welcome": "الرسالة الترحيبية للمؤسس",
+    "intellectual_foundations": "الأصول والأطر الفكرية",
+    "political_mandate": "التكليف السياسي",
+    "operational_paradigm": "الأنموذج التنفيذي",
+    "ethical_imperatives": "الحتميات القيمية والاستراتيجية",
+    "strategic_foresight": "الاستشراف الاستراتيجي",
+    "sovereign_legacy": "الإرث والمسيرة السيادية"
   },
   "postDetails": {
     "strategicBrief": "الملخص الاستراتيجي",
@@ -396,6 +405,9 @@
   },
   "podcasts": {
     "title": "البودكاست",
+    "intro_title": "صوتُ السيادةِ: بودكاست التفكيكِ الاستراتيجيِّ",
+    "description": "نافذةٌ صوتيةٌ تغوصُ فيما وراءِ الخبرِ، حيثُ نلتقي لتفكيكِ أعقدِ الملفاتِ الجيوسياسيةِ وسبرِ أغوارِ النفسِ السياسيةِ. حلقاتٌ مصممةٌ لصناعةِ الوعيِ الاستباقيِّ، بعيداً عن ضجيجِ الإعلامِ التقليديِّ، لنرسمَ معاً خارطةَ طريقٍ لفهمِ النظامِ الدوليِّ الجديدِ",
+    "brand_standard": "Strategic Audio Branding: Global Think Tank Standard",
     "breadcrumb": "البودكاست",
     "loadError": "حدث خطأ أثناء تحميل البودكاست",
     "noItems": "لا يوجد بودكاست متاح حالياً",
