@@ -159,8 +159,8 @@ const Analyses = ({
                       </span>
                     )}
                     {isOld === true && (
-                      <span className="bg-primary w-fit px-4 py-1.5 rounded-full text-xs font-black text-white uppercase tracking-[0.15em] shadow-lg flex items-center gap-1.5">
-                        <GrScheduleNew className="w-2.5 h-2.5" />
+                      <span className="bg-amber-600 w-fit px-4 py-1.5 rounded-full text-xs font-black text-white uppercase tracking-[0.15em] shadow-lg flex items-center gap-1.5">
+                        <FaHistory className="w-2.5 h-2.5" />
                         {isRTL ? "مقال قديم" : "Old Article"}
                       </span>
                     )}

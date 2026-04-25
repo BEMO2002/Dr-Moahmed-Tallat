@@ -7,6 +7,7 @@ import SpecialServices from "../HomePage/SpecialServices";
 import InfinitySliderTwo from "../HomePage/InfintySliderTwo";
 import Counter from "../HomePage/Counter";
 import TallatCvServer from "../HomePage/TallatCvServer";
+import AnalysesFeatureServer from "../HomePage/AnalysesFeatureServer";
 export async function generateMetadata({ params }) {
   const resolvedParams = await params;
   const locale = resolvedParams.locale;
@@ -61,6 +62,7 @@ export default function MainHome() {
       <Counter />
       <AboutTwo />
       <InfinitySliderTwo />
+      <AnalysesFeatureServer />
       <SpecialServices />
       <InfinitySlider />
       <TallatCvServer />
