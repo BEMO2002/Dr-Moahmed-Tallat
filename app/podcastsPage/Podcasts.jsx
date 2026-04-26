@@ -90,11 +90,40 @@ const Podcasts = ({ data, initialPage = 1, isLoading = false }) => {
   };
 
   const getEmbedUrl = (url) => {
-    if (url?.includes("instagram.com")) {
-      const cleanUrl = url.endsWith("/") ? url : `${url}/`;
-      return `${cleanUrl}embed/`;
+    if (!url) return "";
+
+    // Clean the URL from any potential escaped slashes from the API
+    const normalizedUrl = url.replace(/\\/g, "");
+
+    // 1. YouTube
+    const youtubeRegex =
+      /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i;
+    const youtubeMatch = normalizedUrl.match(youtubeRegex);
+    if (youtubeMatch && youtubeMatch[1]) {
+      return `https://www.youtube.com/embed/${youtubeMatch[1]}`;
     }
-    return url;
+
+    // 2. Instagram
+    if (normalizedUrl.includes("instagram.com")) {
+      const cleanUrl = normalizedUrl.split("?")[0].replace(/\/+$/, "");
+      return `${cleanUrl}/embed/`;
+    }
+
+    // 3. Facebook
+    if (normalizedUrl.includes("facebook.com")) {
+      return `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(normalizedUrl)}&show_text=0&width=560`;
+    }
+
+    // 4. TikTok
+    if (normalizedUrl.includes("tiktok.com")) {
+      // Basic TikTok embed support
+      const tiktokMatch = normalizedUrl.match(/\/video\/(\d+)/);
+      if (tiktokMatch && tiktokMatch[1]) {
+        return `https://www.tiktok.com/embed/v2/${tiktokMatch[1]}`;
+      }
+    }
+
+    return normalizedUrl;
   };
 
   const handlePageChange = (page) => {
@@ -230,6 +259,7 @@ const Podcasts = ({ data, initialPage = 1, isLoading = false }) => {
                 };
 
                 const config = getPlatformConfig();
+                const embedUrl = getEmbedUrl(videoUrl);
 
                 return (
                   <motion.div
@@ -238,66 +268,84 @@ const Podcasts = ({ data, initialPage = 1, isLoading = false }) => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: idx * 0.1 }}
-                    className="group bg-white rounded-[32px] border border-slate-100 overflow-hidden hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 flex flex-col h-full"
+                    className="group bg-white rounded-[40px] border border-slate-100 overflow-hidden hover:shadow-2xl transition-all duration-500"
                   >
-                    {/* Thumbnail Section */}
-                    <div className="relative aspect-video overflow-hidden">
-                      <Image
-                        src={
-                          brokenImages[item.id]
-                            ? "/Home/talaat-logo.png"
-                            : item.image_url
-                        }
-                        alt={title}
-                        fill
-                        className={`group-hover:scale-110 transition-transform duration-700 ${
-                          brokenImages[item.id]
-                            ? "object-contain p-8 bg-slate-50"
-                            : "object-cover"
-                        }`}
-                        onError={() =>
-                          setBrokenImages((prev) => ({
-                            ...prev,
-                            [item.id]: true,
-                          }))
-                        }
-                      />
+                    <div className="p-6 md:p-8">
+                      {/* Top Row: Thumbnail + Info */}
+                      <div className="flex flex-col sm:flex-row gap-6 items-start mb-8">
+                        <div className="relative w-full sm:w-32 lg:w-40 aspect-square rounded-2xl overflow-hidden shrink-0 shadow-md">
+                          <Image
+                            src={
+                              brokenImages[item.id]
+                                ? "/Home/talaat-logo.png"
+                                : item.image_url
+                            }
+                            alt={title}
+                            fill
+                            className="object-cover"
+                            onError={() =>
+                              setBrokenImages((prev) => ({
+                                ...prev,
+                                [item.id]: true,
+                              }))
+                            }
+                          />
+                        </div>
 
-                      {/* Platform Badge - Always Visible */}
-                      <div
-                        className={`absolute top-4 ${isRTL ? "right-4" : "left-4"} z-20`}
-                      >
                         <div
-                          className={`flex items-center gap-2 px-3 py-1.5 rounded-xl backdrop-blur-md shadow-lg ${config.bg} ${config.text} border border-white/50`}
+                          className={`flex-1 ${isRTL ? "text-right" : "text-left"}`}
                         >
-                          <span className="text-sm">{config.icon}</span>
-                          <span className="text-[10px] font-black uppercase tracking-wider">
-                            {config.label}
-                          </span>
+                          <div
+                            className={`flex items-center gap-2 mb-2 ${isRTL ? "flex-row-reverse" : ""}`}
+                          >
+                            <span className={config.text}>{config.icon}</span>
+                            <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">
+                              {config.label}
+                            </span>
+                          </div>
+                          <h2 className="text-lg font-bold text-slate-900 line-clamp-2 leading-tight group-hover:text-primary transition-colors">
+                            {title}
+                          </h2>
                         </div>
                       </div>
 
-                      <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    </div>
+                      {/* Video Embed Section */}
+                      <div className="relative aspect-video w-full rounded-2xl overflow-hidden bg-slate-900 shadow-inner mb-6">
+                        {embedUrl && !brokenEmbeds[item.id] ? (
+                          <iframe
+                            src={embedUrl}
+                            title={title || "Podcast embed"}
+                            className="absolute inset-0 w-full h-full z-10"
+                            frameBorder="0"
+                            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                            referrerPolicy="strict-origin-when-cross-origin"
+                            onError={() =>
+                              setBrokenEmbeds((prev) => ({
+                                ...prev,
+                                [item.id]: true,
+                              }))
+                            }
+                          ></iframe>
+                        ) : (
+                          <div className="absolute inset-0 flex items-center justify-center bg-slate-800">
+                            <p className="text-white/60 text-xs text-center px-4">
+                              {isRTL
+                                ? "سيظهر الفيديو هنا بعد تحديث الرابط."
+                                : "The video will appear here once the link is updated."}
+                            </p>
+                          </div>
+                        )}
+                      </div>
 
-                    {/* Content Section */}
-                    <div
-                      className={`p-8 flex-1 flex flex-col ${isRTL ? "text-right" : "text-left"}`}
-                    >
-                      <h2 className="text-xl font-bold text-primary mb-4 line-clamp-2 leading-tight group-hover:text-primary transition-colors">
-                        {title}
-                      </h2>
-
-                      <p className="text-slate-500 text-sm leading-relaxed mb-8 line-clamp-3">
-                        {decodedDescription}
-                      </p>
-
-                      <div className="mt-auto">
+                      {/* Footer Actions */}
+                      <div
+                        className={`flex items-center ${isRTL ? "justify-end" : "justify-start"}`}
+                      >
                         <a
                           href={videoUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className={`inline-flex items-center gap-3 px-6 py-3.5 bg-slate-900 text-white rounded-2xl text-xs font-black uppercase tracking-[0.1em] hover:bg-primary transition-all duration-300 w-full justify-center group/btn shadow-lg shadow-black/5 hover:shadow-primary/30 ${
+                          className={`inline-flex items-center gap-2 px-6 py-3 bg-slate-900 text-white rounded-xl text-[11px] font-black uppercase tracking-[0.1em] hover:bg-primary transition-all duration-300 group/btn ${
                             isRTL ? "flex-row-reverse" : ""
                           }`}
                         >

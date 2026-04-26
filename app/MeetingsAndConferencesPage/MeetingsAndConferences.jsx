@@ -56,11 +56,40 @@ const MeetingsAndConferences = () => {
   }, [page]);
 
   const getEmbedUrl = (url, platform) => {
-    if (platform === "instagram" || url.includes("instagram.com")) {
-      const cleanUrl = url.endsWith("/") ? url : `${url}/`;
-      return `${cleanUrl}embed/`;
+    if (!url) return "";
+
+    // Clean the URL from any potential escaped slashes from the API
+    const normalizedUrl = url.replace(/\\/g, "");
+
+    // 1. YouTube
+    const youtubeRegex =
+      /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i;
+    const youtubeMatch = normalizedUrl.match(youtubeRegex);
+    if (youtubeMatch && youtubeMatch[1]) {
+      return `https://www.youtube.com/embed/${youtubeMatch[1]}`;
     }
-    return url;
+
+    // 2. Instagram
+    if (normalizedUrl.includes("instagram.com")) {
+      const cleanUrl = normalizedUrl.split("?")[0].replace(/\/+$/, "");
+      return `${cleanUrl}/embed/`;
+    }
+
+    // 3. Facebook
+    if (normalizedUrl.includes("facebook.com")) {
+      return `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(normalizedUrl)}&show_text=0&width=560`;
+    }
+
+    // 4. TikTok
+    if (normalizedUrl.includes("tiktok.com")) {
+      // Basic TikTok embed support
+      const tiktokMatch = normalizedUrl.match(/\/video\/(\d+)/);
+      if (tiktokMatch && tiktokMatch[1]) {
+        return `https://www.tiktok.com/embed/v2/${tiktokMatch[1]}`;
+      }
+    }
+
+    return normalizedUrl;
   };
 
   const renderPlatformIcon = (platform) => {
@@ -130,78 +159,83 @@ const MeetingsAndConferences = () => {
                   transition={{ delay: idx * 0.1 }}
                   className="group"
                 >
-                  <div className="bg-white rounded-[40px] p-6 md:p-10 shadow-sm border border-slate-100 hover:shadow-2xl transition-all duration-500 overflow-hidden h-full flex flex-col justify-between">
-                    <div
-                      className={`flex flex-col gap-6 ${isRTL ? "text-right" : "text-left"}`}
-                    >
-                      {/* Header */}
-                      <div className="flex flex-col gap-3">
-                        <div
-                          className={`flex items-center gap-2 text-primary font-bold text-xs uppercase tracking-widest ${isRTL ? "flex-row-reverse" : ""}`}
-                        >
-                          <span className="text-lg">
-                            {renderPlatformIcon(item.platform)}
-                          </span>
-                          <span>{item.platform || "Video"}</span>
-                        </div>
-                        <h2 className="text-xl md:text-2xl font-bold text-slate-900 leading-tight group-hover:text-primary transition-colors line-clamp-2 min-h-12">
-                          {title}
-                        </h2>
-                      </div>
-
-                      {/* Video Embed */}
-                      <div className="relative aspect-video w-full rounded-2xl overflow-hidden bg-slate-900 shadow-inner group-hover:shadow-primary/10 transition-shadow">
-                        {!embedUrl || brokenEmbeds[item.id] ? (
-                          <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 bg-slate-900">
-                            <Image
-                              src="/Home/talaat-logo.png"
-                              alt="Talaat logo"
-                              width={76}
-                              height={76}
-                              className="object-contain mb-4"
-                            />
-                            <p className="text-white/85 font-bold text-sm">
-                              {isRTL
-                                ? "سيظهر الفيديو هنا بعد تحديث الرابط."
-                                : "The video will appear here once the link is updated."}
-                            </p>
-                          </div>
-                        ) : (
-                          <iframe
-                            src={embedUrl}
-                            title={title || "Meeting embed"}
-                            className="absolute inset-0 w-full h-full"
-                            frameBorder="0"
-                            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                            referrerPolicy="strict-origin-when-cross-origin"
-                            onError={() =>
-                              setBrokenEmbeds((prev) => ({
-                                ...prev,
-                                [item.id]: true,
-                              }))
-                            }
-                          ></iframe>
-                        )}
-                      </div>
-
-                      {/* Footer Actions */}
+                    <div className="bg-white rounded-[40px] p-8 md:p-14 shadow-sm border border-slate-100 hover:shadow-2xl transition-all duration-500 overflow-hidden h-full flex flex-col justify-between">
                       <div
-                        className={`flex items-center mt-2 ${isRTL ? "justify-end" : "justify-start"}`}
+                        className={`flex flex-col gap-8 ${isRTL ? "text-right" : "text-left"}`}
                       >
-                        <a
-                          href={item.video_url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-3 px-6 py-3 bg-slate-900 text-white rounded-xl hover:bg-primary transition-all duration-300 font-bold group/btn text-sm"
+                        {/* Header */}
+                        <div className="flex flex-col gap-4">
+                          <div
+                            className={`flex items-center gap-3 text-primary font-bold text-sm uppercase tracking-widest ${isRTL ? "flex-row-reverse" : ""}`}
+                          >
+                            <span className="text-2xl">
+                              {renderPlatformIcon(item.platform)}
+                            </span>
+                            <span>{item.platform || "Video"}</span>
+                          </div>
+                          <h2 className="text-2xl md:text-3xl font-bold text-slate-900 leading-tight group-hover:text-primary transition-colors line-clamp-2 min-h-16">
+                            {title}
+                          </h2>
+                        </div>
+
+                        {/* Video Embed */}
+                        <div className="relative aspect-video w-full rounded-3xl overflow-hidden bg-slate-900 shadow-inner group-hover:shadow-primary/10 transition-shadow">
+                          {/* Always render Image as background/fallback */}
+                          <Image
+                            src="/Home/talaat-logo.png"
+                            alt="Talaat logo"
+                            fill
+                            className="object-contain p-12 opacity-50"
+                          />
+
+                          {/* Render iframe on top if available */}
+                          {embedUrl && !brokenEmbeds[item.id] && (
+                            <iframe
+                              src={embedUrl}
+                              title={title || "Meeting embed"}
+                              className="absolute inset-0 w-full h-full z-10"
+                              frameBorder="0"
+                              allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                              referrerPolicy="strict-origin-when-cross-origin"
+                              onError={() =>
+                                setBrokenEmbeds((prev) => ({
+                                  ...prev,
+                                  [item.id]: true,
+                                }))
+                              }
+                            ></iframe>
+                          )}
+
+                          {/* Placeholder message if no embed or broken */}
+                          {(!embedUrl || brokenEmbeds[item.id]) && (
+                            <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 bg-slate-900/40 backdrop-blur-sm z-20">
+                              <p className="text-white font-bold text-sm">
+                                {isRTL
+                                  ? "سيظهر الفيديو هنا بعد تحديث الرابط."
+                                  : "The video will appear here once the link is updated."}
+                              </p>
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Footer Actions */}
+                        <div
+                          className={`flex items-center mt-4 ${isRTL ? "justify-end" : "justify-start"}`}
                         >
-                          <span className="text-lg group-hover/btn:scale-110 transition-transform">
-                            {renderPlatformIcon(item.platform)}
-                          </span>
-                          <span>{t("meetings.watchVideo")}</span>
-                        </a>
+                          <a
+                            href={item.video_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-4 px-8 py-4 bg-slate-900 text-white rounded-2xl hover:bg-primary transition-all duration-300 font-bold group/btn text-sm shadow-lg hover:shadow-primary/30"
+                          >
+                            <span className="text-xl group-hover/btn:scale-110 transition-transform">
+                              {renderPlatformIcon(item.platform)}
+                            </span>
+                            <span>{t("meetings.watchVideo")}</span>
+                          </a>
+                        </div>
                       </div>
                     </div>
-                  </div>
                 </motion.div>
               );
             })}
