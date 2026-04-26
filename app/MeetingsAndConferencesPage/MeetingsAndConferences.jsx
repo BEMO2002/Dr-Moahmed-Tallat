@@ -2,7 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
-import { fetchConferences } from "../lib/server-api";
+import { useRouter, usePathname } from "../../i18n/routing";
+import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import {
@@ -15,45 +16,35 @@ import {
 } from "react-icons/fa";
 import ApiEmptyState from "../Components/ApiEmptyState";
 
-const MeetingsAndConferences = () => {
+const MeetingsAndConferences = ({ data }) => {
   const t = useTranslations();
   const locale = useLocale();
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const isRTL = locale === "ar";
 
-  const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [page, setPage] = useState(1);
+  const items = data?.data || [];
   const [brokenEmbeds, setBrokenEmbeds] = useState({});
-  const [pagination, setPagination] = useState({
-    current_page: 1,
-    last_page: 1,
-    total: 0,
-  });
+  const pagination = {
+    current_page: data?.current_page || 1,
+    last_page: data?.last_page || 1,
+    total: data?.total || 0,
+  };
 
-  useEffect(() => {
-    const loadItems = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const data = await fetchConferences({ page });
-        if (data) {
-          setItems(data.data || []);
-          setPagination({
-            current_page: data.current_page,
-            last_page: data.last_page,
-            total: data.total,
-          });
-        }
-      } catch (err) {
-        console.error("Error fetching conferences:", err);
-        setError("meetings.loadError");
-      } finally {
-        setLoading(false);
-      }
-    };
-    loadItems();
-  }, [page]);
+  const handlePageChange = (p) => {
+    if (p < 1 || p > pagination.last_page) return;
+    const currentParams = new URLSearchParams(
+      Array.from(searchParams.entries()),
+    );
+    currentParams.set("page", p.toString());
+
+    router.push(`${pathname}?${currentParams.toString()}`, {
+      scroll: false,
+    });
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   const getEmbedUrl = (url, platform) => {
     if (!url) return "";
@@ -101,31 +92,7 @@ const MeetingsAndConferences = () => {
     return <FaGlobe />;
   };
 
-  if (loading && items.length === 0) {
-    return (
-      <div className="container mx-auto px-4 py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-          {[1, 2, 3, 4].map((i) => (
-            <div
-              key={i}
-              className="bg-white rounded-[40px] p-6 md:p-8 shadow-sm border border-slate-100 animate-pulse"
-            >
-              <div className="h-6 bg-slate-100 w-3/4 mb-6 rounded-full"></div>
-              <div className="aspect-video bg-slate-100 rounded-2xl w-full"></div>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  }
 
-  if (error) {
-    return (
-      <div className="container mx-auto px-4 py-40 text-center">
-        <p className="text-red-500 font-bold text-xl">{t(error)}</p>
-      </div>
-    );
-  }
 
   return (
     <section className="relative py-10 min-h-screen overflow-hidden">
@@ -246,15 +213,10 @@ const MeetingsAndConferences = () => {
         {pagination.last_page > 1 && (
           <div className="mt-20 flex justify-center items-center gap-2 md:gap-4 flex-wrap">
             <button
-              onClick={() => {
-                if (page > 1) {
-                  setPage(page - 1);
-                  window.scrollTo({ top: 0, behavior: "smooth" });
-                }
-              }}
-              disabled={page === 1}
+              onClick={() => handlePageChange(pagination.current_page - 1)}
+              disabled={pagination.current_page === 1}
               className={`px-4 h-12 md:h-14 flex items-center justify-center rounded-2xl font-bold transition-all border border-slate-100 ${
-                page === 1
+                pagination.current_page === 1
                   ? "bg-slate-50 text-slate-400 cursor-not-allowed opacity-70"
                   : "bg-white text-slate-600 hover:border-primary/40 hover:bg-primary hover:text-white"
               }`}
@@ -262,35 +224,60 @@ const MeetingsAndConferences = () => {
               {t("prev") || (isRTL ? "السابق" : "Prev")}
             </button>
 
-            {Array.from({ length: pagination.last_page }, (_, i) => i + 1).map(
-              (p) => (
-                <button
-                  key={p}
-                  onClick={() => {
-                    setPage(p);
-                    window.scrollTo({ top: 0, behavior: "smooth" });
-                  }}
-                  className={`w-12 h-12 md:w-14 md:h-14 flex items-center justify-center rounded-2xl font-black transition-all ${
-                    page === p
-                      ? "bg-primary text-white shadow-xl shadow-primary/30 scale-110"
-                      : "bg-white text-slate-600 border border-slate-100 hover:border-primary/40 hover:bg-slate-50"
-                  }`}
-                >
-                  {p}
-                </button>
-              ),
-            )}
+            {/* Page Numbers with Sliding Window */}
+            {(() => {
+              const current = pagination.current_page;
+              const last = pagination.last_page;
+              const delta = 2;
+              const range = [];
+              const rangeWithDots = [];
+              let l;
+
+              for (let i = 1; i <= last; i++) {
+                if (i === 1 || i === last || (i >= current - delta && i <= current + delta)) {
+                  range.push(i);
+                }
+              }
+
+              for (let i of range) {
+                if (l) {
+                  if (i - l === 2) {
+                    rangeWithDots.push(l + 1);
+                  } else if (i - l !== 1) {
+                    rangeWithDots.push('...');
+                  }
+                }
+                rangeWithDots.push(i);
+                l = i;
+              }
+
+              return rangeWithDots.map((p, index) => (
+                <React.Fragment key={index}>
+                  {p === '...' ? (
+                    <span className="w-10 h-10 flex items-center justify-center text-slate-400 font-bold">
+                      ...
+                    </span>
+                  ) : (
+                    <button
+                      onClick={() => handlePageChange(p)}
+                      className={`w-12 h-12 md:w-14 md:h-14 flex items-center justify-center rounded-2xl font-black transition-all ${
+                        current === p
+                          ? "bg-primary text-white shadow-xl shadow-primary/30 scale-110"
+                          : "bg-white text-slate-600 border border-slate-100 hover:border-primary/40 hover:bg-slate-50"
+                      }`}
+                    >
+                      {p}
+                    </button>
+                  )}
+                </React.Fragment>
+              ));
+            })()}
 
             <button
-              onClick={() => {
-                if (page < pagination.last_page) {
-                  setPage(page + 1);
-                  window.scrollTo({ top: 0, behavior: "smooth" });
-                }
-              }}
-              disabled={page === pagination.last_page}
+              onClick={() => handlePageChange(pagination.current_page + 1)}
+              disabled={pagination.current_page === pagination.last_page}
               className={`px-4 h-12 md:h-14 flex items-center justify-center rounded-2xl font-bold transition-all border border-slate-100 ${
-                page === pagination.last_page
+                pagination.current_page === pagination.last_page
                   ? "bg-slate-50 text-slate-400 cursor-not-allowed opacity-70"
                   : "bg-white text-slate-600 hover:border-primary/40 hover:bg-primary hover:text-white"
               }`}

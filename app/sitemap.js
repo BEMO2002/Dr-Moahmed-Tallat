@@ -83,7 +83,8 @@ export default async function sitemap() {
           });
 
           // Fetch articles for this type
-          const articles = await fetchArticlesList(typeSlug);
+          const res = await fetchArticlesList(typeSlug);
+          const articles = res?.data || [];
           if (Array.isArray(articles)) {
             articles.forEach((article) => {
               const articleSlug =

@@ -12,7 +12,8 @@ import {
 } from "react-icons/fa";
 import { useTranslations, useLocale } from "next-intl";
 import Image from "next/image";
-import { useRouter } from "@/i18n/routing";
+import { Link, useRouter, usePathname } from "@/i18n/routing";
+import { useSearchParams } from "next/navigation";
 import ApiEmptyState from "../Components/ApiEmptyState";
 
 // Import Swiper styles
@@ -30,6 +31,8 @@ const Galleries = ({ data, initialPage = 1 }) => {
   const locale = useLocale();
   const isRTL = locale === "ar";
   const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const [brokenImages, setBrokenImages] = useState({});
 
   // API structure: data -> { code, status, message, data: { current_page, last_page, data: [...] } }
@@ -55,7 +58,15 @@ const Galleries = ({ data, initialPage = 1 }) => {
 
   const handlePageChange = (page) => {
     if (page < 1 || page > pagination.last_page) return;
-    router.push(`/galleries?page=${page}`, { scroll: false });
+    const currentParams = new URLSearchParams(
+      Array.from(searchParams.entries()),
+    );
+    currentParams.set("page", page.toString());
+
+    router.push(`${pathname}?${currentParams.toString()}`, {
+      scroll: false,
+    });
+
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -194,21 +205,54 @@ const Galleries = ({ data, initialPage = 1 }) => {
               {t("prev") || (isRTL ? "السابق" : "Prev")}
             </button>
 
-            {Array.from({ length: pagination.last_page }, (_, i) => i + 1).map(
-              (p) => (
-                <button
-                  key={p}
-                  onClick={() => handlePageChange(p)}
-                  className={`w-12 h-12 rounded-2xl flex items-center justify-center font-bold transition-all ${
-                    p === pagination.current_page
-                      ? "bg-primary text-white shadow-lg shadow-primary/30"
-                      : "bg-white text-baseTwo hover:bg-slate-50 border border-slate-100"
-                  }`}
-                >
-                  {p}
-                </button>
-              ),
-            )}
+            {/* Page Numbers with Sliding Window */}
+            {(() => {
+              const current = pagination.current_page;
+              const last = pagination.last_page;
+              const delta = 2;
+              const range = [];
+              const rangeWithDots = [];
+              let l;
+
+              for (let i = 1; i <= last; i++) {
+                if (i === 1 || i === last || (i >= current - delta && i <= current + delta)) {
+                  range.push(i);
+                }
+              }
+
+              for (let i of range) {
+                if (l) {
+                  if (i - l === 2) {
+                    rangeWithDots.push(l + 1);
+                  } else if (i - l !== 1) {
+                    rangeWithDots.push('...');
+                  }
+                }
+                rangeWithDots.push(i);
+                l = i;
+              }
+
+              return rangeWithDots.map((p, index) => (
+                <React.Fragment key={index}>
+                  {p === '...' ? (
+                    <span className="w-10 h-10 flex items-center justify-center text-slate-400 font-bold">
+                      ...
+                    </span>
+                  ) : (
+                    <button
+                      onClick={() => handlePageChange(p)}
+                      className={`w-12 h-12 flex items-center justify-center rounded-2xl font-bold transition-all ${
+                        p === current
+                          ? "bg-primary text-white shadow-lg shadow-primary/30"
+                          : "bg-white text-baseTwo hover:bg-slate-50 border border-slate-100"
+                      }`}
+                    >
+                      {p}
+                    </button>
+                  )}
+                </React.Fragment>
+              ));
+            })()}
             <button
               onClick={() => handlePageChange(pagination.current_page + 1)}
               disabled={pagination.current_page === pagination.last_page}

@@ -271,10 +271,10 @@ export async function fetchArticlesList(typeSlug, params = {}) {
       return [];
     }
     const json = await res.json();
-    return json?.data?.data || [];
+    return json?.data || null;
   } catch (err) {
     console.error("fetchArticlesList Error:", err);
-    return [];
+    return null;
   }
 }
 

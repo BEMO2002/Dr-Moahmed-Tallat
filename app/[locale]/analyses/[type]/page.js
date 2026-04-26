@@ -54,8 +54,11 @@ export async function generateMetadata({ params }) {
   };
 }
 
-const AnalysesListPage = async ({ params }) => {
-  const { locale, type } = await params;
+const AnalysesListPage = async (props) => {
+  const params = await props.params;
+  const searchParams = await props.searchParams;
+  const { locale, type } = params;
+  const { page } = searchParams;
   const t = await getTranslations({ locale });
   const isRTL = locale === "ar";
   
@@ -67,11 +70,19 @@ const AnalysesListPage = async ({ params }) => {
   const fallbackName = decodedType ? decodedType.replace(/-/g, " ") : t("analyses.title");
   const typeName = currentType ? (currentType.name?.[locale] || currentType.name?.["en"]) : fallbackName;
 
-  const articles = await fetchArticlesList(currentType?.slug?.[locale] || currentType?.slug?.["en"] || decodedType);
+  const articlesData = await fetchArticlesList(
+    currentType?.slug?.[locale] || currentType?.slug?.["en"] || decodedType,
+    { page: page || 1 }
+  );
+
+  const articles = articlesData?.data || [];
+  const pagination = articlesData || null;
 
   const translations = {
     noItems: t("analyses.noItems"),
-    readMore: t("analyses.readMore")
+    readMore: t("analyses.readMore"),
+    prev: t("pagination.prev"),
+    next: t("pagination.next"),
   };
 
   return (
@@ -84,6 +95,7 @@ const AnalysesListPage = async ({ params }) => {
       />
       <Analyses 
         articles={articles} 
+        pagination={pagination}
         translations={translations} 
         locale={locale} 
         isRTL={isRTL} 

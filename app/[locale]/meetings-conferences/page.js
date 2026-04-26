@@ -1,5 +1,5 @@
 import React from "react";
-import { fetchSettings } from "../../lib/server-api";
+import { fetchSettings, fetchConferences } from "../../lib/server-api";
 import { getTranslations } from "next-intl/server";
 import MeetingsAndConferencesHeader from "../../MeetingsAndConferencesPage/MeetingsAndConferencesHeader";
 import MeetingsAndConferences from "../../MeetingsAndConferencesPage/MeetingsAndConferences";
@@ -36,11 +36,16 @@ export async function generateMetadata({ params }) {
   };
 }
 
-const MeetingsAndConferencesPage = () => {
+const MeetingsAndConferencesPage = async (props) => {
+  const searchParams = await props.searchParams;
+  const { page = 1 } = searchParams;
+  
+  const meetingsData = await fetchConferences({ page });
+
   return (
     <div className="meetings-page-container mt-20">
       <MeetingsAndConferencesHeader />
-      <MeetingsAndConferences />
+      <MeetingsAndConferences data={meetingsData} />
     </div>
   );
 };

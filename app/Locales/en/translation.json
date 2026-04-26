@@ -377,7 +377,7 @@
     "copy": "Copy Text",
     "share": "Share",
     "seo_description": "Browse the most prominent media citations and aphorisms by Dr. Mohamed Talaat in the fields of geopolitics and international politics.",
-    "prev": "Previos",
+    "prev": "Previous",
     "next": "Next"
   },
   "meetings": {
@@ -387,7 +387,7 @@
     "noItems": "No interviews or conferences at the moment",
     "watchVideo": "Watch Video",
     "seo_description": "Browse the most prominent television interviews and international conferences of Dr. Mohamed Talaat in the fields of Geopolitics and International Politics.",
-    "prev": "Previos",
+    "prev": "Previous",
     "next": "Next"
   },
   "analyses": {
@@ -421,7 +421,7 @@
     "noItems": "No podcasts available at the moment",
     "watchVideo": "Watch Now",
     "seo_description": "Listen and watch the latest analytical podcast episodes by Dr. Mohamed Talaat on global politics and artificial intelligence.",
-    "prev": "Previos",
+    "prev": "Previous",
     "next": "Next"
   },
   "galleries": {
@@ -485,5 +485,9 @@
         "answer": "Users can contact the platform through the official communication channels listed on the website, with inquiries handled in a structured and professional manner."
       }
     ]
+  },
+  "pagination": {
+    "prev": "Previous",
+    "next": "Next"
   }
 }

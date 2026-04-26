@@ -1,5 +1,5 @@
 import React from "react";
-import { fetchSettings } from "../../lib/server-api";
+import { fetchSettings, fetchTestimonials } from "../../lib/server-api";
 import { getTranslations } from "next-intl/server";
 import QuotationsHeader from "../../QuotationsPage/QuotationsHeader";
 import Quotations from "../../QuotationsPage/Quotations";
@@ -36,11 +36,16 @@ export async function generateMetadata({ params }) {
   };
 }
 
-const QuotationsPage = () => {
+const QuotationsPage = async (props) => {
+  const searchParams = await props.searchParams;
+  const { page = 1 } = searchParams;
+  
+  const quotationsData = await fetchTestimonials({ page });
+
   return (
     <div className="quotations-page-container mt-20">
       <QuotationsHeader />
-      <Quotations />
+      <Quotations data={quotationsData} />
     </div>
   );
 };

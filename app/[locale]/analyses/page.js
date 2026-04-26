@@ -39,7 +39,7 @@ const AnalysesAllPage = async (props) => {
   const searchParams = await props.searchParams;
 
   const { locale } = params;
-  const { is_featured, is_old } = searchParams;
+  const { is_featured, is_old, page } = searchParams;
 
   const t = await getTranslations({ locale });
   const isRTL = locale === "ar";
@@ -47,11 +47,20 @@ const AnalysesAllPage = async (props) => {
   const title = t("navbar.allAnalyses");
 
   // Fetch all articles (passing null/undefined for typeSlug parameter)
-  const articles = await fetchArticlesList(null, { is_featured, is_old });
+  const articlesData = await fetchArticlesList(null, { 
+    is_featured, 
+    is_old,
+    page: page || 1 
+  });
+
+  const articles = articlesData?.data || [];
+  const pagination = articlesData || null;
 
   const translations = {
     noItems: t("analyses.noItems"),
     readMore: t("analyses.readMore"),
+    prev: t("pagination.prev"),
+    next: t("pagination.next"),
   };
 
   return (
@@ -67,6 +76,7 @@ const AnalysesAllPage = async (props) => {
       </div>
       <Analyses
         articles={articles}
+        pagination={pagination}
         translations={translations}
         locale={locale}
         isRTL={isRTL}

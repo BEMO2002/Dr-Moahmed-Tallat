@@ -2,6 +2,8 @@
 
 import React from "react";
 import { useTranslations, useLocale } from "next-intl";
+import { Link, useRouter, usePathname } from "../../i18n/routing";
+import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { FaInstagram, FaYoutube, FaFacebookF, FaPlay } from "react-icons/fa";
@@ -50,6 +52,9 @@ const PaginationSkeleton = () => {
 const Podcasts = ({ data, initialPage = 1, isLoading = false }) => {
   const t = useTranslations("podcasts");
   const locale = useLocale();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
   const isRTL = locale === "ar";
   const [brokenImages, setBrokenImages] = React.useState({});
   const [brokenEmbeds, setBrokenEmbeds] = React.useState({});
@@ -128,9 +133,16 @@ const Podcasts = ({ data, initialPage = 1, isLoading = false }) => {
 
   const handlePageChange = (page) => {
     if (page < 1 || page > pagination.last_page) return;
-    const url = new URL(window.location.href);
-    url.searchParams.set("page", page);
-    window.location.href = url.toString();
+    const currentParams = new URLSearchParams(
+      Array.from(searchParams.entries()),
+    );
+    currentParams.set("page", page.toString());
+
+    router.push(`${pathname}?${currentParams.toString()}`, {
+      scroll: false,
+    });
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -377,22 +389,54 @@ const Podcasts = ({ data, initialPage = 1, isLoading = false }) => {
                   {t("prev") || (isRTL ? "السابق" : "Prev")}
                 </button>
 
-                {Array.from(
-                  { length: pagination.last_page },
-                  (_, i) => i + 1,
-                ).map((p) => (
-                  <button
-                    key={p}
-                    onClick={() => handlePageChange(p)}
-                    className={`w-12 h-12 md:w-14 md:h-14 flex items-center justify-center rounded-2xl font-black transition-all ${
-                      pagination.current_page === p
-                        ? "bg-primary text-white shadow-xl shadow-primary/30 scale-110"
-                        : "bg-white text-slate-600 border border-slate-100 hover:border-primary/40 hover:bg-slate-50"
-                    }`}
-                  >
-                    {p}
-                  </button>
-                ))}
+                {/* Page Numbers with Sliding Window */}
+                {(() => {
+                  const current = pagination.current_page;
+                  const last = pagination.last_page;
+                  const delta = 2;
+                  const range = [];
+                  const rangeWithDots = [];
+                  let l;
+
+                  for (let i = 1; i <= last; i++) {
+                    if (i === 1 || i === last || (i >= current - delta && i <= current + delta)) {
+                      range.push(i);
+                    }
+                  }
+
+                  for (let i of range) {
+                    if (l) {
+                      if (i - l === 2) {
+                        rangeWithDots.push(l + 1);
+                      } else if (i - l !== 1) {
+                        rangeWithDots.push('...');
+                      }
+                    }
+                    rangeWithDots.push(i);
+                    l = i;
+                  }
+
+                  return rangeWithDots.map((p, index) => (
+                    <React.Fragment key={index}>
+                      {p === '...' ? (
+                        <span className="w-10 h-10 flex items-center justify-center text-slate-400 font-bold">
+                          ...
+                        </span>
+                      ) : (
+                        <button
+                          onClick={() => handlePageChange(p)}
+                          className={`w-12 h-12 md:w-14 md:h-14 flex items-center justify-center rounded-2xl font-black transition-all ${
+                            current === p
+                              ? "bg-primary text-white shadow-xl shadow-primary/30 scale-110"
+                              : "bg-white text-slate-600 border border-slate-100 hover:border-primary/40 hover:bg-slate-50"
+                          }`}
+                        >
+                          {p}
+                        </button>
+                      )}
+                    </React.Fragment>
+                  ));
+                })()}
 
                 <button
                   onClick={() => handlePageChange(pagination.current_page + 1)}

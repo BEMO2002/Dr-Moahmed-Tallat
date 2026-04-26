@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useVault } from "../Context/VaultContext";
-import { useRouter } from "../../i18n/routing";
+import { useRouter, usePathname } from "../../i18n/routing";
 import { useSearchParams } from "next/navigation";
 import { useTranslations, useLocale } from "next-intl";
 import { FaFilePdf, FaDownload, FaLock, FaShieldAlt } from "react-icons/fa";
@@ -55,6 +55,7 @@ const ResearchArchive = () => {
   const [previewUrl, setPreviewUrl] = useState(null);
   const router = useRouter();
   const searchParams = useSearchParams();
+  const pathname = usePathname();
   const t = useTranslations("navbar");
   const locale = useLocale();
   const isRTL = locale === "ar";
@@ -72,8 +73,7 @@ const ResearchArchive = () => {
     );
     currentParams.set("page", page.toString());
 
-    const currentPath = window.location.pathname;
-    router.push(`${currentPath}?${currentParams.toString()}`, {
+    router.push(`${pathname}?${currentParams.toString()}`, {
       scroll: false,
     });
 
@@ -274,22 +274,54 @@ const ResearchArchive = () => {
                     {t("prev") || (isRTL ? "السابق" : "Prev")}
                   </button>
 
-                  {Array.from(
-                    { length: pagination.last_page },
-                    (_, i) => i + 1,
-                  ).map((p) => (
-                    <button
-                      key={p}
-                      onClick={() => handlePageChange(p)}
-                      className={`w-12 h-12 md:w-14 md:h-14 flex items-center justify-center rounded-2xl font-black transition-all ${
-                        pagination.current_page === p
-                          ? "bg-primary text-white shadow-xl shadow-primary/30 scale-110"
-                          : "bg-white text-slate-600 border border-slate-100 hover:border-primary/40 hover:bg-slate-50"
-                      }`}
-                    >
-                      {p}
-                    </button>
-                  ))}
+                  {/* Page Numbers with Sliding Window */}
+                  {(() => {
+                    const current = pagination.current_page;
+                    const last = pagination.last_page;
+                    const delta = 2;
+                    const range = [];
+                    const rangeWithDots = [];
+                    let l;
+
+                    for (let i = 1; i <= last; i++) {
+                      if (i === 1 || i === last || (i >= current - delta && i <= current + delta)) {
+                        range.push(i);
+                      }
+                    }
+
+                    for (let i of range) {
+                      if (l) {
+                        if (i - l === 2) {
+                          rangeWithDots.push(l + 1);
+                        } else if (i - l !== 1) {
+                          rangeWithDots.push('...');
+                        }
+                      }
+                      rangeWithDots.push(i);
+                      l = i;
+                    }
+
+                    return rangeWithDots.map((p, index) => (
+                      <React.Fragment key={index}>
+                        {p === '...' ? (
+                          <span className="w-10 h-10 flex items-center justify-center text-slate-400 font-bold">
+                            ...
+                          </span>
+                        ) : (
+                          <button
+                            onClick={() => handlePageChange(p)}
+                            className={`w-12 h-12 md:w-14 md:h-14 flex items-center justify-center rounded-2xl font-black transition-all ${
+                              current === p
+                                ? "bg-primary text-white shadow-xl shadow-primary/30 scale-110"
+                                : "bg-white text-slate-600 border border-slate-100 hover:border-primary/40 hover:bg-slate-50"
+                            }`}
+                          >
+                            {p}
+                          </button>
+                        )}
+                      </React.Fragment>
+                    ));
+                  })()}
 
                   <button
                     onClick={() =>
