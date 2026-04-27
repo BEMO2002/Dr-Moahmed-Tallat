@@ -44,7 +44,7 @@ const AnalysesFeature = ({ articles, translations }) => {
 
         {/* Articles Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {articles.map((article) => {
+          {articles.slice(0, 6).map((article) => {
             const title = article.title?.[locale] || article.title?.["en"];
             const subtitle =
               article.subtitle?.[locale] || article.subtitle?.["en"];
