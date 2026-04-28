@@ -1,7 +1,7 @@
 export default function manifest() {
   return {
     name: 'Dr. Mohamed Talaat',
-    short_name: 'Dr. Talaat',
+    short_name: 'Mohamed Talaat',
     description: 'Dr. Mohamed Talaat Portfolio and Strategic Analyses',
     start_url: '/',
     display: 'standalone',
