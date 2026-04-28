@@ -59,7 +59,7 @@ const LanguageDropdown = ({
       onMouseLeave={() => setIsLangDropdownOpen(false)}
     >
       <button
-        className={`${className} flex items-center gap-2 bg-gray-50 hover:bg-white hover:shadow-md transition-all duration-300 border border-gray-200 rounded-full px-3 py-2 w-full `}
+        className={`${className} hidden md:flex items-center gap-2 bg-gray-50 hover:bg-white hover:shadow-md transition-all duration-300 border border-gray-200 rounded-full px-3 py-2 w-full `}
       >
         <div className="flex items-center gap-2">
           {locale === "en" ? (
@@ -168,12 +168,18 @@ const Navbar = () => {
           label: t("navbar.sovereign_identity"),
           to: "/sovereign-manifesto",
           children: [
-            { to: "/founding-manifesto", label: t("navbar.founding_manifesto") },
+            {
+              to: "/founding-manifesto",
+              label: t("navbar.founding_manifesto"),
+            },
             {
               to: "/philosophical-statement",
               label: t("navbar.philosophical_statement"),
             },
-            { to: "/political-manifesto", label: t("navbar.strategic_welcome") },
+            {
+              to: "/political-manifesto",
+              label: t("navbar.strategic_welcome"),
+            },
           ],
         },
         {
@@ -181,7 +187,10 @@ const Navbar = () => {
           to: "/political-mandate",
           children: [
             { to: "/political-mandate", label: t("navbar.political_mandate") },
-            { to: "/operational-paradigm", label: t("navbar.operational_paradigm") },
+            {
+              to: "/operational-paradigm",
+              label: t("navbar.operational_paradigm"),
+            },
             {
               to: "/axiologicalandstrategic-objectives",
               label: t("navbar.ethical_imperatives"),

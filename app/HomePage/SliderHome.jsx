@@ -118,19 +118,21 @@ const SliderHome = ({ initialSliders = [] }) => {
                 <div
                   className={`flex-1 w-full z-30 transition-opacity duration-500 ${activeSlideIndex === index ? "opacity-100" : "opacity-0"} ${isRTL ? "text-right" : "text-left"}`}
                 >
-                  <div className="inline-flex items-center gap-2 px-5 py-2 bg-white/60 backdrop-blur-sm shadow-sm border border-primary/5 rounded-full text-primary text-[20px] font-bold tracking-widest uppercase mb-8">
-                    <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-                    {isRTL
-                      ? "المحلل الذي يقرأ ما وراء الحدث"
-                      : "The Analyst Who Reads Behind The Event"}
+                  <div className="inline-flex  gap-2 px-4 py-1.5 md:px-5 md:py-2 bg-white/60 backdrop-blur-sm shadow-sm border border-primary/5 rounded-full text-primary text-md sm:text-[18px] md:text-[15px] font-bold tracking-wider md:tracking-widest  mb-6 md:mb-8 w-fit">
+                    <span className="w-1.5 h-1.5 md:w-2 md:h-2 bg-primary rounded-full animate-pulse flex-shrink-0" />
+                    <span>
+                      {isRTL
+                        ? "المحلل الذي يقرأ ما وراء الحدث"
+                        : "The Analyst Who Reads Behind The Event"}
+                    </span>
                   </div>
 
                   <h1 className="text-1xl sm:text-2xl lg:text-[30px] font-black text-baseTwo mb-6 md:mb-8 leading-[1.2] lg:leading-[1.1] tracking-tight">
                     {slider.title?.[locale]}
                   </h1>
 
-                  <div className="mb-8">
-                    <span className="text-xl sm:text-2xl lg:text-[35px] whitespace-nowrap font-black text-baseTwo mb-6 md:mb-8 leading-[1.2] lg:leading-[1.1] tracking-tight">
+                  <div className="mb-8  lg:max-w-full">
+                    <span className="text-xl sm:text-2xl lg:text-[35px] font-black text-baseTwo mb-6 md:mb-8 leading-[1.4] lg:leading-[1.2] tracking-tight block">
                       {isRTL
                         ? "هندسةُ المبادأةِ والردعِ الجيوسياسيِّ"
                         : "Engineering Initiative and Geopolitical Deterrence"}
