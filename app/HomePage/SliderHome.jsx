@@ -118,7 +118,7 @@ const SliderHome = ({ initialSliders = [] }) => {
                 <div
                   className={`flex-1 w-full z-30 transition-opacity duration-500 ${activeSlideIndex === index ? "opacity-100" : "opacity-0"} ${isRTL ? "text-right" : "text-left"}`}
                 >
-                  <div className="inline-flex  gap-2 px-4 py-1.5 md:px-5 md:py-2 bg-white/60 backdrop-blur-sm shadow-sm border border-primary/5 rounded-full text-primary text-md sm:text-[18px] md:text-[15px] font-bold tracking-wider md:tracking-widest  mb-6 md:mb-8 w-fit">
+                  <div className="inline-flex  gap-2 px-4 py-1.5 md:px-5 md:py-2 bg-white/60 backdrop-blur-sm shadow-sm border border-primary/5 rounded-full text-primary text-md sm:text-[16px] md:text-[15px] font-bold tracking-wider md:tracking-widest  mb-6 md:mb-8 w-fit">
                     <span className="w-1.5 h-1.5 md:w-2 md:h-2 bg-primary rounded-full animate-pulse flex-shrink-0" />
                     <span>
                       {isRTL
