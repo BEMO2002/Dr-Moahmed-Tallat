@@ -2,7 +2,7 @@ import { fetchSettings } from "../../lib/server-api";
 import { getTranslations } from "next-intl/server";
 import HeadContact from "../../ContactPage/HeadContact";
 import ContactForm from "../../ContactPage/ContactForm";
-
+import Map from "../../ContactPage/Map";
 export async function generateMetadata({ params }) {
   const { locale } = await params;
   const t = await getTranslations({ locale });
@@ -34,6 +34,7 @@ export default function ContactPage() {
     <div className="contact-page-container">
       <HeadContact />
       <ContactForm />
+      <Map />
     </div>
   );
 }

@@ -126,38 +126,38 @@ const SpecialServices = () => {
             {services.map((service) => {
               const Icon = service.icon;
               return (
-                <SwiperSlide key={service.id} className="h-auto">
-                  <div className="group relative bg-white border border-slate-200 rounded-[32px] p-10 h-full transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] flex flex-col">
+                <SwiperSlide key={service.id} className="!h-auto">
+                  <div className="group relative bg-white border border-slate-200 rounded-[32px] p-6 sm:p-8 lg:p-10 h-full transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] flex flex-col overflow-hidden">
                     {/* Number Watermark */}
                     <span
-                      className={`absolute top-10 ${isRTL ? "left-10" : "right-10"} text-6xl font-black text-slate-200/90 group-hover:text-primary/5 transition-colors duration-500 select-none`}
+                      className={`absolute top-6 sm:top-10 ${isRTL ? "left-6 sm:left-10" : "right-6 sm:right-10"} text-5xl sm:text-6xl font-black text-slate-200/90 group-hover:text-primary/5 transition-colors duration-500 select-none`}
                     >
                       {service.number}
                     </span>
 
                     {/* Card Glow Effect */}
                     <div
-                      className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[32px]`}
+                      className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[32px] pointer-events-none`}
                     ></div>
 
                     <div className="relative z-10 flex flex-col h-full">
                       {/* Icon Container */}
                       <div
-                        className={`w-20 h-20 bg-white shadow-xl shadow-slate-100 rounded-2xl flex items-center justify-center mb-8 transform transition-transform duration-500 group-hover:rotate-[10deg] group-hover:scale-110`}
+                        className={`w-16 h-16 sm:w-20 sm:h-20 bg-white shadow-xl shadow-slate-100 rounded-2xl flex items-center justify-center mb-6 sm:mb-8 transform transition-transform duration-500 group-hover:rotate-[10deg] group-hover:scale-110 shrink-0`}
                       >
-                        <Icon className={`text-4xl ${service.iconColor}`} />
+                        <Icon className={`text-3xl sm:text-4xl ${service.iconColor}`} />
                       </div>
 
                       {/* Content */}
-                      <h3 className="text-2xl font-bold text-slate-900 mb-6 transition-colors duration-300 group-hover:text-primary">
+                      <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-4 sm:mb-6 transition-colors duration-300 group-hover:text-primary">
                         {service.title}
                       </h3>
-                      <p className="text-slate-500 text-lg leading-relaxed transition-colors duration-300 group-hover:text-slate-600 flex-grow">
+                      <p className="text-slate-500 text-base sm:text-lg leading-relaxed transition-colors duration-300 group-hover:text-slate-600 flex-grow">
                         {service.description}
                       </p>
 
                       {/* Line Decoration */}
-                      <div className="mt-8 w-12 h-1 bg-slate-100 rounded-full group-hover:bg-primary transition-colors duration-500"></div>
+                      <div className="mt-6 sm:mt-8 w-12 h-1 bg-slate-100 rounded-full group-hover:bg-primary transition-colors duration-500 shrink-0"></div>
                     </div>
                   </div>
                 </SwiperSlide>
@@ -168,6 +168,9 @@ const SpecialServices = () => {
       </div>
 
       <style jsx global>{`
+        .swiper-wrapper {
+          align-items: stretch;
+        }
         .swiper-pagination-bullet {
           width: 12px;
           height: 12px;

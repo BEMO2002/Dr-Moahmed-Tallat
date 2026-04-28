@@ -3,16 +3,15 @@ import React, { useState, useContext, useEffect } from "react";
 import {
   FaMapMarkerAlt,
   FaEnvelope,
-  FaPhoneAlt,
   FaPaperPlane,
   FaSpinner,
   FaFacebookF,
   FaInstagram,
-  FaWhatsapp,
   FaHeart,
   FaYoutube,
   FaLinkedinIn,
 } from "react-icons/fa";
+import { IoLogoWhatsapp } from "react-icons/io";
 import { FaXTwitter } from "react-icons/fa6";
 import { useTranslations, useLocale } from "next-intl";
 import toast from "react-hot-toast";
@@ -332,7 +331,7 @@ const Footer = () => {
                       className="w-10 h-10 rounded-xl bg-white border border-black/5 flex items-center justify-center text-primary shadow-sm hover:bg-primary hover:text-white hover:-translate-y-1 transition-all duration-300 group"
                       aria-label="WhatsApp"
                     >
-                      <FaWhatsapp className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
+                      <IoLogoWhatsapp className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
                     </a>
                   )}
                 </div>
@@ -426,30 +425,11 @@ const Footer = () => {
                   }`}
                 >
                   <span className="text-md flex items-center gap-1 text-black leading-relaxed max-w-xs">
-                    <FaMapMarkerAlt className="mt-1 text-primary flex-shrink-0 w-4 h-4" />
+                    <FaMapMarkerAlt className="mt-1 text-primary flex-shrink-0 w-5 h-5" />
                     {currentAddress}
                   </span>
                 </li>
-                <li
-                  className={`flex items-center gap-3 justify-center ${
-                    isRTL
-                      ? "lg:justify-end flex-row-reverse"
-                      : "lg:justify-start "
-                  }`}
-                >
-                  <div className="flex flex-col gap-2">
-                    {emailList.map((email, idx) => (
-                      <a
-                        key={idx}
-                        href={`mailto:${email}`}
-                        className="text-md flex items-center gap-1 text-black hover:text-primary transition-colors duration-200"
-                      >
-                        <FaEnvelope className="text-primary flex-shrink-0 w-4 h-4" />
-                        {email}
-                      </a>
-                    ))}
-                  </div>
-                </li>
+
                 <li
                   className={`flex items-center gap-3 justify-center ${
                     isRTL
@@ -458,12 +438,42 @@ const Footer = () => {
                   }`}
                 >
                   <a
-                    href={`tel:${currentPhone}`}
-                    className="text-md flex items-center gap-1 text-black hover:text-primary transition-colors duration-200"
+                    href={`https://wa.me/${currentPhone.replace(/\D/g, "")}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-md flex items-center gap-2 text-black hover:text-primary transition-colors duration-200"
                   >
-                    <FaPhoneAlt className="text-primary flex-shrink-0 w-4 h-4" />
-                    {currentPhone}
+                    <IoLogoWhatsapp className="text-primary flex-shrink-0 w-5 h-5" />
+                    <span 
+                      dir="ltr" 
+                      className="inline-block font-sans tracking-wide"
+                      style={{ direction: 'ltr', unicodeBidi: 'isolate' }}
+                    >
+                      +{currentPhone.replace(/\D/g, "").replace(/^(973)(\d{4})(\d{4})$/, "$1 $2 $3")}
+                    </span>
                   </a>
+                </li>
+                <li
+                  className={`flex justify-center ${
+                    isRTL ? "lg:justify-start" : "lg:justify-start"
+                  }`}
+                >
+                  <div className={`flex flex-col gap-2 ${isRTL ? "items-center lg:items-start" : "items-center lg:items-start"}`}>
+                    {emailList.map((email, idx) => (
+                      <a
+                        key={idx}
+                        href={`mailto:${email}`}
+                        onClick={() => {
+                          navigator.clipboard.writeText(email);
+                          toast.success(isRTL ? "تم نسخ الإيميل بنجاح!" : "Email copied!");
+                        }}
+                        className="text-sm font-medium flex items-center gap-2 text-black/80 bg-gray-100 hover:bg-primary/10 border border-black/5 hover:border-primary/20 hover:text-primary transition-all duration-300 py-1.5 px-3 rounded-xl w-fit"
+                      >
+                        <FaEnvelope className="text-primary flex-shrink-0 w-4 h-4" />
+                        <span dir="ltr">{email}</span>
+                      </a>
+                    ))}
+                  </div>
                 </li>
               </ul>
             </div>

@@ -34,6 +34,13 @@ export async function generateMetadata({ params }) {
     },
     icons: {
       icon: favicon,
+      apple: favicon,
+    },
+    manifest: '/manifest.webmanifest',
+    appleWebApp: {
+      capable: true,
+      title: siteName,
+      statusBarStyle: 'default',
     },
   };
 }
