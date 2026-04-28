@@ -348,29 +348,51 @@ const AnalysesDetails = ({ article, translations, locale, isRTL }) => {
                             </span>
                           </div>
                         ) : activeTabData.type === "attachments" ? (
-                          <div className="space-y-4">
+                          <div className="space-y-6">
                             {Object.entries(activeTabData.content || {}).map(
                               ([key, url]) =>
                                 url && (
-                                  <a
-                                    key={key}
-                                    href={url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="flex items-center justify-between p-5 bg-white rounded-2xl border border-blue-100 hover:border-primary hover:shadow-xl transition-all group/file"
-                                  >
-                                    <div className="flex items-center gap-4">
-                                      <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center group-hover/file:bg-primary group-hover/file:text-white transition-all">
-                                        <FaFilePdf className="text-primary group-hover/file:text-white" />
+                                  <div key={key} className="flex flex-col gap-4">
+                                    <a
+                                      href={url}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="flex items-center justify-between p-5 bg-white rounded-2xl border border-blue-100 hover:border-primary hover:shadow-xl transition-all group/file"
+                                    >
+                                      <div className="flex items-center gap-4">
+                                        <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center group-hover/file:bg-primary group-hover/file:text-white transition-all">
+                                          <FaFilePdf className="text-primary group-hover/file:text-white" />
+                                        </div>
+                                        <span className="text-sm font-black text-baseTwo uppercase tracking-wide">
+                                          {key.replace(/_/g, " ")}
+                                        </span>
                                       </div>
-                                      <span className="text-sm font-black text-baseTwo uppercase tracking-wide">
-                                        {key.replace(/_/g, " ")}
-                                      </span>
-                                    </div>
-                                    <div className="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 group-hover/file:border-primary group-hover/file:text-primary transition-all">
-                                      <FaDownload size={10} />
-                                    </div>
-                                  </a>
+                                      <div className="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 group-hover/file:border-primary group-hover/file:text-primary transition-all">
+                                        <FaDownload size={10} />
+                                      </div>
+                                    </a>
+                                    
+                                    {/* Preview */}
+                                    {url.match(/\.(jpeg|jpg|gif|png|webp|svg)(\?.*)?$/i) ? (
+                                      <div className="w-full rounded-2xl overflow-hidden border border-blue-100 shadow-sm bg-white">
+                                        <img
+                                          src={url}
+                                          alt={key}
+                                          className="w-full h-auto"
+                                        />
+                                      </div>
+                                    ) : (
+                                      <div className="w-full h-[85vh] min-h-[800px] rounded-2xl overflow-hidden border border-blue-100 bg-white shadow-inner relative">
+                                        <iframe
+                                          src={`${url}#view=FitH`}
+                                          className="w-full h-full border-0"
+                                          title={key}
+                                          allowFullScreen
+                                          loading="lazy"
+                                        />
+                                      </div>
+                                    )}
+                                  </div>
                                 ),
                             )}
                           </div>
