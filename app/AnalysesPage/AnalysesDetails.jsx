@@ -96,7 +96,7 @@ const AnalysesDetails = ({ article, translations, locale, isRTL }) => {
     typeof article.image_url === "string" &&
     article.image_url.trim().length > 0;
   const heroImageSrc =
-    imageBroken || !hasValidImage ? "/Home/talaat-logo.png" : article.image_url;
+    imageBroken || !hasValidImage ? "/Home/stepn.jpg" : article.image_url;
 
   const tabs = [
     {
@@ -210,7 +210,7 @@ const AnalysesDetails = ({ article, translations, locale, isRTL }) => {
 
   return (
     <div className="py-20 min-h-screen bg-slate-50/30">
-      <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
           {/* Right Column: Main Content */}
           <div className="lg:col-span-7 space-y-8">
@@ -222,9 +222,9 @@ const AnalysesDetails = ({ article, translations, locale, isRTL }) => {
                   fill
                   priority
                   className={`group-hover:scale-105 transition-transform duration-1000 ${
-                    heroImageSrc === "/Home/talaat-logo.png"
-                      ? "object-cover"
-                      : "object-cover"
+                    heroImageSrc === "/Home/stepn.jpg"
+                      ? "object-contain"
+                      : "object-contain"
                   }`}
                   onError={() => setImageBroken(true)}
                 />
@@ -254,7 +254,7 @@ const AnalysesDetails = ({ article, translations, locale, isRTL }) => {
 
             {/* AI Chat Support */}
             <div className="border-2 border-primary/20 rounded-[2.5rem] p-1">
-              <div className="bg-white rounded-[2.4rem] p-6 md:p-8">
+              <div className="bg-white rounded-[2.4rem] p-2 md:p-5">
                 <div className="flex items-center gap-4 mb-8">
                   <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center">
                     <HiSparkles className="text-primary text-2xl animate-pulse" />
@@ -375,10 +375,12 @@ const AnalysesDetails = ({ article, translations, locale, isRTL }) => {
                                     {/* Preview */}
                                     {url.match(/\.(jpeg|jpg|gif|png|webp|svg)(\?.*)?$/i) ? (
                                       <div className="w-full rounded-2xl overflow-hidden border border-blue-100 shadow-sm bg-white">
-                                        <img
+                                        <Image
                                           src={url}
                                           alt={key}
                                           className="w-full h-auto"
+                                          width={1000}
+                                          height={1000}
                                         />
                                       </div>
                                     ) : (

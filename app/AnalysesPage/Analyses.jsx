@@ -93,7 +93,7 @@ const Analyses = ({
               article.image_url.trim().length > 0;
             const imageSrc =
               brokenImages[article.id] || !hasValidImage
-                ? "/Home/talaat-logo.png"
+                ? "/Home/stepn.jpg"
                 : article.image_url;
 
             const isFeatured = article.is_featured;
@@ -132,7 +132,7 @@ const Analyses = ({
                     className={`group-hover:scale-110 transition-transform duration-1000 ease-out ${
                       imageSrc === "/Home/talaat-logo.png"
                         ? "object-contain p-6 bg-slate-50"
-                        : "object-cover"
+                        : "object-contain"
                     }`}
                     onError={() =>
                       setBrokenImages((prev) => ({ ...prev, [article.id]: true }))

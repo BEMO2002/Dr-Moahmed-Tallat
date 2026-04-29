@@ -54,7 +54,7 @@ const AnalysesFeature = ({ articles, translations }) => {
               article.image_url.trim().length > 0;
             const imageSrc =
               brokenImages[article.id] || !hasValidImage
-                ? "/Home/talaat-logo.png"
+                ? "/Home/stepn.jpg"
                 : article.image_url;
 
             return (
@@ -63,12 +63,12 @@ const AnalysesFeature = ({ articles, translations }) => {
                 className="group bg-white  border border-primary/50 rounded-[2.5rem] overflow-hidden  hover:border-primary/20 hover:shadow-[0_20px_50px_rgba(197,160,89,0.15)] transition-all duration-700 flex flex-col h-full"
               >
                 {/* Image Wrap */}
-                <div className="relative h-64 overflow-hidden">
+                <div className="relative h-70 overflow-hidden">
                   <Image
                     src={imageSrc}
                     alt={title || "Article Image"}
                     fill
-                    className={`group-hover:scale-110 transition-transform duration-1000 ease-out object-cover ${
+                    className={`group-hover:scale-110 transition-transform duration-1000 ease-out object-contain ${
                       imageSrc === "/Home/talaat-logo.png"
                         ? "p-8 object-contain bg-slate-50"
                         : ""

@@ -87,18 +87,18 @@ const TalatAIChat = ({ articleId, articleTitle, isRTL }) => {
     return (
       <button
         onClick={() => setIsOpen(true)}
-        className="mt-8 w-full group relative overflow-hidden bg-gradient-to-r from-primary/10 to-primary/5 border border-primary/20 rounded-3xl p-1 shadow-sm hover:shadow-lg transition-all duration-300"
+        className="mt-6 w-full group relative overflow-hidden bg-gradient-to-r from-primary/10 to-primary/5 border border-primary/20 rounded-3xl  shadow-sm hover:shadow-lg transition-all duration-300"
       >
-        <div className="bg-white rounded-[1.4rem] px-6 py-4 flex items-center justify-between transition-colors group-hover:bg-slate-50/50">
+        <div className="bg-white rounded-[1.4rem] px-4 py-4 flex items-center justify-between transition-colors group-hover:bg-slate-50/50">
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary group-hover:scale-110 transition-transform duration-500">
+            <div className="w-12 h-12  bg-primary/10 rounded-full flex items-center justify-center text-primary group-hover:scale-110 transition-transform duration-500">
               <HiSparkles size={24} className="animate-pulse" />
             </div>
             <div className={`text-start ${isRTL ? "font-['Cairo']" : ""}`}>
-              <h3 className="text-primary font-black text-lg leading-none mb-1 group-hover:text-baseTwo transition-colors">
+              <h3 className="text-primary font-black text-md md:text-lg leading-none mb-1 group-hover:text-baseTwo transition-colors">
                 {isRTL ? "ابدأ المحادثة مع الذكاء الاصطناعي" : "Start AI Chat"}
               </h3>
-              <p className="text-slate-500 text-sm font-bold truncate max-w-[200px] md:max-w-md">
+              <p className="text-slate-500 mt-1 text-xs md:text-sm font-bold truncate max-w-[200px] md:max-w-md">
                 {isRTL ? "اسأل Talat AI حول هذا المقال" : "Ask Talat AI about this article"}
               </p>
             </div>

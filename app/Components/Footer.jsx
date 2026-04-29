@@ -233,7 +233,7 @@ const Footer = () => {
   };
 
   return (
-    <div className="pt-10">
+    <div className="">
       <footer className="relative  text-black  py-10 pb-6 px-4 md:px-8 overflow-hidden bg-third">
         {/* Content */}
         <div className="relative z-20 max-w-7xl mx-auto">
