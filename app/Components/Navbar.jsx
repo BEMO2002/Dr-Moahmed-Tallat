@@ -346,19 +346,15 @@ const Navbar = () => {
                                     key={i}
                                     className="relative group/subitem w-full"
                                   >
-                                    <Link
-                                      href={item.to}
-                                      onClick={() => {
-                                        if (!hasChildren) setOpenDropdown(null);
-                                      }}
-                                      className={`px-5 py-3 w-full transition-all border-b last:border-0 border-gray-50 flex items-center justify-between ${isRTL ? "text-right" : "text-left"} ${isItemActive ? "text-primary bg-primary/[0.05]" : "text-baseTwo hover:bg-gray-50 hover:text-primary bg-white"} ${hasChildren && "group-hover/subitem:text-primary group-hover/subitem:bg-primary/[0.03]"}`}
-                                    >
-                                      <span
-                                        className={`text-sm pr-2 ${hasChildren || isItemActive ? "font-bold" : "font-semibold"}`}
+                                    {hasChildren ? (
+                                      <div
+                                        className={`px-5 py-3 w-full transition-all border-b last:border-0 border-gray-50 flex items-center justify-between cursor-default ${isRTL ? "text-right" : "text-left"} ${isItemActive ? "text-primary bg-primary/[0.05]" : "text-baseTwo bg-white"} group-hover/subitem:text-primary group-hover/subitem:bg-primary/[0.03]`}
                                       >
-                                        {item.label}
-                                      </span>
-                                      {hasChildren ? (
+                                        <span
+                                          className={`text-sm pr-2 font-bold`}
+                                        >
+                                          {item.label}
+                                        </span>
                                         <div
                                           className={`shrink-0 w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-primary transition-transform duration-300 shadow-sm ${isRTL ? "group-hover/subitem:-translate-x-1" : "group-hover/subitem:translate-x-1"}`}
                                         >
@@ -367,13 +363,26 @@ const Navbar = () => {
                                             className={`${isRTL ? "rotate-90" : "-rotate-90"}`}
                                           />
                                         </div>
-                                      ) : (
+                                      </div>
+                                    ) : (
+                                      <Link
+                                        href={item.to}
+                                        onClick={() => {
+                                          setOpenDropdown(null);
+                                        }}
+                                        className={`px-5 py-3 w-full transition-all border-b last:border-0 border-gray-50 flex items-center justify-between ${isRTL ? "text-right" : "text-left"} ${isItemActive ? "text-primary bg-primary/[0.05]" : "text-baseTwo hover:bg-gray-50 hover:text-primary bg-white"}`}
+                                      >
+                                        <span
+                                          className={`text-sm pr-2 ${isItemActive ? "font-bold" : "font-semibold"}`}
+                                        >
+                                          {item.label}
+                                        </span>
                                         <MdOutlineKeyboardArrowDown
                                           size={16}
                                           className={`opacity-0 group-hover/subitem:opacity-30 transition-all ${isRTL ? "rotate-90" : "-rotate-90"}`}
                                         />
-                                      )}
-                                    </Link>
+                                      </Link>
+                                    )}
 
                                     {hasChildren && (
                                       <div
@@ -605,13 +614,21 @@ const Navbar = () => {
                                   className={`flex flex-col mb-1 transition-all duration-300 ${isSubOpen || isItemActive ? "bg-primary/5 rounded-xl px-2 py-1" : ""}`}
                                 >
                                   <div className="flex items-center justify-between group">
-                                    <Link
-                                      href={item.to}
-                                      onClick={closeMenu}
-                                      className={`py-2 text-base transition-colors flex items-center flex-1 ${isSubOpen || isItemActive ? "font-bold text-primary" : "font-medium text-baseTwo hover:text-primary"}`}
-                                    >
-                                      <span>{item.label}</span>
-                                    </Link>
+                                    {hasChildren ? (
+                                      <div
+                                        className={`py-2 text-base transition-colors flex items-center flex-1 cursor-default ${isSubOpen || isItemActive ? "font-bold text-primary" : "font-medium text-baseTwo"}`}
+                                      >
+                                        <span>{item.label}</span>
+                                      </div>
+                                    ) : (
+                                      <Link
+                                        href={item.to}
+                                        onClick={closeMenu}
+                                        className={`py-2 text-base transition-colors flex items-center flex-1 ${isActive(item.to) ? "font-bold text-primary" : "font-medium text-baseTwo hover:text-primary"}`}
+                                      >
+                                        <span>{item.label}</span>
+                                      </Link>
+                                    )}
                                     {hasChildren && (
                                       <button
                                         onClick={() =>

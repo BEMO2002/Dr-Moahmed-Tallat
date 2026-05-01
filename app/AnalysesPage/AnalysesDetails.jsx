@@ -36,6 +36,7 @@ const AnalysesDetails = ({ article, translations, locale, isRTL }) => {
   const slug = params ? params.slug : null;
   const [imageBroken, setImageBroken] = React.useState(false);
   const [activeTab, setActiveTab] = React.useState(null);
+  const containerRef = React.useRef(null);
 
   useEffect(() => {
     if (!article || !slug) return;
@@ -246,7 +247,7 @@ const AnalysesDetails = ({ article, translations, locale, isRTL }) => {
                 </div>
               </div>
 
-              <div className="p-8 md:p-12 space-y-8">
+              <div ref={containerRef} className="p-8 md:p-12 space-y-8">
                 <h1 className="text-3xl md:text-5xl font-black text-baseTwo leading-[1.2]">
                   {content.title}
                 </h1>
@@ -407,7 +408,22 @@ const AnalysesDetails = ({ article, translations, locale, isRTL }) => {
                   {tabs.map((tab) => (
                     <button
                       key={tab.id}
-                      onClick={() => setActiveTab(tab.id)}
+                      onClick={() => {
+                        setActiveTab(tab.id);
+                        if (containerRef.current) {
+                          const offset = 100; // Adjust for navbar height
+                          const bodyRect = document.body.getBoundingClientRect().top;
+                          const elementRect =
+                            containerRef.current.getBoundingClientRect().top;
+                          const elementPosition = elementRect - bodyRect;
+                          const offsetPosition = elementPosition - offset;
+
+                          window.scrollTo({
+                            top: offsetPosition,
+                            behavior: "smooth",
+                          });
+                        }
+                      }}
                       className={`flex flex-col items-center justify-center p-4 rounded-2xl border transition-all duration-300 gap-3 group ${
                         activeTab === tab.id
                           ? "bg-primary border-primary shadow-lg shadow-primary/20"
