@@ -169,12 +169,12 @@ const Analyses = ({
 
                 {/* Content Section */}
                 <div className="p-8  flex-1 flex flex-col relative z-20 bg-white">
-                  <div className="flex flex-wrap items-center gap-4 mb-6">
+                  {/* <div className="flex flex-wrap items-center gap-4 mb-6">
                     <div className="flex items-center gap-2 text-slate-400 text-xs font-black uppercase tracking-widest bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-100/50">
                       <FaRegCalendarAlt className="text-primary" />
                       <span>{article.created_at}</span>
                     </div>
-                  </div>
+                  </div> */}
 
                   <Link href={`/analyses/article/${articleSlug}`}>
                     <h3 className="text-xl font-black text-baseTwo mb-3 line-clamp-2 leading-tight hover:text-primary transition-colors cursor-pointer group-hover:text-primary decoration-primary/30 underline-offset-8 decoration-2 group-hover:underline">

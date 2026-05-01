@@ -104,10 +104,10 @@ const AnalysesFeature = ({ articles, translations }) => {
 
                 {/* Content */}
                 <div className="p-8 flex flex-col flex-1">
-                  <div className="flex items-center gap-3 text-slate-700 text-[12px] font-black uppercase tracking-widest mb-4">
+                  {/* <div className="flex items-center gap-3 text-slate-700 text-[12px] font-black uppercase tracking-widest mb-4">
                     <FaRegCalendarAlt className="text-primary" size={20} />
                     <span>{article.published_at}</span>
-                  </div>
+                  </div> */}
 
                   <Link href={`/analyses/article/${slug}`}>
                     <h3 className="text-xl font-black text-baseTwo mb-3 line-clamp-2 leading-tight hover:text-primary transition-colors cursor-pointer group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform duration-300">

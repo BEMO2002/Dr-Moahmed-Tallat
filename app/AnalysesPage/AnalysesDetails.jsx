@@ -237,14 +237,14 @@ const AnalysesDetails = ({ article, translations, locale, isRTL }) => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-40" />
 
-                <div
+                {/* <div
                   className={`absolute bottom-8 ${isRTL ? "right-8" : "left-8"} flex items-center gap-3 bg-white/90 backdrop-blur-md px-5 py-2.5 rounded-2xl shadow-xl border border-white/20`}
                 >
                   <FaRegCalendarAlt className="text-primary" />
                   <span className="text-xs font-black text-baseTwo uppercase tracking-widest">
                     {content.publishedAt || article.created_at}
                   </span>
-                </div>
+                </div> */}
               </div>
 
               <div ref={containerRef} className="p-8 md:p-12 space-y-8">
