@@ -100,6 +100,12 @@ const AnalysesDetails = ({ article, translations, locale, isRTL }) => {
 
   const tabs = [
     {
+      id: "article_body",
+      label: isRTL ? "نص المقال" : "Article Body",
+      icon: <HiOutlineDocumentText />,
+      content: content.articleBody,
+    },
+    {
       id: "subtitle",
       label: isRTL ? "العنوان التحليلي" : "Analytical Title",
       icon: <HiOutlineMenuAlt2 />,
@@ -245,10 +251,118 @@ const AnalysesDetails = ({ article, translations, locale, isRTL }) => {
                   {content.title}
                 </h1>
 
-                <div
-                  className="prose prose-lg text-lg max-w-none text-slate-600 leading-[1.8] font-medium whitespace-pre-line"
-                  dangerouslySetInnerHTML={{ __html: content.articleBody }}
-                />
+                {/* Active Tab Content */}
+                {activeTabData && (
+                  <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                    <div className="p-6 md:p-10 rounded-[2.5rem] bg-slate-50/50 border border-slate-100 relative overflow-hidden">
+                      <div className="absolute top-0 right-0 p-12 opacity-[0.03] pointer-events-none scale-150 text-primary">
+                        {activeTabData.icon}
+                      </div>
+
+                      <div className="flex items-center gap-3 mb-8 relative">
+                        <div className="w-2 h-8 bg-primary rounded-full" />
+                        <h4 className="text-2xl font-black text-baseTwo uppercase tracking-tight">
+                          {activeTabData.label}
+                        </h4>
+                      </div>
+
+                      <div className="relative text-slate-700 leading-[1.8] text-lg font-medium">
+                        {activeTabData.id === "article_body" ? (
+                          <div
+                            className="prose prose-lg max-w-none text-slate-600 leading-[1.8] font-medium whitespace-pre-line"
+                            dangerouslySetInnerHTML={{
+                              __html: activeTabData.content,
+                            }}
+                          />
+                        ) : activeTabData.type === "risk" ? (
+                          <div className="flex items-center gap-6 p-6 bg-white rounded-3xl border border-slate-100 shadow-sm">
+                            <div
+                              className="w-16 h-16 rounded-full shadow-lg border-4 border-white"
+                              style={{ backgroundColor: activeTabData.content }}
+                            />
+                            <div className="flex flex-col">
+                              <span className="text-sm font-bold text-slate-400 uppercase tracking-widest">
+                                {isRTL ? "مؤشر الخطورة" : "Risk Index"}
+                              </span>
+                              <span className="font-black text-primary text-2xl uppercase tracking-widest">
+                                {content.analyticalPositioning ||
+                                  (isRTL ? "مؤشر استراتيجي" : "Strategic Index")}
+                              </span>
+                            </div>
+                          </div>
+                        ) : activeTabData.type === "attachments" ? (
+                          <div className="space-y-8">
+                            {Object.entries(activeTabData.content || {}).map(
+                              ([key, url]) =>
+                                url && (
+                                  <div
+                                    key={key}
+                                    className="flex flex-col gap-6"
+                                  >
+                                    <a
+                                      href={url}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="flex items-center justify-between p-6 bg-white rounded-[2rem] border border-slate-100 hover:border-primary hover:shadow-xl transition-all group/file"
+                                    >
+                                      <div className="flex items-center gap-5">
+                                        <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center group-hover/file:bg-primary group-hover/file:text-white transition-all">
+                                          <FaFilePdf className="text-primary group-hover/file:text-white text-xl" />
+                                        </div>
+                                        <div className="flex flex-col">
+                                          <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">
+                                            {isRTL ? "ملف مرفق" : "Attachment"}
+                                          </span>
+                                          <span className="text-base font-black text-baseTwo uppercase tracking-wide">
+                                            {key.replace(/_/g, " ")}
+                                          </span>
+                                        </div>
+                                      </div>
+                                      <div className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 group-hover/file:border-primary group-hover/file:text-primary transition-all">
+                                        <FaDownload size={14} />
+                                      </div>
+                                    </a>
+
+                                    {/* Preview */}
+                                    {url.match(
+                                      /\.(jpeg|jpg|gif|png|webp|svg)(\?.*)?$/i,
+                                    ) ? (
+                                      <div className="w-full rounded-[2rem] overflow-hidden border border-slate-100 shadow-sm bg-white">
+                                        <Image
+                                          src={url}
+                                          alt={key}
+                                          className="w-full h-auto"
+                                          width={1200}
+                                          height={1200}
+                                        />
+                                      </div>
+                                    ) : (
+                                      <div className="w-full h-[70vh] min-h-[600px] rounded-[2rem] overflow-hidden border border-slate-100 bg-white shadow-inner relative">
+                                        <iframe
+                                          src={`${url}#view=FitH`}
+                                          className="w-full h-full border-0"
+                                          title={key}
+                                          allowFullScreen
+                                          loading="lazy"
+                                        />
+                                      </div>
+                                    )}
+                                  </div>
+                                ),
+                            )}
+                          </div>
+                        ) : (
+                          <div
+                            className="whitespace-pre-line leading-relaxed text-lg"
+                            dangerouslySetInnerHTML={{
+                              __html: activeTabData.content,
+                            }}
+                          />
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -320,96 +434,7 @@ const AnalysesDetails = ({ article, translations, locale, isRTL }) => {
                   ))}
                 </div>
 
-                {/* Active Content Box */}
-                {activeTabData && (
-                  <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-                    <div className="p-6 md:p-8 rounded-[2rem] bg-blue-50/40 border border-blue-100 relative overflow-hidden">
-                      <div className="absolute top-0 right-0 p-8 opacity-[0.05] pointer-events-none scale-150 text-primary">
-                        {activeTabData.icon}
-                      </div>
-
-                      <div className="flex items-center gap-3 mb-6 relative">
-                        <div className="w-1.5 h-6 bg-primary rounded-full" />
-                        <h4 className="text-lg font-black text-baseTwo">
-                          {activeTabData.label}
-                        </h4>
-                      </div>
-
-                      <div className="relative text-slate-800 leading-[1.8] text-[16px] font-semibold">
-                        {activeTabData.type === "risk" ? (
-                          <div className="flex items-center gap-4">
-                            <div
-                              className="w-12 h-12 rounded-full shadow-lg border-4 border-white"
-                              style={{ backgroundColor: activeTabData.content }}
-                            />
-                            <span className="font-black text-primary uppercase tracking-widest text-lg">
-                              {content.analyticalPositioning ||
-                                (isRTL ? "مؤشر استراتيجي" : "Strategic Index")}
-                            </span>
-                          </div>
-                        ) : activeTabData.type === "attachments" ? (
-                          <div className="space-y-6">
-                            {Object.entries(activeTabData.content || {}).map(
-                              ([key, url]) =>
-                                url && (
-                                  <div key={key} className="flex flex-col gap-4">
-                                    <a
-                                      href={url}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      className="flex items-center justify-between p-5 bg-white rounded-2xl border border-blue-100 hover:border-primary hover:shadow-xl transition-all group/file"
-                                    >
-                                      <div className="flex items-center gap-4">
-                                        <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center group-hover/file:bg-primary group-hover/file:text-white transition-all">
-                                          <FaFilePdf className="text-primary group-hover/file:text-white" />
-                                        </div>
-                                        <span className="text-sm font-black text-baseTwo uppercase tracking-wide">
-                                          {key.replace(/_/g, " ")}
-                                        </span>
-                                      </div>
-                                      <div className="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 group-hover/file:border-primary group-hover/file:text-primary transition-all">
-                                        <FaDownload size={10} />
-                                      </div>
-                                    </a>
-                                    
-                                    {/* Preview */}
-                                    {url.match(/\.(jpeg|jpg|gif|png|webp|svg)(\?.*)?$/i) ? (
-                                      <div className="w-full rounded-2xl overflow-hidden border border-blue-100 shadow-sm bg-white">
-                                        <Image
-                                          src={url}
-                                          alt={key}
-                                          className="w-full h-auto"
-                                          width={1000}
-                                          height={1000}
-                                        />
-                                      </div>
-                                    ) : (
-                                      <div className="w-full h-[85vh] min-h-[800px] rounded-2xl overflow-hidden border border-blue-100 bg-white shadow-inner relative">
-                                        <iframe
-                                          src={`${url}#view=FitH`}
-                                          className="w-full h-full border-0"
-                                          title={key}
-                                          allowFullScreen
-                                          loading="lazy"
-                                        />
-                                      </div>
-                                    )}
-                                  </div>
-                                ),
-                            )}
-                          </div>
-                        ) : (
-                          <div
-                            className="whitespace-pre-line leading-relaxed"
-                            dangerouslySetInnerHTML={{
-                              __html: activeTabData.content,
-                            }}
-                          />
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                )}
+                {/* Active Content Box moved to Main Column */}
               </div>
             </div>
           </div>

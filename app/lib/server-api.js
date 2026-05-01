@@ -466,4 +466,3 @@ export async function askTalatAI(articleId, message, history = []) {
     throw err;
   }
 }
-
