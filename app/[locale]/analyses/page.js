@@ -18,11 +18,17 @@ export async function generateMetadata({ params }) {
 
   const title = t("navbar.allAnalyses");
 
+  const baseUrl = "https://mohamedtalaat.com";
+
   return {
     title: `${title} | ${siteName}`,
     description: t("navbar.seo_description"),
+    alternates: {
+      canonical: `${baseUrl}/${locale}/analyses`,
+    },
     openGraph: {
       title: title,
+      url: `${baseUrl}/${locale}/analyses`,
       type: "website",
       ...(settings?.logo && { images: [settings.logo] }),
     },

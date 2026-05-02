@@ -18,12 +18,18 @@ export async function generateMetadata({ params }) {
   const title = t("meetings.title");
   const description = t("meetings.seo_description");
 
+  const baseUrl = "https://mohamedtalaat.com";
+
   return {
     title: `${title} - ${siteName}`,
     description: description,
+    alternates: {
+      canonical: `${baseUrl}/${locale}/meetings-conferences`,
+    },
     openGraph: {
       title: title,
       description: description,
+      url: `${baseUrl}/${locale}/meetings-conferences`,
       type: "website",
       ...(settings?.logo && { images: [settings.logo] }),
     },

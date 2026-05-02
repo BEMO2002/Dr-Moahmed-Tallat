@@ -18,12 +18,18 @@ export async function generateMetadata({ params }) {
   const title = t("navbar.researchArchive");
   const description = t("navbar.vault.passwordSubtitle");
 
+  const baseUrl = "https://mohamedtalaat.com";
+
   return {
     title: `${title}`,
     description: description,
+    alternates: {
+      canonical: `${baseUrl}/${locale}/research-archive`,
+    },
     openGraph: {
       title: title,
       description: description,
+      url: `${baseUrl}/${locale}/research-archive`,
       type: "website",
       ...(settings?.logo && { images: [settings.logo] }),
     },
@@ -32,6 +38,10 @@ export async function generateMetadata({ params }) {
       title: title,
       description: description,
       ...(settings?.logo && { images: [settings.logo] }),
+    },
+    robots: {
+      index: false,
+      follow: false,
     },
   };
 }

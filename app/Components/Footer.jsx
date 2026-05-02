@@ -253,7 +253,7 @@ const Footer = () => {
                 {settings?.footer_logo && (
                   <Image
                     src={settings.footer_logo}
-                    alt="Logo"
+                    alt="Dr. Mohamed Talaat Logo"
                     width={200}
                     height={200}
                     className="w-60"
@@ -274,9 +274,11 @@ const Footer = () => {
                       target="_blank"
                       rel="noreferrer"
                       className="w-10 h-10 rounded-xl bg-white border border-black/5 flex items-center justify-center text-primary shadow-sm hover:bg-primary hover:text-white hover:-translate-y-1 transition-all duration-300 group"
-                      aria-label="Facebook"
+                      aria-label="Visit our Facebook page"
+                      title="Facebook"
                     >
                       <FaFacebookF className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
+                      <span className="sr-only">Facebook</span>
                     </a>
                   )}
                   {twitterUrl && (
@@ -285,9 +287,11 @@ const Footer = () => {
                       target="_blank"
                       rel="noreferrer"
                       className="w-10 h-10 rounded-xl bg-white border border-black/5 flex items-center justify-center text-primary shadow-sm hover:bg-primary hover:text-white hover:-translate-y-1 transition-all duration-300 group"
-                      aria-label="X (Twitter)"
+                      aria-label="Visit our X (Twitter) profile"
+                      title="X (Twitter)"
                     >
                       <FaXTwitter className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
+                      <span className="sr-only">X (Twitter)</span>
                     </a>
                   )}
                   {instagramUrl && (
@@ -296,9 +300,11 @@ const Footer = () => {
                       target="_blank"
                       rel="noreferrer"
                       className="w-10 h-10 rounded-xl bg-white border border-black/5 flex items-center justify-center text-primary shadow-sm hover:bg-primary hover:text-white hover:-translate-y-1 transition-all duration-300 group"
-                      aria-label="Instagram"
+                      aria-label="Visit our Instagram profile"
+                      title="Instagram"
                     >
                       <FaInstagram className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
+                      <span className="sr-only">Instagram</span>
                     </a>
                   )}
                   {linkedinUrl && (
@@ -307,9 +313,11 @@ const Footer = () => {
                       target="_blank"
                       rel="noreferrer"
                       className="w-10 h-10 rounded-xl bg-white border border-black/5 flex items-center justify-center text-primary shadow-sm hover:bg-primary hover:text-white hover:-translate-y-1 transition-all duration-300 group"
-                      aria-label="LinkedIn"
+                      aria-label="Visit our LinkedIn profile"
+                      title="LinkedIn"
                     >
                       <FaLinkedinIn className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
+                      <span className="sr-only">LinkedIn</span>
                     </a>
                   )}
                   {youtubeUrl && (
@@ -318,9 +326,11 @@ const Footer = () => {
                       target="_blank"
                       rel="noreferrer"
                       className="w-10 h-10 rounded-xl bg-white border border-black/5 flex items-center justify-center text-primary shadow-sm hover:bg-primary hover:text-white hover:-translate-y-1 transition-all duration-300 group"
-                      aria-label="YouTube"
+                      aria-label="Visit our YouTube channel"
+                      title="YouTube"
                     >
                       <FaYoutube className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
+                      <span className="sr-only">YouTube</span>
                     </a>
                   )}
                   {whatsappUrl && (
@@ -329,9 +339,11 @@ const Footer = () => {
                       target="_blank"
                       rel="noreferrer"
                       className="w-10 h-10 rounded-xl bg-white border border-black/5 flex items-center justify-center text-primary shadow-sm hover:bg-primary hover:text-white hover:-translate-y-1 transition-all duration-300 group"
-                      aria-label="WhatsApp"
+                      aria-label="Contact us on WhatsApp"
+                      title="WhatsApp"
                     >
                       <IoLogoWhatsapp className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
+                      <span className="sr-only">WhatsApp</span>
                     </a>
                   )}
                 </div>
@@ -670,6 +682,7 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[13px] md:text-sm text-black flex items-center gap-2 font-bold group no-print transition-transform hover:scale-105"
+                aria-label="Contact Developer Mohamed Khder on WhatsApp"
                 dir="ltr"
               >
                 <span className="opacity-50 group-hover:opacity-100 transition-opacity">

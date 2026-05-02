@@ -27,6 +27,8 @@ export async function generateMetadata({ params }) {
     }
   } catch (err) {}
 
+  const baseUrl = "https://mohamedtalaat.com";
+
   return {
     title: {
       template: `${siteName} | %s`,
@@ -36,11 +38,32 @@ export async function generateMetadata({ params }) {
       icon: favicon,
       apple: favicon,
     },
-    manifest: '/manifest.webmanifest',
+    manifest: "/manifest.webmanifest",
     appleWebApp: {
       capable: true,
       title: siteName,
-      statusBarStyle: 'default',
+      statusBarStyle: "default",
+    },
+    alternates: {
+      canonical: `${baseUrl}/${locale}`,
+      languages: {
+        ar: `${baseUrl}/ar`,
+        en: `${baseUrl}/en`,
+      },
+    },
+    openGraph: {
+      url: `${baseUrl}/${locale}`,
+      siteName: siteName,
+      locale: locale === "ar" ? "ar_AR" : "en_US",
+      type: "website",
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+      },
     },
   };
 }

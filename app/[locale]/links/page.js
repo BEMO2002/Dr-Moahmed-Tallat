@@ -10,12 +10,18 @@ export async function generateMetadata({ params }) {
   const description =
     settings?.site_description?.en || t("contactForm.description");
 
+  const baseUrl = "https://mohamedtalaat.com";
+
   return {
     title: t("linkTree.title", "Links"),
     description: description,
+    alternates: {
+      canonical: `${baseUrl}/${locale}/links`,
+    },
     openGraph: {
       title: t("linkTree.title", "Links"),
       description: description,
+      url: `${baseUrl}/${locale}/links`,
       type: "website",
       ...(settings?.logo && { images: [settings.logo] }),
     },

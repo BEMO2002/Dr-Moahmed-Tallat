@@ -36,13 +36,19 @@ export async function generateMetadata({ params }) {
     console.error("Failed to fetch global settings for Home Page SEO:", error);
   }
 
+  const baseUrl = "https://mohamedtalaat.com";
+
   return {
     title: `${title} | ${t("home", { fallback: "Home" })}`,
     description: description || "Dr. Mohamed Talaat Home Page",
     keywords: keywords || "",
+    alternates: {
+      canonical: `${baseUrl}/${locale}`,
+    },
     openGraph: {
       title: `${title} | ${t("home", { fallback: "Home" })}`,
       description: description || "Dr. Mohamed Talaat Home Page",
+      url: `${baseUrl}/${locale}`,
       ...(ogImage && { images: [ogImage] }),
       type: "website",
     },

@@ -256,7 +256,7 @@
     "newsletterErrorServer": "Server error. Please try again later.",
     "newsletterErrorTimeout": "Request timeout. Please check your connection.",
     "newsletterErrorNetwork": "Network error. Please check your connection.",
-    "copyright": "© 2025 Prime Creative. All rights reserved.",
+    "copyright": "© 2026 Dr. Mohamed Talaat. All rights reserved.",
     "privacyPolicy": "Privacy Policy",
     "termsOfService": "Terms of Service",
     "sitemap": "Sitemap",
@@ -275,14 +275,14 @@
   "headServices": {
     "title2": "Services",
     "title": "Services",
-    "description": "Explore our comprehensive range of marketing and business solutions designed to scale your brand. From strategy to execution, our expert-led services cover everything you need to grow.",
-    "keywords": "Marketing Services, Brand Strategy, Digital Growth, Content Creation, SEO, Social Media, Business Consulting",
+    "description": "Explore the strategic analysis and psychological deconstruction by Dr. Mohamed Talaat. Deep insights into geopolitics, Mass psychology and international relations.",
+    "keywords": "Strategic Analysis, Political Psychology, Geopolitics, Mohamed Talaat, Media Expert",
     "all": "All"
   },
   "headContact": {
     "title": "Contact us",
-    "description": "Have questions? Contact Dr. Mohamed Talaat today. We're here to help you understand the political landscape.",
-    "keywords": "Contact Mohamed Talaat, Political Support, Business Inquiry, East News Agency"
+    "description": "Have questions? Contact Dr. Mohamed Talaat today for strategic consultancy and political analysis.",
+    "keywords": "Contact Mohamed Talaat, Strategic Consultancy, Political Analysis, East News Agency"
   },
   "partners": {
     "title": "Partners"

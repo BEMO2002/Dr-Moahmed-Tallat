@@ -286,7 +286,7 @@ const Navbar = () => {
                 {settings?.logo && (
                   <Image
                     src={settings?.logo}
-                    alt="Logo"
+                    alt="Dr. Mohamed Talaat Logo"
                     fill
                     priority
                     className="object-contain p-1.5"
@@ -539,7 +539,7 @@ const Navbar = () => {
                       settings?.main_logo ||
                       settings?.main_logo_dark
                     }
-                    alt="Logo"
+                    alt="Dr. Mohamed Talaat Logo"
                     fill
                     className="object-contain"
                   />

@@ -40,18 +40,22 @@ export async function generateMetadata({ params }) {
   const arSlug = article?.slug?.["ar"] || article?.slug?.["en"] || slug;
   const enSlug = article?.slug?.["en"] || article?.slug?.["ar"] || slug;
 
+  const baseUrl = "https://mohamedtalaat.com";
+
   return {
     title: `${title} | ${siteName}`,
     description: description,
     alternates: {
+      canonical: `${baseUrl}/${locale}/analyses/article/${slug}`,
       languages: {
-        "ar": `/ar/analyses/article/${arSlug}`,
-        "en": `/en/analyses/article/${enSlug}`,
-      }
+        ar: `${baseUrl}/ar/analyses/article/${arSlug}`,
+        en: `${baseUrl}/en/analyses/article/${enSlug}`,
+      },
     },
     openGraph: {
       title: title,
       description: description,
+      url: `${baseUrl}/${locale}/analyses/article/${slug}`,
       type: "article",
       ...(image && { images: [image] }),
     },

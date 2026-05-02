@@ -1,12 +1,10 @@
 import {
   fetchArticleTypes,
   fetchArticlesList,
-  fetchPostCategories,
-  fetchPosts,
   fetchPages,
 } from "./lib/server-api";
 
-const baseUrl = "https://mohamedtalat.org";
+const baseUrl = "https://mohamedtalaat.com";
 
 export default async function sitemap() {
   const locales = ["ar", "en"];
@@ -18,7 +16,6 @@ export default async function sitemap() {
     "/about",
     "/contact",
     "/analyses",
-    "/articles-columns",
     "/galleries",
     "/podcasts",
     "/quotations",
@@ -108,50 +105,9 @@ export default async function sitemap() {
     console.error("Sitemap: Failed to fetch analyses", err);
   }
 
-  // 4. Articles & Columns (Categories and Posts)
-  const blogEntries = [];
-  try {
-    const categories = await fetchPostCategories();
-
-    for (const cat of categories) {
-      for (const locale of locales) {
-        const catSlug = cat.slug[locale] || cat.slug["en"] || cat.slug["ar"];
-        if (catSlug) {
-          blogEntries.push({
-            url: `${baseUrl}/${locale}/articles-columns/${catSlug}`,
-            lastModified,
-            changeFrequency: "weekly",
-            priority: 0.7,
-          });
-
-          // Fetch posts for this category
-          const postsData = await fetchPosts({ category_slug: catSlug });
-          const posts = postsData?.data || [];
-          if (Array.isArray(posts)) {
-            posts.forEach((post) => {
-              const postSlug =
-                post.slug[locale] || post.slug["en"] || post.slug["ar"];
-              if (postSlug) {
-                blogEntries.push({
-                  url: `${baseUrl}/${locale}/articles-columns/post/${postSlug}`,
-                  lastModified,
-                  changeFrequency: "monthly",
-                  priority: 0.6,
-                });
-              }
-            });
-          }
-        }
-      }
-    }
-  } catch (err) {
-    console.error("Sitemap: Failed to fetch blog posts", err);
-  }
-
   return [
     ...staticEntries,
     ...infoPageEntries,
     ...analysisEntries,
-    ...blogEntries,
   ];
 }
