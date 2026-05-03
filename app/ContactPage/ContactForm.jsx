@@ -323,9 +323,9 @@ const ContactFormContent = () => {
         </div>
 
         <div className="max-w-[1200px] mx-auto text-center relative z-10">
-          <h1 className="text-3xl md:text-6xl font-black text-baseTwo mb-10 leading-[1.15] tracking-tight">
+          <h2 className="text-3xl md:text-6xl font-black text-baseTwo mb-10 leading-[1.15] tracking-tight">
             {t("navbar.executiveGateway.title")}
-          </h1>
+          </h2>
 
           <div className="w-24 h-1 bg-primary mx-auto mb-10 rounded-full opacity-30"></div>
 

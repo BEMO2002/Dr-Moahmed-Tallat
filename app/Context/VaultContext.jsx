@@ -1,26 +1,22 @@
 "use client";
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState } from "react";
 import { accessVault } from "../lib/server-api";
 
 const VaultContext = createContext();
 
 export const VaultProvider = ({ children }) => {
-  const [isUnlocked, setIsUnlocked] = useState(false);
-  const [vaultData, setVaultData] = useState(null);
+  const [isUnlocked, setIsUnlocked] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return sessionStorage.getItem("vault_unlocked") === "true";
+  });
+  const [vaultData, setVaultData] = useState(() => {
+    if (typeof window === "undefined") return null;
+    const savedData = sessionStorage.getItem("vault_data");
+    return savedData ? JSON.parse(savedData) : null;
+  });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [isInitializing, setIsInitializing] = useState(true);
-
-  // Load from sessionStorage on mount
-  useEffect(() => {
-    const savedData = sessionStorage.getItem("vault_data");
-    const unlocked = sessionStorage.getItem("vault_unlocked");
-    if (unlocked === "true" && savedData) {
-      setIsUnlocked(true);
-      setVaultData(JSON.parse(savedData));
-    }
-    setIsInitializing(false);
-  }, []);
+  const [isInitializing] = useState(false);
 
   const unlock = async (password) => {
     setLoading(true);

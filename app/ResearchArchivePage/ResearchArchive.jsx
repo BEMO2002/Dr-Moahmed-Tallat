@@ -148,9 +148,9 @@ const ResearchArchive = () => {
                   </div>
                 </div>
 
-                <h1 className="text-3xl md:text-5xl font-black text-baseTwo mb-8 leading-tight">
+                <h2 className="text-3xl md:text-5xl font-black text-baseTwo mb-8 leading-tight">
                   {t("vault.introTitle")}
-                </h1>
+                </h2>
 
                 <div
                   className={`space-y-6 mb-12 ${isRTL ? "border-r-2 border-primary/30 pr-8" : "border-l-2 border-primary/30 pl-8"}`}

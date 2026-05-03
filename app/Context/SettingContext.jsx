@@ -1,5 +1,5 @@
 "use client";
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 
 export const SettingsContext = createContext({
   settings: null,
@@ -13,13 +13,6 @@ export const SettingsProvider = ({ children, initialSettings }) => {
   const [settings, setSettings] = useState(initialSettings || null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
-  // If the server passes new initialSettings (e.g., during navigation), update our state
-  useEffect(() => {
-    if (initialSettings) {
-      setSettings(initialSettings);
-    }
-  }, [initialSettings]);
 
   return (
     <SettingsContext.Provider value={{ settings, loading, error }}>

@@ -30,6 +30,7 @@ export async function generateMetadata({ params }) {
   const baseUrl = "https://mohamedtalaat.com";
 
   return {
+    metadataBase: new URL(baseUrl),
     title: {
       template: `${siteName} | %s`,
       default: siteName,
@@ -56,6 +57,11 @@ export async function generateMetadata({ params }) {
       siteName: siteName,
       locale: locale === "ar" ? "ar_AR" : "en_US",
       type: "website",
+      images: ["/Home/talaat-logo.png"],
+    },
+    twitter: {
+      card: "summary_large_image",
+      images: ["/Home/talaat-logo.png"],
     },
     robots: {
       index: true,
@@ -88,12 +94,26 @@ export default async function RootLayout(props) {
   } catch (err) {
     console.error("Failed to fetch global settings in root layout", err);
   }
+  const baseUrl = "https://mohamedtalaat.com";
+  const siteName = globalSettings?.site_name?.[locale] || "Dr. Mohamed Talaat";
 
   return (
     <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>
       <head>
         <link rel="icon" href={globalSettings?.favicon || "/favicon.ico"} />
         <meta name="referrer" content="no-referrer" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: siteName,
+              url: `${baseUrl}/${locale}`,
+              logo: `${baseUrl}/Home/talaat-logo.png`,
+            }),
+          }}
+        />
       </head>
       <body className={`antialiased`} suppressHydrationWarning>
         <NextIntlClientProvider messages={messages}>

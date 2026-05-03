@@ -42,24 +42,30 @@ const HeadAbout = () => {
           </h1>
 
           {/* Breadcrumb */}
-          <div
-            className={`flex items-center gap-3 text-lg ${isRTL ? "flex-row-reverse" : ""}`}
-          >
-            <Link
-              href="/"
-              className="text-black transition-colors duration-300 font-medium"
+          <nav aria-label="Breadcrumb">
+            <ol
+              className={`flex items-center gap-3 text-lg ${isRTL ? "flex-row-reverse" : ""}`}
             >
-              {t("navbar.home")}
-            </Link>
-
-            {isRTL ? (
-              <MdOutlineKeyboardDoubleArrowLeft className="text-primary" />
-            ) : (
-              <MdOutlineKeyboardDoubleArrowRight className="text-primary" />
-            )}
-
-            <span className="text-black font-medium">{t("navbar.about")}</span>
-          </div>
+              <li>
+                <Link
+                  href="/"
+                  className="text-black transition-colors duration-300 font-medium"
+                >
+                  {t("navbar.home")}
+                </Link>
+              </li>
+              <li aria-hidden="true">
+                {isRTL ? (
+                  <MdOutlineKeyboardDoubleArrowLeft className="text-primary" />
+                ) : (
+                  <MdOutlineKeyboardDoubleArrowRight className="text-primary" />
+                )}
+              </li>
+              <li className="text-black font-medium" aria-current="page">
+                {t("navbar.about")}
+              </li>
+            </ol>
+          </nav>
         </div>
       </div>
     </div>

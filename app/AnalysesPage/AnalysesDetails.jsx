@@ -206,14 +206,7 @@ const AnalysesDetails = ({ article, translations, locale, isRTL }) => {
     },
   ].filter((tab) => tab.content);
 
-  // Default to first tab if none selected
-  useEffect(() => {
-    if (!activeTab && tabs.length > 0) {
-      setActiveTab(tabs[0].id);
-    }
-  }, [tabs, activeTab]);
-
-  const activeTabData = tabs.find((t) => t.id === activeTab);
+  const activeTabData = tabs.find((t) => t.id === activeTab) || tabs[0];
 
   return (
     <div className="py-20 min-h-screen bg-slate-50/30">
@@ -248,9 +241,9 @@ const AnalysesDetails = ({ article, translations, locale, isRTL }) => {
               </div>
 
               <div ref={containerRef} className="p-8 md:p-12 space-y-8">
-                <h1 className="text-3xl md:text-5xl font-black text-baseTwo leading-[1.2]">
+                <h2 className="text-3xl md:text-5xl font-black text-baseTwo leading-[1.2]">
                   {content.title}
-                </h1>
+                </h2>
 
                 {/* Active Tab Content */}
                 {activeTabData && (

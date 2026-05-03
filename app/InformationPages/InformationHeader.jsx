@@ -43,26 +43,33 @@ const InformationHeader = ({ title }) => {
           </h1>
 
           {/* Breadcrumb */}
-          <div
-            className={`flex items-center gap-2 text-lg ${isRTL ? "flex-row-reverse" : ""}`}
-          >
-            <Link
-              href="/"
-              className="text-black text-sm md:text-lg transition-colors duration-300 font-bold hover:text-primary whitespace-nowrap"
+          <nav aria-label="Breadcrumb">
+            <ol
+              className={`flex items-center gap-2 text-lg ${isRTL ? "flex-row-reverse" : ""}`}
             >
-              {t("home")}
-            </Link>
-
-            {isRTL ? (
-              <MdOutlineKeyboardDoubleArrowLeft className="text-primary" />
-            ) : (
-              <MdOutlineKeyboardDoubleArrowRight className="text-primary" />
-            )}
-
-            <span className="text-black/60 text-sm md:text-lg whitespace-nowrap font-medium">
-              {title}
-            </span>
-          </div>
+              <li>
+                <Link
+                  href="/"
+                  className="text-black text-sm md:text-lg transition-colors duration-300 font-bold hover:text-primary whitespace-nowrap"
+                >
+                  {t("home")}
+                </Link>
+              </li>
+              <li aria-hidden="true">
+                {isRTL ? (
+                  <MdOutlineKeyboardDoubleArrowLeft className="text-primary" />
+                ) : (
+                  <MdOutlineKeyboardDoubleArrowRight className="text-primary" />
+                )}
+              </li>
+              <li
+                className="text-black/60 text-sm md:text-lg whitespace-nowrap font-medium"
+                aria-current="page"
+              >
+                {title}
+              </li>
+            </ol>
+          </nav>
         </div>
       </div>
     </div>
