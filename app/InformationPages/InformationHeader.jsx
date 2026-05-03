@@ -37,7 +37,7 @@ const InformationHeader = ({ title }) => {
         {/* Content */}
         <div className="flex items-center justify-center flex-col gap-6 relative z-10">
           <h1
-            className={`text-xl md:text-4xl lg:text-5xl whitespace-nowrap text-primary font-black ${isRTL ? "text-right " : "text-left font-bold"} text-center `}
+            className={`text-md md:text-4xl lg:text-5xl whitespace-nowrap text-primary font-black ${isRTL ? "text-right " : "text-left font-bold"} text-center `}
           >
             {title}
           </h1>
@@ -50,7 +50,7 @@ const InformationHeader = ({ title }) => {
               <li>
                 <Link
                   href="/"
-                  className="text-black text-sm md:text-lg transition-colors duration-300 font-bold hover:text-primary whitespace-nowrap"
+                  className="text-black text-xs md:text-lg transition-colors duration-300 font-bold hover:text-primary whitespace-nowrap"
                 >
                   {t("home")}
                 </Link>
@@ -63,7 +63,7 @@ const InformationHeader = ({ title }) => {
                 )}
               </li>
               <li
-                className="text-black/60 text-sm md:text-lg whitespace-nowrap font-medium"
+                className="text-black/60 text-xs md:text-lg whitespace-nowrap font-medium"
                 aria-current="page"
               >
                 {title}
