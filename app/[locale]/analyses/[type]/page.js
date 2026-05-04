@@ -50,7 +50,7 @@ export async function generateMetadata({ params }) {
   const enSlug =
     currentType?.slug?.["en"] || currentType?.slug?.["ar"] || decodedType;
 
-  const baseUrl = "https://mohamedtalaat.com";
+  const baseUrl = "https://mohamedtalat.com";
 
   return {
     title: `${title} | ${siteName}`,

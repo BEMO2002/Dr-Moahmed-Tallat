@@ -11,7 +11,7 @@ export async function generateMetadata({ params }) {
   const title = t("faq.title");
   const description = t("faq.subtitle");
 
-  const baseUrl = "https://mohamedtalaat.com";
+  const baseUrl = "https://mohamedtalat.com";
 
   return {
     title: title,

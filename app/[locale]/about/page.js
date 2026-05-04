@@ -12,7 +12,7 @@ export async function generateMetadata({ params }) {
   const title = t("about.title") || t("navbar.about");
   const description = t("about.description");
 
-  const baseUrl = "https://mohamedtalaat.com";
+  const baseUrl = "https://mohamedtalat.com";
 
   return {
     title: title,

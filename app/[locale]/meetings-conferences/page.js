@@ -18,7 +18,7 @@ export async function generateMetadata({ params }) {
   const title = t("meetings.title");
   const description = t("meetings.seo_description");
 
-  const baseUrl = "https://mohamedtalaat.com";
+  const baseUrl = "https://mohamedtalat.com";
 
   return {
     title: `${title} - ${siteName}`,

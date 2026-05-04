@@ -1,5 +1,5 @@
 export default function robots() {
-  const baseUrl = "https://mohamedtalat.org";
+  const baseUrl = "https://mohamedtalat.com";
 
   return {
     rules: {

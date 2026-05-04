@@ -40,7 +40,7 @@ export async function generateMetadata({ params }) {
   const arSlug = article?.slug?.["ar"] || article?.slug?.["en"] || slug;
   const enSlug = article?.slug?.["en"] || article?.slug?.["ar"] || slug;
 
-  const baseUrl = "https://mohamedtalaat.com";
+  const baseUrl = "https://mohamedtalat.com";
 
   return {
     title: `${title} | ${siteName}`,

@@ -10,7 +10,7 @@ export async function generateMetadata({ params }) {
   const description =
     settings?.site_description?.en || t("contactForm.description");
 
-  const baseUrl = "https://mohamedtalaat.com";
+  const baseUrl = "https://mohamedtalat.com";
 
   return {
     title: t("linkTree.title", "Links"),

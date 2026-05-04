@@ -36,7 +36,7 @@ export async function generateMetadata({ params }) {
     console.error("Failed to fetch global settings for Home Page SEO:", error);
   }
 
-  const baseUrl = "https://mohamedtalaat.com";
+  const baseUrl = "https://mohamedtalat.com";
 
   return {
     title: `${title} | ${t("home", { fallback: "Home" })}`,

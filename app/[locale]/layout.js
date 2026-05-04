@@ -98,7 +98,7 @@ export default async function RootLayout(props) {
   const targetDate = "2026-05-05T17:00:00+03:00";
   const serverTime = new Date();
   const isBeforeLaunch = serverTime < new Date(targetDate);
-  const baseUrl = "https://mohamedtalaat.com";
+  const baseUrl = "https://mohamedtalat.com";
   const siteName = globalSettings?.site_name?.[locale] || "Dr. Mohamed Talaat";
 
   return (

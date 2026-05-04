@@ -18,7 +18,7 @@ export async function generateMetadata({ params }) {
 
   const title = t("navbar.allAnalyses");
 
-  const baseUrl = "https://mohamedtalaat.com";
+  const baseUrl = "https://mohamedtalat.com";
 
   return {
     title: `${title} | ${siteName}`,
