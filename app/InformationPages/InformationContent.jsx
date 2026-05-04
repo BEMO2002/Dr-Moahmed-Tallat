@@ -73,7 +73,7 @@ const InformationContent = ({ data }) => {
           className={`flex flex-col gap-12 `}
         >
           <div className="w-full">
-            <div className="relative w-full h-64 md:h-[600px] rounded-3xl overflow-hidden border border-slate-200 bg-slate-50 mb-10 shadow-sm">
+            <div className="relative w-full h-64 md:h-[650px] rounded-3xl overflow-hidden border border-slate-200 bg-slate-50 mb-10 shadow-sm">
               <Image
                 src={logoBroken ? "/Home/talaat-logo.png" : imageSrc}
                 alt={title}
