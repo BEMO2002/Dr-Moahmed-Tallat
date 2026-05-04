@@ -102,7 +102,11 @@ export default async function RootLayout(props) {
   const siteName = globalSettings?.site_name?.[locale] || "Dr. Mohamed Talaat";
 
   return (
-    <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"} className={isBeforeLaunch ? "is-counting" : ""}>
+    <html
+      lang={locale}
+      dir={locale === "ar" ? "rtl" : "ltr"}
+      className={isBeforeLaunch ? "is-counting" : ""}
+    >
       <head>
         <link rel="icon" href={globalSettings?.favicon || "/favicon.ico"} />
         <meta name="referrer" content="no-referrer" />
@@ -123,7 +127,10 @@ export default async function RootLayout(props) {
         <NextIntlClientProvider messages={messages}>
           <Providers initialSettings={globalSettings}>
             <Countdown targetDate={targetDate} />
-            <div id="site-main-content" className="transition-opacity duration-1000">
+            <div
+              id="site-main-content"
+              className="transition-opacity duration-1000"
+            >
               <ScrollToTop />
               <Top />
               <Navbar />
