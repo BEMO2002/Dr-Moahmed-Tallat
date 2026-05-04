@@ -28,7 +28,7 @@ export async function generateMetadata({ params }) {
     }
   } catch (err) {}
 
-  const baseUrl = "https://mohamedtalaat.com";
+  const baseUrl = "https://mohamedtalat.com";
 
   return {
     metadataBase: new URL(baseUrl),
