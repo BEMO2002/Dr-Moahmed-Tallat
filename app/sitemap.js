@@ -4,6 +4,8 @@ import {
   fetchPages,
 } from "./lib/server-api";
 
+export const revalidate = 0; // Force dynamic to bypass cache
+
 const baseUrl = "https://mohamedtalat.com";
 
 export default async function sitemap() {
