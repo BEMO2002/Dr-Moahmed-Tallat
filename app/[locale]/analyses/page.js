@@ -45,7 +45,7 @@ const AnalysesAllPage = async (props) => {
   const searchParams = await props.searchParams;
 
   const { locale } = params;
-  const { is_featured, is_old, page } = searchParams;
+  const { is_featured, is_old, page, search } = searchParams;
 
   const t = await getTranslations({ locale });
   const isRTL = locale === "ar";
@@ -56,6 +56,7 @@ const AnalysesAllPage = async (props) => {
   const articlesData = await fetchArticlesList(null, { 
     is_featured, 
     is_old,
+    search,
     page: page || 1 
   });
 

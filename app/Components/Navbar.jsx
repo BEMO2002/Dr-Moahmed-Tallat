@@ -14,6 +14,8 @@ import {
 } from "../lib/server-api";
 import Image from "next/image";
 import VaultModal from "./VaultModal";
+import SearchPopup from "./SearchPopup";
+import { FiSearch } from "react-icons/fi";
 
 // US Flag Component (Using UK flag as per user change)
 const USFlag = ({ className = "w-6 h-4" }) => (
@@ -130,6 +132,7 @@ const Navbar = () => {
     useState(false);
   const [isLangDropdownOpen, setIsLangDropdownOpen] = useState(false);
   const [postCategories, setPostCategories] = useState([]);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   useEffect(() => {
     fetchContactTypes().then(setContactTypes).catch(console.error);
@@ -295,6 +298,22 @@ const Navbar = () => {
               </Link>
             </div>
 
+            {/* Mobile Search Trigger (Input Shape) */}
+            <button
+              onClick={() => setIsSearchOpen(true)}
+              className="lg:hidden flex-1 mx-3 xs:mx-5 relative group max-w-[220px]"
+            >
+              <div className="bg-gray-50 border border-gray-200 rounded-full py-2.5 px-10 text-[13px] font-bold text-gray-400 flex items-center transition-all group-hover:bg-white group-hover:shadow-lg group-hover:shadow-primary/5 group-hover:border-primary/30">
+                <span className="truncate">
+                  {isRTL ? "ابحث هنا..." : "Search here..."}
+                </span>
+              </div>
+              <FiSearch
+                className={`absolute ${isRTL ? "right-3.5" : "left-3.5"} top-1/2 -translate-y-1/2 text-gray-400 group-hover:text-primary transition-colors`}
+                size={16}
+              />
+            </button>
+
             {/* Desktop Navigation */}
             <div className="hidden whitespace-nowrap lg:flex items-center gap-1 xl:gap-2">
               {navLinks.map((link, idx) => {
@@ -447,6 +466,14 @@ const Navbar = () => {
                 setIsLangDropdownOpen={setIsLangDropdownOpen}
                 switchLanguage={switchLanguage}
               />
+
+              {/* Search Button */}
+              <button
+                onClick={() => setIsSearchOpen(true)}
+                className="hidden md:flex items-center justify-center w-10 h-10 bg-gray-50 hover:bg-white hover:shadow-md transition-all duration-300 border border-gray-200 rounded-full text-baseTwo hover:text-primary"
+              >
+                <FiSearch size={18} />
+              </button>
 
               {/* Desktop Executive Request CTA */}
               <div
@@ -798,7 +825,12 @@ const Navbar = () => {
       <VaultModal
         isOpen={isVaultModalOpen}
         onClose={() => setIsVaultModalOpen(false)}
-        isRTL={isRTL}
+      />
+
+      {/* Search Popup */}
+      <SearchPopup
+        isOpen={isSearchOpen}
+        onClose={() => setIsSearchOpen(false)}
       />
     </>
   );

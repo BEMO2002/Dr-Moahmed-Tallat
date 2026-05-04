@@ -255,7 +255,9 @@ export async function fetchArticlesList(typeSlug, params = {}) {
       url.searchParams.append("type_slug", typeSlug);
     }
     Object.keys(params).forEach((key) => {
-      if (params[key]) url.searchParams.append(key, params[key]);
+      if (params[key] !== undefined && params[key] !== null && params[key] !== "") {
+        url.searchParams.append(key, params[key]);
+      }
     });
 
     const res = await fetch(url.toString(), {

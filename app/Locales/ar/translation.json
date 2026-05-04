@@ -89,7 +89,18 @@
     "operational_paradigm": "الأنموذج التنفيذي",
     "ethical_imperatives": "الحتميات القيمية والاستراتيجية",
     "strategic_foresight": "الاستشراف الاستراتيجي",
-    "sovereign_legacy": "الإرث والمسيرة السيادية"
+    "sovereign_legacy": "الإرث والمسيرة السيادية",
+    "search": "بحث",
+    "searchPlaceholder": "ابحث عن المقالات والتحليلات...",
+    "searchResults": "نتائج البحث",
+    "searching": "جاري البحث...",
+    "startSearching": "ابدأ البحث الآن",
+    "searchHint": "اكتب كلمات مفتاحية للعثور على التحليلات والمقالات",
+    "noSearchResults": "لا توجد نتائج",
+    "noSearchHint": "لم نجد أي مقالات تطابق بحثك. حاول استخدام كلمات مختلفة.",
+    "viewAll": "عرض الكل",
+    "esc": "إغلاق",
+    "showingResults": "عرض {count} من النتائج"
   },
   "postDetails": {
     "strategicBrief": "الملخص الاستراتيجي",

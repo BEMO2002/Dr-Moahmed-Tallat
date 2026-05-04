@@ -108,3 +108,15 @@ button ,a {
   cursor: pointer;
   user-select: none;
 }
+
+/* Launch Countdown Control */
+.is-counting body {
+  overflow: hidden !important;
+  background-color: #030303 !important;
+}
+
+.is-counting #site-main-content {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+}

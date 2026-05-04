@@ -88,7 +88,18 @@
     "operational_paradigm": "Operational Paradigm",
     "ethical_imperatives": "Ethical & Strategic Imperatives",
     "strategic_foresight": "Strategic Foresight",
-    "sovereign_legacy": "Sovereign Legacy & Professional Path"
+    "sovereign_legacy": "Sovereign Legacy & Professional Path",
+    "search": "Search",
+    "searchPlaceholder": "Search for articles and analyses...",
+    "searchResults": "Search Results",
+    "searching": "Searching...",
+    "startSearching": "Start Searching Now",
+    "searchHint": "Type keywords to find strategic analyses and articles",
+    "noSearchResults": "No Results Found",
+    "noSearchHint": "We couldn't find any articles matching your search. Try different keywords.",
+    "viewAll": "View All",
+    "esc": "ESC",
+    "showingResults": "Showing {count} results"
   },
   "postDetails": {
     "strategicBrief": "Strategic Brief",

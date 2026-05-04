@@ -82,7 +82,7 @@ const AnalysesListPage = async (props) => {
   const params = await props.params;
   const searchParams = await props.searchParams;
   const { locale, type } = params;
-  const { page } = searchParams;
+  const { page, search } = searchParams;
   const t = await getTranslations({ locale });
   const isRTL = locale === "ar";
 
@@ -105,7 +105,7 @@ const AnalysesListPage = async (props) => {
 
   const articlesData = await fetchArticlesList(
     currentType?.slug?.[locale] || currentType?.slug?.["en"] || decodedType,
-    { page: page || 1 },
+    { page: page || 1, search },
   );
 
   const articles = articlesData?.data || [];

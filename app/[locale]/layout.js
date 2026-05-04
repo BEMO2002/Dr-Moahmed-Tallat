@@ -11,6 +11,7 @@ import { fetchSettings } from "../lib/server-api";
 import ScrollToTop from "../Components/ScrollToTop";
 import { Top } from "../Components/Top";
 import Chatbot from "../Components/Chatbot";
+import Countdown from "../Components/Countdown";
 
 export async function generateMetadata({ params }) {
   const resolvedParams = await params;
@@ -94,11 +95,14 @@ export default async function RootLayout(props) {
   } catch (err) {
     console.error("Failed to fetch global settings in root layout", err);
   }
+  const targetDate = "2026-05-05T17:00:00+03:00";
+  const serverTime = new Date();
+  const isBeforeLaunch = serverTime < new Date(targetDate);
   const baseUrl = "https://mohamedtalaat.com";
   const siteName = globalSettings?.site_name?.[locale] || "Dr. Mohamed Talaat";
 
   return (
-    <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>
+    <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"} className={isBeforeLaunch ? "is-counting" : ""}>
       <head>
         <link rel="icon" href={globalSettings?.favicon || "/favicon.ico"} />
         <meta name="referrer" content="no-referrer" />
@@ -118,12 +122,15 @@ export default async function RootLayout(props) {
       <body className={`antialiased`} suppressHydrationWarning>
         <NextIntlClientProvider messages={messages}>
           <Providers initialSettings={globalSettings}>
-            <ScrollToTop />
-            <Top />
-            <Navbar />
-            <main>{children}</main>
-            <Footer />
-            <Chatbot />
+            <Countdown targetDate={targetDate} />
+            <div id="site-main-content" className="transition-opacity duration-1000">
+              <ScrollToTop />
+              <Top />
+              <Navbar />
+              <main>{children}</main>
+              <Footer />
+              <Chatbot />
+            </div>
           </Providers>
         </NextIntlClientProvider>
       </body>

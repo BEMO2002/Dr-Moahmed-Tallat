@@ -59,6 +59,24 @@ const Analyses = ({
   };
 
   if (!articles || articles.length === 0) {
+    const searchQuery = searchParams.get("search");
+
+    if (searchQuery) {
+      return (
+        <ApiEmptyState
+          title={isRTL ? `لا توجد نتائج لـ "${searchQuery}"` : `No results for "${searchQuery}"`}
+          description={
+            isRTL
+              ? "لم نجد أي تحليلات تطابق بحثك. جرب استخدام كلمات مفتاحية مختلفة أو العودة لكافة التحليلات."
+              : "We couldn't find any analyses matching your search. Try different keywords or go back to all analyses."
+          }
+          ctaLabel={isRTL ? "مسح البحث" : "Clear Search"}
+          ctaHref="/analyses"
+          isRTL={isRTL}
+        />
+      );
+    }
+
     return (
       <ApiEmptyState
         title={
