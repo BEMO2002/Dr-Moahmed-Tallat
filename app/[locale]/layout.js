@@ -1,4 +1,5 @@
 import "../globals.css";
+import Script from "next/script";
 import Navbar from "../Components/Navbar";
 import Providers from "../Components/Providers";
 
@@ -11,7 +12,6 @@ import { fetchSettings } from "../lib/server-api";
 import ScrollToTop from "../Components/ScrollToTop";
 import { Top } from "../Components/Top";
 import Chatbot from "../Components/Chatbot";
-import Countdown from "../Components/Countdown";
 
 export async function generateMetadata({ params }) {
   const resolvedParams = await params;
@@ -95,9 +95,6 @@ export default async function RootLayout(props) {
   } catch (err) {
     console.error("Failed to fetch global settings in root layout", err);
   }
-  const targetDate = "2026-05-05T17:00:00+03:00";
-  const serverTime = new Date();
-  const isBeforeLaunch = serverTime < new Date(targetDate);
   const baseUrl = "https://mohamedtalat.com";
   const siteName = globalSettings?.site_name?.[locale] || "Dr. Mohamed Talaat";
 
@@ -105,7 +102,6 @@ export default async function RootLayout(props) {
     <html
       lang={locale}
       dir={locale === "ar" ? "rtl" : "ltr"}
-      className={isBeforeLaunch ? "is-counting" : ""}
     >
       <head>
         <link rel="icon" href={globalSettings?.favicon || "/favicon.ico"} />
@@ -122,11 +118,24 @@ export default async function RootLayout(props) {
             }),
           }}
         />
+        {/* Google Analytics (gtag.js) */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-YM3MTCNQWE"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-YM3MTCNQWE');
+          `}
+        </Script>
       </head>
       <body className={`antialiased`} suppressHydrationWarning>
         <NextIntlClientProvider messages={messages}>
           <Providers initialSettings={globalSettings}>
-            <Countdown targetDate={targetDate} />
             <div
               id="site-main-content"
               className="transition-opacity duration-1000"

@@ -59,7 +59,7 @@ const SliderHome = ({ initialSliders = [] }) => {
   }
 
   return (
-    <div className="relative pt-24 md:pt-28  min-h-screen lg:h-screen overflow-hidden">
+    <div className="relative pt-24 md:pt-28 min-h-screen lg:min-h-screen flex flex-col justify-center overflow-hidden">
       {/* Immersive Background Pattern - Optimized */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden select-none">
         <svg
@@ -110,7 +110,7 @@ const SliderHome = ({ initialSliders = [] }) => {
       >
         {initialSliders.map((slider, index) => (
           <SwiperSlide key={slider.id}>
-            <div className="relative min-h-[calc(100vh-80px)] py-12 lg:py-0 lg:h-full w-full max-w-[1400px] mx-auto flex items-center px-6 lg:px-12">
+            <div className="relative min-h-[calc(100vh-80px)] py-12 lg:py-16 w-full max-w-[1400px] mx-auto flex items-center px-6 lg:px-12">
               <div
                 className={`flex flex-col lg:flex-row gap-12 lg:gap-20 items-center justify-between w-full ${isRTL ? "lg:flex-row-reverse" : ""}`}
               >
@@ -127,23 +127,23 @@ const SliderHome = ({ initialSliders = [] }) => {
                     </span>
                   </div>
 
-                  <h1 className="text-xl sm:text-2xl lg:text-[30px] font-black text-baseTwo mb-6 md:mb-8 leading-[1.2] lg:leading-[1.1] tracking-tight">
+                  <h1 className="text-xl sm:text-2xl lg:text-[28px] xl:text-[30px] font-black text-baseTwo mb-4 md:mb-6 leading-[1.2] lg:leading-[1.1] tracking-tight">
                     {slider.title?.[locale]}
                   </h1>
 
-                  <div className="mb-8  lg:max-w-full">
-                    <span className="text-xl sm:text-2xl lg:text-[35px] font-black text-baseTwo mb-6 md:mb-8 leading-[1.4] lg:leading-[1.2] tracking-tight block">
+                  <div className="mb-6 md:mb-8 lg:max-w-full">
+                    <span className="text-xl sm:text-2xl lg:text-[30px] xl:text-[35px] font-black text-baseTwo mb-4 md:mb-6 leading-[1.4] lg:leading-[1.2] tracking-tight block">
                       {isRTL
                         ? "هندسةُ المبادأةِ والردعِ الجيوسياسيِّ"
                         : "Engineering Initiative and Geopolitical Deterrence"}
                     </span>
                   </div>
-                  <p className="text-base sm:text-lg md:text-xl mb-8 md:mb-12  leading-relaxed ">
+                  <p className="text-base sm:text-lg md:text-xl mb-6 md:mb-8 leading-relaxed">
                     {slider.desc?.[locale]}
                   </p>
 
                   <div
-                    className={`flex flex-wrap items-center gap-4 md:gap-6 mt-10 ${isRTL ? "justify-end" : "justify-start"}`}
+                    className={`flex flex-wrap items-center gap-4 md:gap-6 mt-6 md:mt-8 ${isRTL ? "justify-end" : "justify-start"}`}
                   >
                     <Link
                       href="/analyses"
@@ -267,7 +267,7 @@ const SliderHome = ({ initialSliders = [] }) => {
                               loop
                               muted
                               playsInline
-                              className="w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] rounded-2xl object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.12)]"
+                              className="w-full h-auto max-h-[300px] sm:max-h-[350px] md:max-h-[450px] lg:max-h-[550px] xl:max-h-[600px] rounded-2xl object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.12)]"
                             />
                           );
                         } else {
@@ -278,7 +278,7 @@ const SliderHome = ({ initialSliders = [] }) => {
                               width={800}
                               height={600}
                               priority={index === 0}
-                              className="w-full h-[350px] sm:h-[400px] md:h-[500px] lg:h-[600px] rounded-2xl object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.12)]"
+                              className="w-full h-auto max-h-[300px] sm:max-h-[350px] md:max-h-[450px] lg:max-h-[550px] xl:max-h-[600px] rounded-2xl object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.12)]"
                             />
                           );
                         }
@@ -381,6 +381,13 @@ const SliderHome = ({ initialSliders = [] }) => {
         }
         .no-scrollbar::-webkit-scrollbar {
           display: none;
+        }
+        @media (max-height: 800px) {
+          .pt-24 { padding-top: 5rem !important; }
+          .md\:pt-28 { padding-top: 6rem !important; }
+          h1 { margin-bottom: 1rem !important; }
+          p { margin-bottom: 1.5rem !important; }
+          .mt-6 { margin-top: 1rem !important; }
         }
       `}</style>
     </div>

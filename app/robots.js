@@ -13,6 +13,6 @@ export default function robots() {
         "/*?*", // Disallow query strings to avoid duplicate content in some cases
       ],
     },
-    sitemap: `${baseUrl}/sitemap.xml`,
+    sitemap: `${baseUrl}/sitemap-main.xml`,
   };
 }

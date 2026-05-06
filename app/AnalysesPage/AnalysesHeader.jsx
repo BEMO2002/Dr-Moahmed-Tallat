@@ -34,20 +34,20 @@ const AnalysesHeader = ({
         {/* Content */}
         <div className="flex items-center justify-center flex-col gap-6 relative z-10">
           <h1
-            className={`text-[20px] whitespace-nowrap md:text-3xl text-primary font-bold ${isRTL ? "text-right" : "text-left"} text-center uppercase `}
+            className={`text-xl md:text-3xl lg:text-4xl text-primary font-bold ${isRTL ? "text-right" : "text-left"} text-center uppercase leading-tight max-w-full px-4`}
           >
             {title}
           </h1>
 
           {/* Breadcrumb */}
-          <nav aria-label="Breadcrumb">
+          <nav aria-label="Breadcrumb" className="w-full max-w-full overflow-hidden">
             <ol
-              className={`flex items-center gap-3 text-lg ${isRTL ? "flex-row-reverse" : ""}`}
+              className={`flex flex-wrap items-center justify-center gap-2 md:gap-3 text-sm md:text-lg ${isRTL ? "flex-row-reverse" : ""}`}
             >
               <li>
                 <Link
                   href="/"
-                  className="text-black text-sm md:text-lg transition-colors duration-300 font-medium hover:text-primary whitespace-nowrap"
+                  className="text-black transition-colors duration-300 font-medium hover:text-primary"
                 >
                   {breadcrumbHome}
                 </Link>
@@ -60,7 +60,7 @@ const AnalysesHeader = ({
                 )}
               </li>
               <li
-                className="text-black text-sm md:text-lg whitespace-nowrap font-medium"
+                className="text-black font-medium break-words text-center max-w-[200px] sm:max-w-xs md:max-w-none"
                 aria-current="page"
               >
                 {breadcrumbCurrent}

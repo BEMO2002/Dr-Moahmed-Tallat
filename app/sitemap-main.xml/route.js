@@ -2,13 +2,31 @@ import {
   fetchArticleTypes,
   fetchArticlesList,
   fetchPages,
-} from "./lib/server-api";
+} from "../lib/server-api";
 
-export const revalidate = 0; // Force dynamic to bypass cache
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 const baseUrl = "https://mohamedtalat.com";
 
-export default async function sitemap() {
+function generateSitemapXml(entries) {
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  ${entries
+    .map(
+      (entry) => `
+  <url>
+    <loc>${entry.url}</loc>
+    <lastmod>${entry.lastModified.toISOString()}</lastmod>
+    <changefreq>${entry.changeFrequency}</changefreq>
+    <priority>${entry.priority}</priority>
+  </url>`
+    )
+    .join("")}
+</urlset>`;
+}
+
+export async function GET() {
   const locales = ["ar", "en"];
   const lastModified = new Date();
 
@@ -48,7 +66,6 @@ export default async function sitemap() {
   const infoPageEntries = [];
   infoPages.forEach((page) => {
     locales.forEach((locale) => {
-      // Use slug directly if it's a string, or localized if object
       const slugValue =
         typeof page.slug === "string"
           ? page.slug
@@ -107,9 +124,20 @@ export default async function sitemap() {
     console.error("Sitemap: Failed to fetch analyses", err);
   }
 
-  return [
+  const allEntries = [
     ...staticEntries,
     ...infoPageEntries,
     ...analysisEntries,
   ];
+
+  const xml = generateSitemapXml(allEntries);
+
+  return new Response(xml, {
+    headers: {
+      "Content-Type": "application/xml",
+      "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+      Pragma: "no-cache",
+      Expires: "0",
+    },
+  });
 }

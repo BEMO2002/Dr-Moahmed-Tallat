@@ -19,15 +19,15 @@
       "citations": "Press Citations",
       "galleries": "Photo Gallery"
     },
-    "seo_description": "Dr. Mohamed Talaat - Media Veteran, Journalist, and Political & Psychological Analyst. Founder of East News Agency. Specialist in policy analysis and international relations.",
-    "articles_seo_description": "Browse the latest analytical articles and columns by Dr. Mohamed Talaat in geopolitics, political psychology, and strategic media.",
+    "seo_description": "Mohamed Talaat - Media Veteran, Journalist, and Political & Psychological Analyst. Founder of East News Agency. Specialist in policy analysis and international relations.",
+    "articles_seo_description": "Browse the latest analytical articles and columns by Mohamed Talaat in geopolitics, political psychology, and strategic media.",
     "seo_keywords": "Mohamed Talaat, Political Analyst, Psychological Analyst, Media Veteran, East News Agency, Journalism, Media, Political Analysis",
     "language": "Change Language",
     "english": "English",
     "arabic": "Arabic",
     "podcasts": {
       "title": "Podcasts",
-      "seo_description": "Browse and watch the latest podcast episodes of Dr. Mohamed Talaat."
+      "seo_description": "Browse and watch the latest podcast episodes of Mohamed Talaat."
     },
     "loading": "Loading...",
     "strategicAnalysesLabel": "Strategic Articles and Analyses",
@@ -132,18 +132,18 @@
       "mission": "Philosophical Statement",
       "vision": "Decision Making"
     },
-    "title": "Who is Dr. Mohamed Talaat?",
+    "title": "Who is Mohamed Talaat?",
     "keywords": "Mohamed Talaat, Media, Journalism, Political Analysis",
-    "author": "Dr. Mohamed Talaat",
+    "author": "Mohamed Talaat",
     "description": "A media expert and geopolitical and psychological analyst who redefines the concepts of national sovereignty by deconstructing complex crises and reshaping Arab consciousness, empowering political will with the tools of initiative in a world that recognizes only the strong.",
-    "ogTitle": "Dr. Mohamed Talaat | Media Veteran & Political Analyst",
-    "ogDescription": "Dr. Mohamed Talaat's platform for political and psychological analysis, founder of East News Agency.",
+    "ogTitle": "Mohamed Talaat | Media Veteran & Political Analyst",
+    "ogDescription": "Mohamed Talaat's platform for political and psychological analysis, founder of East News Agency.",
     "ogType": "website",
     "ogUrl": "https://mohamedtalat.com",
     "ogImage": "https://mohamedtalat.com/images/og-image.jpg",
     "twitterCard": "summary_large_image",
-    "twitterTitle": "Dr. Mohamed Talaat | Media Veteran & Political Analyst",
-    "twitterDescription": "Dr. Mohamed Talaat's platform for political and psychological analysis, founder of East News Agency.",
+    "twitterTitle": "Mohamed Talaat | Media Veteran & Political Analyst",
+    "twitterDescription": "Mohamed Talaat's platform for political and psychological analysis, founder of East News Agency.",
     "twitterImage": "https://mohamedtalat.com/images/og-image.jpg",
     "tabContent": {
       "about": {
@@ -199,7 +199,7 @@
       }
     },
     "learnMore": "Explore Analyses",
-    "imageAlt": "About Dr. Mohamed Talaat",
+    "imageAlt": "About Mohamed Talaat",
     "yearsExp": "Years Exp."
   },
 
@@ -241,9 +241,9 @@
     "honeypotLabel": "Leave this field empty"
   },
   "footer": {
-    "companyName": "Dr. Mohamed Talaat",
-    "legalText": "All Rights Reserved © 2026 Dr. Mohamed Talaat",
-    "about": "About the Doctor",
+    "companyName": "Mohamed Talaat",
+    "legalText": "All Rights Reserved © 2026 Mohamed Talaat",
+    "about": "About Mohamed Talaat",
     "aboutDescription": "Media veteran and journalist, founder of East News Agency, and a political and psychological analyst.",
     "mission": "Our mission is to enlighten the Arab consciousness and dismantle geopolitical crises.",
     "quickLinks": "Quick Links",
@@ -267,7 +267,7 @@
     "newsletterErrorServer": "Server error. Please try again later.",
     "newsletterErrorTimeout": "Request timeout. Please check your connection.",
     "newsletterErrorNetwork": "Network error. Please check your connection.",
-    "copyright": "© 2026 Dr. Mohamed Talaat. All rights reserved.",
+    "copyright": "© 2026 Mohamed Talaat. All rights reserved.",
     "privacyPolicy": "Privacy Policy",
     "termsOfService": "Terms of Service",
     "sitemap": "Sitemap",
@@ -279,20 +279,20 @@
     "accreditations": "Accreditations and Certifications"
   },
   "headHome": {
-    "title": "Dr. Mohamed Talaat | Political & Psychological Analyst",
-    "description": "Dr. Mohamed Talaat's platform for political and psychological analysis, founder of East News Agency. Specialist in geopolitical events and consciousness.",
+    "title": "Mohamed Talaat | Political & Psychological Analyst",
+    "description": "Mohamed Talaat's platform for political and psychological analysis, founder of East News Agency. Specialist in geopolitical events and consciousness.",
     "keywords": "Mohamed Talaat, Political Analyst, Psychological Analyst, Media, Journalism"
   },
   "headServices": {
     "title2": "Services",
     "title": "Services",
-    "description": "Explore the strategic analysis and psychological deconstruction by Dr. Mohamed Talaat. Deep insights into geopolitics, Mass psychology and international relations.",
+    "description": "Explore the strategic analysis and psychological deconstruction by Mohamed Talaat. Deep insights into geopolitics, Mass psychology and international relations.",
     "keywords": "Strategic Analysis, Political Psychology, Geopolitics, Mohamed Talaat, Media Expert",
     "all": "All"
   },
   "headContact": {
     "title": "Contact us",
-    "description": "Have questions? Contact Dr. Mohamed Talaat today for strategic consultancy and political analysis.",
+    "description": "Have questions? Contact Mohamed Talaat today for strategic consultancy and political analysis.",
     "keywords": "Contact Mohamed Talaat, Strategic Consultancy, Political Analysis, East News Agency"
   },
   "partners": {
@@ -387,7 +387,7 @@
     "noQuotes": "No citations available at the moment",
     "copy": "Copy Text",
     "share": "Share",
-    "seo_description": "Browse the most prominent media citations and aphorisms by Dr. Mohamed Talaat in the fields of geopolitics and international politics.",
+    "seo_description": "Browse the most prominent media citations and aphorisms by Mohamed Talaat in the fields of geopolitics and international politics.",
     "prev": "Previous",
     "next": "Next"
   },
@@ -397,7 +397,7 @@
     "loadError": "An error occurred while loading data",
     "noItems": "No interviews or conferences at the moment",
     "watchVideo": "Watch Video",
-    "seo_description": "Browse the most prominent television interviews and international conferences of Dr. Mohamed Talaat in the fields of Geopolitics and International Politics.",
+    "seo_description": "Browse the most prominent television interviews and international conferences of Mohamed Talaat in the fields of Geopolitics and International Politics.",
     "prev": "Previous",
     "next": "Next"
   },
@@ -431,7 +431,7 @@
     "loadError": "An error occurred while loading podcasts",
     "noItems": "No podcasts available at the moment",
     "watchVideo": "Watch Now",
-    "seo_description": "Listen and watch the latest analytical podcast episodes by Dr. Mohamed Talaat on global politics and artificial intelligence.",
+    "seo_description": "Listen and watch the latest analytical podcast episodes by Mohamed Talaat on global politics and artificial intelligence.",
     "prev": "Previous",
     "next": "Next"
   },
@@ -441,7 +441,7 @@
     "view_album": "View Album",
     "no_galleries": "No photo galleries available at the moment",
     "loadError": "An error occurred while loading the gallery",
-    "seo_description": "Browse the photo gallery of Dr. Mohamed Talaat from international conferences and media events.",
+    "seo_description": "Browse the photo gallery of Mohamed Talaat from international conferences and media events.",
     "prev": "Previos",
     "next": "Next"
   },

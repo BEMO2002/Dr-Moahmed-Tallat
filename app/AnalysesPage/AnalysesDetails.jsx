@@ -240,30 +240,30 @@ const AnalysesDetails = ({ article, translations, locale, isRTL }) => {
                 </div> */}
               </div>
 
-              <div ref={containerRef} className="p-8 md:p-12 space-y-8">
-                <h2 className="text-3xl md:text-5xl font-black text-baseTwo leading-[1.2]">
+              <div ref={containerRef} className="p-5 md:p-12 space-y-6 md:space-y-8">
+                <h2 className={`text-xl sm:text-3xl leading-4xl  md:text-5xl font-black text-baseTwo  ${isRTL ? "text-right" : "text-left"}`}>
                   {content.title}
                 </h2>
 
                 {/* Active Tab Content */}
                 {activeTabData && (
                   <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-                    <div className="p-6 md:p-10 rounded-[2.5rem] bg-slate-50/50 border border-slate-100 relative overflow-hidden">
-                      <div className="absolute top-0 right-0 p-12 opacity-[0.03] pointer-events-none scale-150 text-primary">
+                    <div className="p-5 md:p-10 rounded-[1.5rem] md:rounded-[2.5rem] bg-slate-50/50 border border-slate-100 relative overflow-hidden">
+                      <div className="absolute top-0 right-0 p-8 md:p-12 opacity-[0.03] pointer-events-none scale-125 md:scale-150 text-primary">
                         {activeTabData.icon}
                       </div>
 
-                      <div className="flex items-center gap-3 mb-8 relative">
-                        <div className="w-2 h-8 bg-primary rounded-full" />
-                        <h4 className="text-2xl font-black text-baseTwo uppercase tracking-tight">
+                      <div className="flex items-center gap-3 mb-6 md:mb-8 relative">
+                        <div className="w-1.5 h-6 md:w-2 md:h-8 bg-primary rounded-full" />
+                        <h4 className="text-xl md:text-2xl font-black text-baseTwo uppercase tracking-tight">
                           {activeTabData.label}
                         </h4>
                       </div>
 
-                      <div className="relative text-slate-700 leading-[1.8] text-lg font-medium">
+                      <div className={`relative text-slate-700 leading-[1.8] text-base md:text-lg font-medium ${isRTL ? "text-right" : "text-left"}`}>
                         {activeTabData.id === "article_body" ? (
                           <div
-                            className="prose prose-lg max-w-none text-slate-600 leading-[1.8] font-medium whitespace-pre-line"
+                            className={`prose prose-sm sm:prose-base md:prose-lg max-w-none text-slate-600 leading-[1.8] md:leading-[2] font-medium whitespace-pre-line ${isRTL ? "text-right" : "text-left"}`}
                             dangerouslySetInnerHTML={{
                               __html: activeTabData.content,
                             }}
@@ -347,7 +347,7 @@ const AnalysesDetails = ({ article, translations, locale, isRTL }) => {
                           </div>
                         ) : (
                           <div
-                            className="whitespace-pre-line leading-relaxed text-lg"
+                            className={`whitespace-pre-line leading-relaxed text-base md:text-lg ${isRTL ? "text-right" : "text-left"}`}
                             dangerouslySetInnerHTML={{
                               __html: activeTabData.content,
                             }}
@@ -397,7 +397,7 @@ const AnalysesDetails = ({ article, translations, locale, isRTL }) => {
                 </h3>
 
                 {/* Buttons Grid */}
-                <div className="grid lg:grid-cols-4 grid-cols-3 gap-4 mb-10">
+                <div className="grid lg:grid-cols-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-4 mb-10">
                   {tabs.map((tab) => (
                     <button
                       key={tab.id}
