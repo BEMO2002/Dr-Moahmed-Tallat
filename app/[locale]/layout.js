@@ -104,6 +104,7 @@ export default async function RootLayout(props) {
       dir={locale === "ar" ? "rtl" : "ltr"}
     >
       <head>
+        {/* Google Tag Manager moves to afterInteractive via Script component */}
         <link rel="icon" href={globalSettings?.favicon || "/favicon.ico"} />
         <meta name="referrer" content="no-referrer" />
         <script
@@ -134,6 +135,24 @@ export default async function RootLayout(props) {
         </Script>
       </head>
       <body className={`antialiased`} suppressHydrationWarning>
+        {/* Google Tag Manager (noscript) */}
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-5KXFQMQT"
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+            title="Google Tag Manager"
+          ></iframe>
+        </noscript>
+        {/* End Google Tag Manager (noscript) */}
+        <Script id="gtm-script" strategy="afterInteractive">
+          {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5KXFQMQT');`}
+        </Script>
         <NextIntlClientProvider messages={messages}>
           <Providers initialSettings={globalSettings}>
             <div
