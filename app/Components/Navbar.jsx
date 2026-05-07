@@ -481,7 +481,7 @@ const Navbar = () => {
                 onMouseEnter={() => setIsExecutiveDropdownOpen(true)}
                 onMouseLeave={() => setIsExecutiveDropdownOpen(false)}
               >
-                <button className="flex items-center justify-center gap-1 xl:gap-2 px-3 xl:px-5 py-2 xl:py-3 bg-primary text-white font-bold rounded-md shadow-lg hover:shadow-primary/30 transition-all text-[11px] lg:text-xs xl:text-sm">
+                <button className="flex items-center justify-center whitespace-nowrap gap-1 xl:gap-2 px-3 xl:px-5 py-2 xl:py-3 bg-primary text-white font-bold rounded-md shadow-lg hover:shadow-primary/30 transition-all text-[11px] lg:text-xs xl:text-sm">
                   <span>{t("navbar.executiveRequest")}</span>
                   <FaChevronDown
                     size={12}
