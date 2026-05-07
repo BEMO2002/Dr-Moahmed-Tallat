@@ -95,7 +95,7 @@ export async function submitContactForm(formData) {
 /**
  * Newsletter subscription
  */
-export async function subscribeNewsletter(email) {
+export async function subscribeNewsletter(email, phone) {
   try {
     const res = await fetch(`${baseUrl}/subscribe`, {
       method: "POST",
@@ -103,7 +103,11 @@ export async function subscribeNewsletter(email) {
         "Content-Type": "application/json",
         "X-Api-Key": apiKey,
       },
-      body: JSON.stringify({ email: email.trim(), extra_key: null }),
+      body: JSON.stringify({
+        email: email.trim(),
+        phone: phone?.trim() || "",
+        extra_key: null,
+      }),
     });
 
     return res;

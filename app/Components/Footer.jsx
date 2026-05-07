@@ -3,6 +3,7 @@ import React, { useState, useContext, useEffect } from "react";
 import {
   FaMapMarkerAlt,
   FaEnvelope,
+  FaPhoneAlt,
   FaPaperPlane,
   FaSpinner,
   FaFacebookF,
@@ -26,6 +27,7 @@ const Footer = () => {
 
   // Newsletter subscription state
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState({});
   const [mathQuestion, setMathQuestion] = useState("");
@@ -95,6 +97,8 @@ const Footer = () => {
     return emailRegex.test(email);
   };
 
+  const validatePhone = (phone) => /^[\d\s\-+()]+$/.test(phone);
+
   // Comprehensive validation
   const validateForm = () => {
     const newErrors = {};
@@ -104,6 +108,12 @@ const Footer = () => {
       newErrors.email = t("footer.newsletterErrorRequired");
     } else if (!validateEmail(email)) {
       newErrors.email = t("footer.newsletterErrorInvalid");
+    }
+
+    if (!phone.trim()) {
+      newErrors.phone = t("contactForm.errorPhoneRequired");
+    } else if (!validatePhone(phone)) {
+      newErrors.phone = t("contactForm.errorPhoneInvalid");
     }
 
     // Honeypot validation
@@ -133,6 +143,9 @@ const Footer = () => {
     switch (name) {
       case "email":
         setEmail(value);
+        break;
+      case "phone":
+        setPhone(value);
         break;
       case "mathAnswer":
         setMathAnswer(value);
@@ -173,10 +186,11 @@ const Footer = () => {
     try {
       console.log("Submitting newsletter data:", {
         email: email.trim(),
+        phone: phone.trim(),
         extra_key: null,
       });
 
-      const response = await subscribeNewsletter(email);
+      const response = await subscribeNewsletter(email, phone);
 
       if (response.ok) {
         toast.success(t("footer.newsletterSuccess"), {
@@ -186,6 +200,7 @@ const Footer = () => {
 
         // Reset form
         setEmail("");
+        setPhone("");
         setExtraKey("");
         setMathAnswer("");
         setErrors({});
@@ -193,7 +208,22 @@ const Footer = () => {
         // Generate new math question
         generateMathQuestion();
       } else {
-        toast.error(t("footer.newsletterError"));
+        let errorMsg = t("footer.newsletterError");
+
+        try {
+          const errorData = await response.json();
+          errorMsg =
+            errorData?.errors?.email?.[0] ||
+            errorData?.message ||
+            errorMsg;
+        } catch {
+          errorMsg = t("footer.newsletterError");
+        }
+
+        toast.error(errorMsg, {
+          position: isRTL ? "top-left" : "top-right",
+          autoClose: 7000,
+        });
       }
     } catch (error) {
       console.error("Newsletter subscription error:", error);
@@ -561,6 +591,42 @@ const Footer = () => {
                         }`}
                       >
                         {errors.email}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="relative">
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={phone}
+                      onChange={handleInputChange}
+                      placeholder={t("contactForm.placeholderPhone")}
+                      className={`w-full px-4 py-3 rounded-lg bg-white/10 backdrop-blur-sm border-2 border-black/20 text-black placeholder-black/50 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 focus:bg-white/15 transition-all duration-300 text-sm ${
+                        errors.phone
+                          ? "border-red-400/60 bg-red-500/10 focus:ring-red-400/50"
+                          : ""
+                      } ${isRTL ? "text-right pr-10" : "text-left pl-10"}`}
+                      disabled={isLoading}
+                      autoComplete="tel"
+                      aria-invalid={!!errors.phone}
+                      aria-describedby={
+                        errors.phone ? "phone-error" : undefined
+                      }
+                    />
+                    <FaPhoneAlt
+                      className={`absolute top-3.5 w-4 h-4 text-black pointer-events-none ${
+                        isRTL ? "right-3" : "left-3"
+                      }`}
+                    />
+                    {errors.phone && (
+                      <p
+                        id="phone-error"
+                        className={`text-red-300 text-xs mt-1 ${
+                          isRTL ? "text-right" : "text-left"
+                        }`}
+                      >
+                        {errors.phone}
                       </p>
                     )}
                   </div>
