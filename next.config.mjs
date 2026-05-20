@@ -51,7 +51,7 @@ const nextConfig = {
           {
             key: "Content-Security-Policy",
             value:
-              "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https: blob:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https: ws: wss:; frame-src 'self' https://www.youtube.com https://youtube.com https://www.instagram.com https://www.facebook.com https://www.tiktok.com https://api.mohamedtalat.org https://api.mohamedtalat.com https://www.google.com;",
+              "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://static.cloudflareinsights.com; script-src-elem 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https: blob: https://www.google-analytics.com; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https: ws: wss: https://www.google-analytics.com https://region1.google-analytics.com; frame-src 'self' https://www.youtube.com https://youtube.com https://www.instagram.com https://www.facebook.com https://www.tiktok.com https://api.mohamedtalat.org https://api.mohamedtalat.com https://www.google.com https://www.googletagmanager.com;",
           },
           
         ],
